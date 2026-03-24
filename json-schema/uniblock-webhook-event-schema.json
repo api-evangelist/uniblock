@@ -1,0 +1,234 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniblock.dev/schemas/uniblock/webhook-event.json",
+  "title": "Uniblock Webhook Event",
+  "description": "Schema representing webhook event payloads delivered by Uniblock when blockchain events matching configured filters are detected.",
+  "type": "object",
+  "required": ["metadata", "data"],
+  "properties": {
+    "metadata": {
+      "$ref": "#/$defs/WebhookMetadata"
+    },
+    "data": {
+      "type": "object",
+      "description": "The event-specific data payload. Structure varies by event type."
+    }
+  },
+  "$defs": {
+    "WebhookMetadata": {
+      "type": "object",
+      "description": "Common metadata included in all webhook event payloads.",
+      "required": ["webhookId", "eventType", "chain", "timestamp"],
+      "properties": {
+        "webhookId": {
+          "type": "string",
+          "description": "The unique identifier of the webhook subscription that triggered this notification."
+        },
+        "eventType": {
+          "type": "string",
+          "description": "The type of blockchain event that triggered the webhook.",
+          "enum": [
+            "ADDRESS_ACTIVITY",
+            "TOKEN_TRANSFER",
+            "NFT_TRANSFER",
+            "MINED_TRANSACTION"
+          ]
+        },
+        "chain": {
+          "type": "string",
+          "description": "The blockchain network on which the event occurred."
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The ISO 8601 timestamp when the event was detected by Uniblock."
+        }
+      }
+    },
+    "AddressActivityData": {
+      "type": "object",
+      "description": "Data payload for address activity events.",
+      "required": ["address", "transactionHash"],
+      "properties": {
+        "address": {
+          "type": "string",
+          "description": "The monitored address involved in the activity."
+        },
+        "direction": {
+          "type": "string",
+          "description": "Whether the address was the sender or receiver.",
+          "enum": ["inbound", "outbound"]
+        },
+        "transactionHash": {
+          "type": "string",
+          "description": "The hash of the transaction.",
+          "pattern": "^0x[a-fA-F0-9]{64}$"
+        },
+        "from": {
+          "type": "string",
+          "description": "The sender address."
+        },
+        "to": {
+          "type": "string",
+          "description": "The recipient address."
+        },
+        "value": {
+          "type": "string",
+          "description": "The value transferred in the native token's smallest unit."
+        },
+        "blockNumber": {
+          "type": "integer",
+          "description": "The block number containing the transaction.",
+          "minimum": 0
+        },
+        "blockTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of the block."
+        }
+      }
+    },
+    "TokenTransferData": {
+      "type": "object",
+      "description": "Data payload for token transfer events.",
+      "required": ["transactionHash", "contractAddress"],
+      "properties": {
+        "transactionHash": {
+          "type": "string",
+          "description": "The hash of the transaction containing the transfer.",
+          "pattern": "^0x[a-fA-F0-9]{64}$"
+        },
+        "from": {
+          "type": "string",
+          "description": "The sender address."
+        },
+        "to": {
+          "type": "string",
+          "description": "The recipient address."
+        },
+        "contractAddress": {
+          "type": "string",
+          "description": "The smart contract address of the transferred token."
+        },
+        "tokenName": {
+          "type": "string",
+          "description": "The name of the transferred token."
+        },
+        "tokenSymbol": {
+          "type": "string",
+          "description": "The symbol of the transferred token."
+        },
+        "value": {
+          "type": "string",
+          "description": "The amount transferred in the token's smallest unit."
+        },
+        "decimals": {
+          "type": "integer",
+          "description": "The number of decimal places for the token.",
+          "minimum": 0
+        },
+        "blockNumber": {
+          "type": "integer",
+          "description": "The block number containing the transfer.",
+          "minimum": 0
+        },
+        "blockTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of the block."
+        }
+      }
+    },
+    "NftTransferData": {
+      "type": "object",
+      "description": "Data payload for NFT transfer events.",
+      "required": ["transactionHash", "contractAddress", "tokenId"],
+      "properties": {
+        "transactionHash": {
+          "type": "string",
+          "description": "The hash of the transaction containing the transfer.",
+          "pattern": "^0x[a-fA-F0-9]{64}$"
+        },
+        "from": {
+          "type": "string",
+          "description": "The sender address."
+        },
+        "to": {
+          "type": "string",
+          "description": "The recipient address."
+        },
+        "contractAddress": {
+          "type": "string",
+          "description": "The smart contract address of the NFT collection."
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "The token ID of the transferred NFT."
+        },
+        "tokenType": {
+          "type": "string",
+          "description": "The token standard type.",
+          "enum": ["ERC-721", "ERC-1155"]
+        },
+        "quantity": {
+          "type": "integer",
+          "description": "The number of tokens transferred (relevant for ERC-1155).",
+          "minimum": 1
+        },
+        "blockNumber": {
+          "type": "integer",
+          "description": "The block number containing the transfer.",
+          "minimum": 0
+        },
+        "blockTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of the block."
+        }
+      }
+    },
+    "MinedTransactionData": {
+      "type": "object",
+      "description": "Data payload for mined transaction events.",
+      "required": ["transactionHash"],
+      "properties": {
+        "transactionHash": {
+          "type": "string",
+          "description": "The hash of the mined transaction.",
+          "pattern": "^0x[a-fA-F0-9]{64}$"
+        },
+        "from": {
+          "type": "string",
+          "description": "The sender address."
+        },
+        "to": {
+          "type": "string",
+          "description": "The recipient address."
+        },
+        "value": {
+          "type": "string",
+          "description": "The value transferred in the native token's smallest unit."
+        },
+        "status": {
+          "type": "string",
+          "description": "The execution status of the transaction.",
+          "enum": ["success", "failed"]
+        },
+        "blockNumber": {
+          "type": "integer",
+          "description": "The block number in which the transaction was mined.",
+          "minimum": 0
+        },
+        "blockTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of the block."
+        },
+        "gasUsed": {
+          "type": "string",
+          "description": "The amount of gas consumed by the transaction."
+        }
+      }
+    }
+  }
+}

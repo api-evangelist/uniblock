@@ -1,0 +1,311 @@
+openapi: 3.1.0
+info:
+  title: Uniblock Direct API
+  description: >-
+    The Uniblock Direct API gives developers pass-through access to
+    provider-specific endpoints exactly as offered by upstream blockchain data
+    providers. Requests follow the pattern of specifying the provider and
+    optional prefix in the URL path, while still benefiting from Uniblock's
+    routing, retry, and failover infrastructure. Results are returned exactly
+    as they would be if the first-party provider endpoint was called directly.
+    This is intended for use cases where a specific method is not yet
+    abstracted into the Unified API.
+  version: '1.0'
+  contact:
+    name: Uniblock Support
+    url: https://docs.uniblock.dev
+  termsOfService: https://uniblock.dev/terms
+externalDocs:
+  description: Uniblock Direct API Documentation
+  url: https://docs.uniblock.dev/docs/direct-api-overview
+servers:
+  - url: https://api.uniblock.dev/direct/v1
+    description: Uniblock Direct API Production Server
+tags:
+  - name: Direct Pass-Through
+    description: >-
+      Pass-through endpoints that proxy requests directly to upstream
+      blockchain data providers such as Alchemy, SimpleHash, TonAPI, Moralis,
+      Covalent, Helius, Solscan, and others.
+security:
+  - apiKeyHeader: []
+paths:
+  /{provider}/{path}:
+    get:
+      operationId: directGetRequest
+      summary: Direct GET request to a provider
+      description: >-
+        Sends a GET request through to the specified upstream provider
+        endpoint. The response is returned exactly as the first-party
+        provider would return it. If no authentication is passed explicitly,
+        Uniblock will attempt to use the credentials stored in the project
+        associated with your API key for the requested provider.
+      tags:
+        - Direct Pass-Through
+      parameters:
+        - $ref: '#/components/parameters/providerParam'
+        - $ref: '#/components/parameters/pathParam'
+      responses:
+        '200':
+          description: >-
+            Successful response from the upstream provider. The response
+            body format depends on the specific provider and endpoint called.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderResponse'
+        '400':
+          description: Bad request - invalid provider or path
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Provider or endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '502':
+          description: Upstream provider error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: directPostRequest
+      summary: Direct POST request to a provider
+      description: >-
+        Sends a POST request through to the specified upstream provider
+        endpoint. The request body is forwarded exactly as provided, and
+        the response is returned directly from the upstream provider.
+      tags:
+        - Direct Pass-Through
+      parameters:
+        - $ref: '#/components/parameters/providerParam'
+        - $ref: '#/components/parameters/pathParam'
+      requestBody:
+        description: >-
+          The request body to forward to the upstream provider. The structure
+          depends on the specific provider endpoint being called.
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: >-
+            Successful response from the upstream provider.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderResponse'
+        '400':
+          description: Bad request - invalid provider or path
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Provider or endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '502':
+          description: Upstream provider error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{provider}/{prefix}/{path}:
+    get:
+      operationId: directGetRequestWithPrefix
+      summary: Direct GET request to a provider with prefix
+      description: >-
+        Sends a GET request to a provider endpoint that requires a prefix
+        in the URL, such as a network name. Some providers require specifying
+        a prefix (e.g., the network identifier) as part of the base URL path.
+      tags:
+        - Direct Pass-Through
+      parameters:
+        - $ref: '#/components/parameters/providerParam'
+        - $ref: '#/components/parameters/prefixParam'
+        - $ref: '#/components/parameters/pathParam'
+      responses:
+        '200':
+          description: >-
+            Successful response from the upstream provider.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderResponse'
+        '400':
+          description: Bad request - invalid provider, prefix, or path
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Provider or endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '502':
+          description: Upstream provider error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: directPostRequestWithPrefix
+      summary: Direct POST request to a provider with prefix
+      description: >-
+        Sends a POST request to a provider endpoint that requires a prefix
+        in the URL. The request body and any authentication headers are
+        forwarded to the upstream provider as provided.
+      tags:
+        - Direct Pass-Through
+      parameters:
+        - $ref: '#/components/parameters/providerParam'
+        - $ref: '#/components/parameters/prefixParam'
+        - $ref: '#/components/parameters/pathParam'
+      requestBody:
+        description: >-
+          The request body to forward to the upstream provider.
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: >-
+            Successful response from the upstream provider.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderResponse'
+        '400':
+          description: Bad request - invalid provider, prefix, or path
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Provider or endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '502':
+          description: Upstream provider error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: >-
+        Uniblock project API key passed as a header. If no provider-specific
+        authentication is passed in the request, Uniblock will use the
+        credentials stored in the project associated with this API key.
+  parameters:
+    providerParam:
+      name: provider
+      in: path
+      required: true
+      description: >-
+        The name of the upstream provider to route the request to (e.g.,
+        alchemy, moralis, covalent, simplehash, tonapi, helius, solscan).
+      schema:
+        type: string
+        examples:
+          - alchemy
+          - moralis
+          - covalent
+          - simplehash
+          - tonapi
+          - helius
+          - solscan
+    prefixParam:
+      name: prefix
+      in: path
+      required: true
+      description: >-
+        An optional prefix required by some providers, typically a network
+        identifier such as the chain name or version prefix.
+      schema:
+        type: string
+        examples:
+          - ethereum
+          - v2.0
+    pathParam:
+      name: path
+      in: path
+      required: true
+      description: >-
+        The provider-specific endpoint path to call, exactly as documented
+        by the upstream provider.
+      schema:
+        type: string
+  schemas:
+    ProviderResponse:
+      type: object
+      description: >-
+        Response from the upstream provider returned as-is. The structure
+        varies depending on the provider and endpoint called.
+      additionalProperties: true
+    ErrorResponse:
+      type: object
+      description: >-
+        Standard error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: >-
+            Error details object.
+          properties:
+            code:
+              type: string
+              description: >-
+                Machine-readable error code.
+            message:
+              type: string
+              description: >-
+                Human-readable error message describing what went wrong.

@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniblock.dev/schemas/uniblock/token.json",
+  "title": "Uniblock Token",
+  "description": "Schema representing a fungible token with metadata, balance, and transfer information as returned by the Uniblock Unified API.",
+  "type": "object",
+  "required": ["contractAddress", "chain"],
+  "properties": {
+    "contractAddress": {
+      "type": "string",
+      "description": "The smart contract address of the token on the blockchain."
+    },
+    "chain": {
+      "type": "string",
+      "description": "The blockchain network identifier (e.g., ethereum, polygon, solana)."
+    },
+    "name": {
+      "type": "string",
+      "description": "The display name of the token."
+    },
+    "symbol": {
+      "type": "string",
+      "description": "The ticker symbol of the token.",
+      "maxLength": 20
+    },
+    "decimals": {
+      "type": "integer",
+      "description": "The number of decimal places the token uses.",
+      "minimum": 0,
+      "maximum": 18
+    },
+    "logo": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the token logo image."
+    },
+    "totalSupply": {
+      "type": "string",
+      "description": "The total supply of the token in its smallest unit.",
+      "pattern": "^[0-9]+$"
+    }
+  },
+  "$defs": {
+    "TokenBalance": {
+      "type": "object",
+      "description": "Balance of a specific token held by a wallet address.",
+      "required": ["contractAddress", "balance"],
+      "properties": {
+        "contractAddress": {
+          "type": "string",
+          "description": "The smart contract address of the token."
+        },
+        "name": {
+          "type": "string",
+          "description": "The display name of the token."
+        },
+        "symbol": {
+          "type": "string",
+          "description": "The ticker symbol of the token."
+        },
+        "decimals": {
+          "type": "integer",
+          "description": "The number of decimal places the token uses.",
+          "minimum": 0
+        },
+        "balance": {
+          "type": "string",
+          "description": "The token balance in its smallest unit.",
+          "pattern": "^[0-9]+$"
+        },
+        "balanceFormatted": {
+          "type": "string",
+          "description": "The token balance formatted with proper decimal places."
+        }
+      }
+    },
+    "TokenTransfer": {
+      "type": "object",
+      "description": "A token transfer event between two addresses on the blockchain.",
+      "required": ["transactionHash", "from", "to", "value"],
+      "properties": {
+        "transactionHash": {
+          "type": "string",
+          "description": "The hash of the transaction containing this transfer.",
+          "pattern": "^0x[a-fA-F0-9]{64}$"
+        },
+        "from": {
+          "type": "string",
+          "description": "The sender address."
+        },
+        "to": {
+          "type": "string",
+          "description": "The recipient address."
+        },
+        "value": {
+          "type": "string",
+          "description": "The amount transferred in the token's smallest unit."
+        },
+        "contractAddress": {
+          "type": "string",
+          "description": "The smart contract address of the transferred token."
+        },
+        "tokenName": {
+          "type": "string",
+          "description": "The name of the transferred token."
+        },
+        "tokenSymbol": {
+          "type": "string",
+          "description": "The symbol of the transferred token."
+        },
+        "blockNumber": {
+          "type": "integer",
+          "description": "The block number in which the transfer occurred.",
+          "minimum": 0
+        },
+        "blockTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of the block in which the transfer occurred."
+        }
+      }
+    },
+    "TokenAllowance": {
+      "type": "object",
+      "description": "A token spending allowance granted to a spender contract.",
+      "required": ["contractAddress", "spender", "allowance"],
+      "properties": {
+        "contractAddress": {
+          "type": "string",
+          "description": "The smart contract address of the token."
+        },
+        "spender": {
+          "type": "string",
+          "description": "The address of the approved spender."
+        },
+        "allowance": {
+          "type": "string",
+          "description": "The approved allowance amount in the token's smallest unit."
+        },
+        "tokenName": {
+          "type": "string",
+          "description": "The name of the token."
+        },
+        "tokenSymbol": {
+          "type": "string",
+          "description": "The symbol of the token."
+        }
+      }
+    },
+    "TokenPrice": {
+      "type": "object",
+      "description": "Price data for a token from aggregated market sources.",
+      "properties": {
+        "usdPrice": {
+          "type": "number",
+          "description": "The current price of the token in USD.",
+          "minimum": 0
+        },
+        "chain": {
+          "type": "string",
+          "description": "The blockchain network."
+        },
+        "contractAddress": {
+          "type": "string",
+          "description": "The contract address of the token."
+        }
+      }
+    }
+  }
+}

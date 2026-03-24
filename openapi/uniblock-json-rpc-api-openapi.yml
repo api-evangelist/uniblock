@@ -1,0 +1,260 @@
+openapi: 3.1.0
+info:
+  title: Uniblock JSON-RPC API
+  description: >-
+    The Uniblock JSON-RPC API provides a single endpoint for standard JSON-RPC
+    calls across hundreds of blockchain networks. Rather than managing
+    individual node provider connections for each chain, developers can send
+    JSON-RPC requests through Uniblock which automatically selects the best
+    upstream node provider. This supports standard Ethereum and EVM-compatible
+    JSON-RPC methods, Solana RPC interfaces, and other chain-specific RPC
+    methods, with built-in failover and automatic retries across 55+ providers.
+  version: '1.0'
+  contact:
+    name: Uniblock Support
+    url: https://docs.uniblock.dev
+  termsOfService: https://uniblock.dev/terms
+externalDocs:
+  description: Uniblock JSON-RPC API Documentation
+  url: https://docs.uniblock.dev/reference/unified-api-reference-overview
+servers:
+  - url: https://api.uniblock.dev
+    description: Uniblock JSON-RPC Production Server
+tags:
+  - name: JSON-RPC
+    description: >-
+      Standard JSON-RPC 2.0 endpoint for sending blockchain RPC requests.
+      Supports Ethereum, Solana, and other chain-specific RPC methods with
+      automatic provider routing, failover, and retry logic.
+security:
+  - apiKeyHeader: []
+paths:
+  /json-rpc/v1/{chain}:
+    post:
+      operationId: sendJsonRpcRequest
+      summary: Send a JSON-RPC request
+      description: >-
+        Sends a standard JSON-RPC 2.0 request to the specified blockchain
+        network. Uniblock automatically routes the request to the best
+        available upstream node provider based on reliability, cost, and
+        performance. Supports standard Ethereum methods like eth_blockNumber,
+        eth_getBalance, eth_call, eth_sendRawTransaction, eth_getTransactionByHash,
+        eth_getLogs, and others, as well as Solana and chain-specific methods.
+      tags:
+        - JSON-RPC
+      parameters:
+        - name: chain
+          in: path
+          required: true
+          description: >-
+            The blockchain network to send the JSON-RPC request to (e.g.,
+            ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).
+          schema:
+            type: string
+            examples:
+              - ethereum
+              - polygon
+              - solana
+      requestBody:
+        required: true
+        description: >-
+          A standard JSON-RPC 2.0 request object. The method field specifies
+          the RPC method to call, and params contains the method arguments.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JsonRpcRequest'
+            examples:
+              eth_blockNumber:
+                summary: Get the latest block number
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: eth_blockNumber
+                  params: []
+              eth_getBalance:
+                summary: Get ETH balance for an address
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: eth_getBalance
+                  params:
+                    - '0x742d35Cc6634C0532925a3b844Bc9e7595f2bD18'
+                    - latest
+              eth_call:
+                summary: Execute a read-only smart contract call
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: eth_call
+                  params:
+                    - to: '0xdAC17F958D2ee523a2206206994597C13D831ec7'
+                      data: '0x70a08231000000000000000000000000742d35Cc6634C0532925a3b844Bc9e7595f2bD18'
+                    - latest
+              eth_getTransactionByHash:
+                summary: Get transaction details by hash
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: eth_getTransactionByHash
+                  params:
+                    - '0xabc123...'
+              eth_gasPrice:
+                summary: Get the current gas price
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: eth_gasPrice
+                  params: []
+      responses:
+        '200':
+          description: >-
+            Successful JSON-RPC response from the upstream node provider.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcResponse'
+        '400':
+          description: Invalid JSON-RPC request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '502':
+          description: Upstream node provider error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcErrorResponse'
+components:
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: >-
+        Uniblock project API key passed as a header. Obtain your API key by
+        creating a project on the Uniblock dashboard at app.uniblock.dev.
+  schemas:
+    JsonRpcRequest:
+      type: object
+      required:
+        - jsonrpc
+        - id
+        - method
+      description: >-
+        A standard JSON-RPC 2.0 request object for blockchain node calls.
+      properties:
+        jsonrpc:
+          type: string
+          description: >-
+            The JSON-RPC protocol version. Must be "2.0".
+          enum:
+            - '2.0'
+        id:
+          oneOf:
+            - type: integer
+            - type: string
+          description: >-
+            A unique identifier for the request, used to match responses.
+        method:
+          type: string
+          description: >-
+            The RPC method name to invoke. Supports standard Ethereum methods
+            (eth_blockNumber, eth_getBalance, eth_call, eth_sendRawTransaction,
+            eth_getTransactionByHash, eth_getTransactionReceipt, eth_getLogs,
+            eth_gasPrice, eth_estimateGas, eth_getBlockByNumber, etc.), Solana
+            methods (getBalance, getTransaction, getBlock, etc.), and other
+            chain-specific methods.
+        params:
+          type: array
+          description: >-
+            An ordered list of parameter values for the RPC method. The
+            structure and content depends on the specific method being called.
+          items: {}
+    JsonRpcResponse:
+      type: object
+      description: >-
+        A standard JSON-RPC 2.0 success response from the blockchain node.
+      properties:
+        jsonrpc:
+          type: string
+          description: >-
+            The JSON-RPC protocol version.
+          enum:
+            - '2.0'
+        id:
+          oneOf:
+            - type: integer
+            - type: string
+          description: >-
+            The request identifier, matching the id from the request.
+        result:
+          description: >-
+            The result of the RPC method call. The structure depends on the
+            specific method invoked.
+    JsonRpcErrorResponse:
+      type: object
+      description: >-
+        A standard JSON-RPC 2.0 error response from the blockchain node.
+      properties:
+        jsonrpc:
+          type: string
+          description: >-
+            The JSON-RPC protocol version.
+          enum:
+            - '2.0'
+        id:
+          oneOf:
+            - type: integer
+            - type: string
+          description: >-
+            The request identifier, matching the id from the request.
+        error:
+          type: object
+          description: >-
+            The error object containing details about the failure.
+          properties:
+            code:
+              type: integer
+              description: >-
+                A numeric error code indicating the type of error. Standard
+                JSON-RPC error codes include -32700 (parse error), -32600
+                (invalid request), -32601 (method not found), -32602
+                (invalid params), -32603 (internal error).
+            message:
+              type: string
+              description: >-
+                A human-readable error message.
+            data:
+              description: >-
+                Additional error data provided by the node, if available.
+    ErrorResponse:
+      type: object
+      description: >-
+        Standard Uniblock error response for non-RPC errors.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: >-
+            Error details object.
+          properties:
+            code:
+              type: string
+              description: >-
+                Machine-readable error code.
+            message:
+              type: string
+              description: >-
+                Human-readable error message describing what went wrong.

@@ -1,0 +1,1770 @@
+openapi: 3.1.0
+info:
+  title: Uniblock Unified API
+  description: >-
+    The Uniblock Unified API provides a single standardized interface for
+    interacting with multiple blockchain networks and data providers. It offers
+    higher-level endpoints for common data needs including token metadata and
+    balances, NFT collections and assets, transaction lookups, scan data, and
+    market data for pricing and analytics. The API abstracts away the
+    differences between upstream providers like Alchemy, Moralis, and Covalent,
+    automatically routing requests to the best provider based on reliability,
+    cost, and performance across 300+ blockchains and 55+ providers.
+  version: '1.0'
+  contact:
+    name: Uniblock Support
+    url: https://docs.uniblock.dev
+  termsOfService: https://uniblock.dev/terms
+externalDocs:
+  description: Uniblock Unified API Documentation
+  url: https://docs.uniblock.dev/docs/unified-api-overview
+servers:
+  - url: https://api.uniblock.dev/uni/v1
+    description: Uniblock Production Server
+tags:
+  - name: Tokens
+    description: >-
+      Endpoints for retrieving fungible token data including metadata, balances,
+      prices, transfers, and allowances across multiple blockchain networks.
+  - name: NFTs
+    description: >-
+      Endpoints for retrieving non-fungible token data including balances,
+      metadata, transfers, and collection information.
+  - name: Transactions
+    description: >-
+      Endpoints for looking up transaction data by address or transaction hash,
+      including detailed transaction information.
+  - name: Scan
+    description: >-
+      Endpoints for scanning blockchain networks for transactions, transfers,
+      native supply, and block-level data similar to block explorers.
+  - name: Market Data
+    description: >-
+      Endpoints for real-time and historical market data including token
+      prices, market capitalization, trading volume, trending tokens, and
+      charting data from multiple exchanges.
+security:
+  - apiKeyHeader: []
+paths:
+  /token/metadata:
+    get:
+      operationId: getTokenMetadata
+      summary: Get token metadata
+      description: >-
+        Retrieves metadata about a specific fungible token including name,
+        symbol, decimals, and contract details. Supports multiple blockchain
+        networks through automatic provider routing.
+      tags:
+        - Tokens
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/contractAddressParam'
+      responses:
+        '200':
+          description: Successful response with token metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenMetadataResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Token not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /token/balance:
+    get:
+      operationId: getTokenBalance
+      summary: Get token balances
+      description: >-
+        Retrieves the native and fungible token balances associated with a
+        specific wallet address. Returns balances across tokens held by the
+        address on the specified blockchain network.
+      tags:
+        - Tokens
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/walletAddressParam'
+      responses:
+        '200':
+          description: Successful response with token balances
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenBalanceResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /token/balance/historical:
+    get:
+      operationId: getTokenBalanceHistorical
+      summary: Get historical token balances
+      description: >-
+        Retrieves historical token balances for a specific wallet address at
+        a given point in time, enabling tracking of balance changes over time.
+      tags:
+        - Tokens
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/walletAddressParam'
+        - name: blockNumber
+          in: query
+          description: >-
+            The block number at which to retrieve the historical balance.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response with historical token balances
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenBalanceResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /token/transfers:
+    get:
+      operationId: getTokenTransfers
+      summary: Get token transfers
+      description: >-
+        Retrieves a list of token transfers for a specific wallet address,
+        including both incoming and outgoing transfers of fungible tokens.
+        Useful for tracking token swaps and transfer history.
+      tags:
+        - Tokens
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/walletAddressParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/cursorParam'
+      responses:
+        '200':
+          description: Successful response with token transfers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenTransfersResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /token/allowances:
+    get:
+      operationId: getTokenAllowances
+      summary: Get token allowances
+      description: >-
+        Retrieves token allowances granted by a specific wallet address to
+        spender contracts. Useful for inspecting which contracts have approval
+        to spend tokens on behalf of the wallet owner.
+      tags:
+        - Tokens
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/walletAddressParam'
+      responses:
+        '200':
+          description: Successful response with token allowances
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenAllowancesResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /token/price:
+    get:
+      operationId: getTokenPrice
+      summary: Get token price
+      description: >-
+        Retrieves the current USD price for a specific token by its contract
+        address and chain. Aggregates pricing data from multiple exchange and
+        data provider sources.
+      tags:
+        - Tokens
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/contractAddressParam'
+      responses:
+        '200':
+          description: Successful response with token price
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenPriceResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /token/price/historical:
+    get:
+      operationId: getTokenPriceHistorical
+      summary: Get historical token price
+      description: >-
+        Retrieves the historical price, volume, and market cap of a token at a
+        given date, enabling analysis of price movements over time.
+      tags:
+        - Tokens
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/contractAddressParam'
+        - name: date
+          in: query
+          description: >-
+            The date for which to retrieve historical price data in ISO 8601
+            format.
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Successful response with historical token price
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenPriceHistoricalResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /nft/balance:
+    get:
+      operationId: getNftBalance
+      summary: Get NFT balances
+      description: >-
+        Retrieves the NFT balances held by a specific wallet address, returning
+        a list of NFTs owned including collection and token identifiers.
+      tags:
+        - NFTs
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/walletAddressParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/cursorParam'
+      responses:
+        '200':
+          description: Successful response with NFT balances
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NftBalanceResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /nft/metadata:
+    get:
+      operationId: getNftMetadata
+      summary: Get NFT metadata
+      description: >-
+        Retrieves detailed metadata for a specific NFT including name,
+        description, image URL, attributes, and trait information.
+      tags:
+        - NFTs
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/contractAddressParam'
+        - name: tokenId
+          in: query
+          required: true
+          description: >-
+            The token ID of the specific NFT within the collection.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with NFT metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NftMetadataResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: NFT not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /nft/collection-metadata:
+    get:
+      operationId: getNftCollectionMetadata
+      summary: Get NFT collection metadata
+      description: >-
+        Retrieves metadata about an NFT collection including name, description,
+        total supply, floor price, and other collection-level attributes.
+      tags:
+        - NFTs
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/contractAddressParam'
+      responses:
+        '200':
+          description: Successful response with collection metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NftCollectionMetadataResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /nft/transfers:
+    get:
+      operationId: getNftTransfers
+      summary: Get NFT transfers
+      description: >-
+        Retrieves a list of NFT transfer events for a specific wallet address
+        or contract, including mints, sales, and transfers between addresses.
+      tags:
+        - NFTs
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/walletAddressParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/cursorParam'
+      responses:
+        '200':
+          description: Successful response with NFT transfers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NftTransfersResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /transactions:
+    get:
+      operationId: getTransactions
+      summary: Get transactions
+      description: >-
+        Retrieves a list of transactions associated with a specific wallet
+        address, including both incoming and outgoing transactions across the
+        specified blockchain network.
+      tags:
+        - Transactions
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/walletAddressParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/cursorParam'
+      responses:
+        '200':
+          description: Successful response with transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionsResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /transactions/{transactionHash}:
+    get:
+      operationId: getTransactionByHash
+      summary: Get transaction by hash
+      description: >-
+        Retrieves detailed information about a specific transaction by its
+        transaction hash, including status, gas used, block number, and
+        input data.
+      tags:
+        - Transactions
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - name: transactionHash
+          in: path
+          required: true
+          description: >-
+            The hash of the transaction to retrieve.
+          schema:
+            type: string
+            pattern: '^0x[a-fA-F0-9]{64}$'
+      responses:
+        '200':
+          description: Successful response with transaction details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionDetailResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Transaction not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /scan/transactions:
+    get:
+      operationId: getScanTransactions
+      summary: Get scanned transactions
+      description: >-
+        Retrieves transactions for a specific address using blockchain
+        explorer-style scanning, useful for auditing transaction histories
+        and monitoring network activity.
+      tags:
+        - Scan
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/walletAddressParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/cursorParam'
+      responses:
+        '200':
+          description: Successful response with scanned transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanTransactionsResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /scan/transfers:
+    get:
+      operationId: getScanTransfers
+      summary: Get scanned transfers
+      description: >-
+        Retrieves token transfer events for a specific address using
+        blockchain explorer-style scanning, including ERC-20 and ERC-721
+        transfers.
+      tags:
+        - Scan
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/walletAddressParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/cursorParam'
+      responses:
+        '200':
+          description: Successful response with scanned transfers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanTransfersResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /scan/native-supply:
+    get:
+      operationId: getScanNativeSupply
+      summary: Get native token supply
+      description: >-
+        Returns the current amount of the native token in circulation for the
+        specified blockchain network, similar to block explorer supply queries.
+      tags:
+        - Scan
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+      responses:
+        '200':
+          description: Successful response with native token supply
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NativeSupplyResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /market-data/price:
+    get:
+      operationId: getMarketDataPrice
+      summary: Get market data price
+      description: >-
+        Retrieves the current price of a token from aggregated market data
+        sources, providing real-time pricing from multiple exchanges.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/contractAddressParam'
+      responses:
+        '200':
+          description: Successful response with market price
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketDataPriceResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /market-data/market-cap:
+    get:
+      operationId: getMarketDataMarketCap
+      summary: Get market capitalization
+      description: >-
+        Retrieves the current market capitalization for a specific token,
+        calculated from circulating supply and current price data.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/contractAddressParam'
+      responses:
+        '200':
+          description: Successful response with market cap
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketDataMarketCapResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /market-data/volume:
+    get:
+      operationId: getMarketDataVolume
+      summary: Get trading volume
+      description: >-
+        Retrieves the 24-hour trading volume for a specific token across
+        aggregated exchange data sources.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/contractAddressParam'
+      responses:
+        '200':
+          description: Successful response with trading volume
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketDataVolumeResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /market-data/trending:
+    get:
+      operationId: getMarketDataTrending
+      summary: Get trending tokens
+      description: >-
+        Retrieves a list of currently trending tokens based on trading
+        activity, volume, and market interest across aggregated data sources.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: Successful response with trending tokens
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketDataTrendingResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /market-data/chart:
+    get:
+      operationId: getMarketDataChart
+      summary: Get charting data
+      description: >-
+        Retrieves price, volume, and market cap data for a token at a given
+        date range and predefined granularity, suitable for rendering charts
+        and performing time-series analysis.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/contractAddressParam'
+        - name: from
+          in: query
+          description: >-
+            Start date for the charting period in ISO 8601 format.
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          description: >-
+            End date for the charting period in ISO 8601 format.
+          schema:
+            type: string
+            format: date
+        - name: granularity
+          in: query
+          description: >-
+            Time interval granularity for data points.
+          schema:
+            type: string
+            enum:
+              - 1h
+              - 4h
+              - 1d
+              - 1w
+      responses:
+        '200':
+          description: Successful response with charting data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketDataChartResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /market-data/history:
+    get:
+      operationId: getMarketDataHistory
+      summary: Get historical market data
+      description: >-
+        Retrieves historical price, volume, and market cap of a token at a
+        specific date, enabling point-in-time market analysis.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/chainParam'
+        - $ref: '#/components/parameters/contractAddressParam'
+        - name: date
+          in: query
+          description: >-
+            The specific date for historical data retrieval in ISO 8601 format.
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Successful response with historical market data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketDataHistoryResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: >-
+        Uniblock project API key passed as a header. Obtain your API key by
+        creating a project on the Uniblock dashboard at app.uniblock.dev.
+  parameters:
+    chainParam:
+      name: chain
+      in: query
+      required: true
+      description: >-
+        The blockchain network identifier (e.g., ethereum, polygon, solana,
+        bsc, arbitrum, optimism, avalanche, base).
+      schema:
+        type: string
+        examples:
+          - ethereum
+          - polygon
+          - solana
+    walletAddressParam:
+      name: address
+      in: query
+      required: true
+      description: >-
+        The wallet address to query data for.
+      schema:
+        type: string
+    contractAddressParam:
+      name: contractAddress
+      in: query
+      required: true
+      description: >-
+        The smart contract address of the token.
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: >-
+        Maximum number of results to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    cursorParam:
+      name: cursor
+      in: query
+      description: >-
+        Pagination cursor for retrieving the next page of results.
+      schema:
+        type: string
+  schemas:
+    ErrorResponse:
+      type: object
+      description: >-
+        Standard error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: >-
+            Error details object.
+          properties:
+            code:
+              type: string
+              description: >-
+                Machine-readable error code.
+            message:
+              type: string
+              description: >-
+                Human-readable error message describing what went wrong.
+    TokenMetadataResponse:
+      type: object
+      description: >-
+        Response containing metadata about a fungible token.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          $ref: '#/components/schemas/TokenMetadata'
+    TokenMetadata:
+      type: object
+      description: >-
+        Metadata for a fungible token including identifiers and contract details.
+      properties:
+        name:
+          type: string
+          description: >-
+            The display name of the token.
+        symbol:
+          type: string
+          description: >-
+            The ticker symbol of the token.
+        decimals:
+          type: integer
+          description: >-
+            The number of decimal places the token uses.
+        contractAddress:
+          type: string
+          description: >-
+            The smart contract address of the token.
+        chain:
+          type: string
+          description: >-
+            The blockchain network the token exists on.
+        logo:
+          type: string
+          format: uri
+          description: >-
+            URL to the token logo image.
+        totalSupply:
+          type: string
+          description: >-
+            The total supply of the token in its smallest unit.
+    TokenBalanceResponse:
+      type: object
+      description: >-
+        Response containing token balances for a wallet address.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: array
+          description: >-
+            List of token balances held by the address.
+          items:
+            $ref: '#/components/schemas/TokenBalance'
+    TokenBalance:
+      type: object
+      description: >-
+        Balance of a specific token held by a wallet address.
+      properties:
+        contractAddress:
+          type: string
+          description: >-
+            The smart contract address of the token.
+        name:
+          type: string
+          description: >-
+            The display name of the token.
+        symbol:
+          type: string
+          description: >-
+            The ticker symbol of the token.
+        decimals:
+          type: integer
+          description: >-
+            The number of decimal places the token uses.
+        balance:
+          type: string
+          description: >-
+            The token balance in its smallest unit.
+        balanceFormatted:
+          type: string
+          description: >-
+            The token balance formatted with proper decimal places.
+    TokenTransfersResponse:
+      type: object
+      description: >-
+        Response containing a paginated list of token transfers.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: array
+          description: >-
+            List of token transfer events.
+          items:
+            $ref: '#/components/schemas/TokenTransfer'
+        cursor:
+          type: string
+          description: >-
+            Pagination cursor for the next page of results.
+    TokenTransfer:
+      type: object
+      description: >-
+        A single token transfer event between two addresses.
+      properties:
+        transactionHash:
+          type: string
+          description: >-
+            The hash of the transaction containing this transfer.
+        from:
+          type: string
+          description: >-
+            The sender address.
+        to:
+          type: string
+          description: >-
+            The recipient address.
+        value:
+          type: string
+          description: >-
+            The amount transferred in the token's smallest unit.
+        contractAddress:
+          type: string
+          description: >-
+            The smart contract address of the transferred token.
+        tokenName:
+          type: string
+          description: >-
+            The name of the transferred token.
+        tokenSymbol:
+          type: string
+          description: >-
+            The symbol of the transferred token.
+        blockNumber:
+          type: integer
+          description: >-
+            The block number in which the transfer occurred.
+        blockTimestamp:
+          type: string
+          format: date-time
+          description: >-
+            The timestamp of the block in which the transfer occurred.
+    TokenAllowancesResponse:
+      type: object
+      description: >-
+        Response containing token allowances granted by a wallet address.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: array
+          description: >-
+            List of token allowances.
+          items:
+            $ref: '#/components/schemas/TokenAllowance'
+    TokenAllowance:
+      type: object
+      description: >-
+        A token allowance granted to a spender contract.
+      properties:
+        contractAddress:
+          type: string
+          description: >-
+            The smart contract address of the token.
+        spender:
+          type: string
+          description: >-
+            The address of the approved spender.
+        allowance:
+          type: string
+          description: >-
+            The approved allowance amount.
+        tokenName:
+          type: string
+          description: >-
+            The name of the token.
+        tokenSymbol:
+          type: string
+          description: >-
+            The symbol of the token.
+    TokenPriceResponse:
+      type: object
+      description: >-
+        Response containing the current price of a token.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: object
+          description: >-
+            Token price data.
+          properties:
+            usdPrice:
+              type: number
+              format: double
+              description: >-
+                The current price of the token in USD.
+            chain:
+              type: string
+              description: >-
+                The blockchain network.
+            contractAddress:
+              type: string
+              description: >-
+                The contract address of the token.
+    TokenPriceHistoricalResponse:
+      type: object
+      description: >-
+        Response containing historical price data for a token.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: object
+          description: >-
+            Historical token price data.
+          properties:
+            usdPrice:
+              type: number
+              format: double
+              description: >-
+                The historical price of the token in USD.
+            date:
+              type: string
+              format: date
+              description: >-
+                The date of the historical price.
+            volume:
+              type: number
+              format: double
+              description: >-
+                The trading volume on the specified date.
+            marketCap:
+              type: number
+              format: double
+              description: >-
+                The market capitalization on the specified date.
+    NftBalanceResponse:
+      type: object
+      description: >-
+        Response containing NFTs owned by a wallet address.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: array
+          description: >-
+            List of NFTs held by the address.
+          items:
+            $ref: '#/components/schemas/NftAsset'
+        cursor:
+          type: string
+          description: >-
+            Pagination cursor for the next page of results.
+    NftAsset:
+      type: object
+      description: >-
+        An NFT asset with basic identifying information.
+      properties:
+        contractAddress:
+          type: string
+          description: >-
+            The smart contract address of the NFT collection.
+        tokenId:
+          type: string
+          description: >-
+            The unique token ID within the collection.
+        name:
+          type: string
+          description: >-
+            The name of the NFT.
+        tokenType:
+          type: string
+          description: >-
+            The token standard type (e.g., ERC-721, ERC-1155).
+          enum:
+            - ERC-721
+            - ERC-1155
+        imageUrl:
+          type: string
+          format: uri
+          description: >-
+            URL to the NFT image.
+        collectionName:
+          type: string
+          description: >-
+            The name of the parent collection.
+    NftMetadataResponse:
+      type: object
+      description: >-
+        Response containing detailed metadata for a specific NFT.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: object
+          description: >-
+            Detailed NFT metadata.
+          properties:
+            contractAddress:
+              type: string
+              description: >-
+                The smart contract address of the NFT collection.
+            tokenId:
+              type: string
+              description: >-
+                The unique token ID within the collection.
+            name:
+              type: string
+              description: >-
+                The name of the NFT.
+            description:
+              type: string
+              description: >-
+                A description of the NFT.
+            imageUrl:
+              type: string
+              format: uri
+              description: >-
+                URL to the NFT image.
+            animationUrl:
+              type: string
+              format: uri
+              description: >-
+                URL to the NFT animation or media file.
+            tokenType:
+              type: string
+              description: >-
+                The token standard type.
+            attributes:
+              type: array
+              description: >-
+                List of trait attributes for the NFT.
+              items:
+                type: object
+                properties:
+                  traitType:
+                    type: string
+                    description: >-
+                      The name of the trait category.
+                  value:
+                    type: string
+                    description: >-
+                      The value of the trait.
+    NftCollectionMetadataResponse:
+      type: object
+      description: >-
+        Response containing metadata about an NFT collection.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: object
+          description: >-
+            NFT collection metadata.
+          properties:
+            contractAddress:
+              type: string
+              description: >-
+                The smart contract address of the collection.
+            name:
+              type: string
+              description: >-
+                The name of the collection.
+            description:
+              type: string
+              description: >-
+                A description of the collection.
+            symbol:
+              type: string
+              description: >-
+                The symbol of the collection.
+            totalSupply:
+              type: integer
+              description: >-
+                The total number of NFTs in the collection.
+            imageUrl:
+              type: string
+              format: uri
+              description: >-
+                URL to the collection image.
+            floorPrice:
+              type: number
+              format: double
+              description: >-
+                The current floor price of the collection.
+            chain:
+              type: string
+              description: >-
+                The blockchain network the collection exists on.
+    NftTransfersResponse:
+      type: object
+      description: >-
+        Response containing a paginated list of NFT transfer events.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: array
+          description: >-
+            List of NFT transfer events.
+          items:
+            $ref: '#/components/schemas/NftTransfer'
+        cursor:
+          type: string
+          description: >-
+            Pagination cursor for the next page of results.
+    NftTransfer:
+      type: object
+      description: >-
+        A single NFT transfer event between two addresses.
+      properties:
+        transactionHash:
+          type: string
+          description: >-
+            The hash of the transaction containing this transfer.
+        from:
+          type: string
+          description: >-
+            The sender address.
+        to:
+          type: string
+          description: >-
+            The recipient address.
+        contractAddress:
+          type: string
+          description: >-
+            The smart contract address of the NFT collection.
+        tokenId:
+          type: string
+          description: >-
+            The token ID of the transferred NFT.
+        blockNumber:
+          type: integer
+          description: >-
+            The block number in which the transfer occurred.
+        blockTimestamp:
+          type: string
+          format: date-time
+          description: >-
+            The timestamp of the block in which the transfer occurred.
+    TransactionsResponse:
+      type: object
+      description: >-
+        Response containing a paginated list of transactions.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: array
+          description: >-
+            List of transactions.
+          items:
+            $ref: '#/components/schemas/Transaction'
+        cursor:
+          type: string
+          description: >-
+            Pagination cursor for the next page of results.
+    Transaction:
+      type: object
+      description: >-
+        A blockchain transaction with summary information.
+      properties:
+        transactionHash:
+          type: string
+          description: >-
+            The unique hash identifier of the transaction.
+        from:
+          type: string
+          description: >-
+            The sender address.
+        to:
+          type: string
+          description: >-
+            The recipient address.
+        value:
+          type: string
+          description: >-
+            The value transferred in the native token's smallest unit.
+        blockNumber:
+          type: integer
+          description: >-
+            The block number containing the transaction.
+        blockTimestamp:
+          type: string
+          format: date-time
+          description: >-
+            The timestamp of the block containing the transaction.
+        status:
+          type: string
+          description: >-
+            The execution status of the transaction.
+          enum:
+            - success
+            - failed
+        gasUsed:
+          type: string
+          description: >-
+            The amount of gas consumed by the transaction.
+    TransactionDetailResponse:
+      type: object
+      description: >-
+        Response containing detailed information about a single transaction.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: object
+          description: >-
+            Detailed transaction data.
+          properties:
+            transactionHash:
+              type: string
+              description: >-
+                The unique hash identifier of the transaction.
+            from:
+              type: string
+              description: >-
+                The sender address.
+            to:
+              type: string
+              description: >-
+                The recipient address.
+            value:
+              type: string
+              description: >-
+                The value transferred in the native token's smallest unit.
+            blockNumber:
+              type: integer
+              description: >-
+                The block number containing the transaction.
+            blockTimestamp:
+              type: string
+              format: date-time
+              description: >-
+                The timestamp of the block containing the transaction.
+            status:
+              type: string
+              description: >-
+                The execution status of the transaction.
+            gasUsed:
+              type: string
+              description: >-
+                The amount of gas consumed by the transaction.
+            gasPrice:
+              type: string
+              description: >-
+                The gas price at which the transaction was executed.
+            nonce:
+              type: integer
+              description: >-
+                The sender's transaction nonce.
+            input:
+              type: string
+              description: >-
+                The input data of the transaction.
+            logs:
+              type: array
+              description: >-
+                Event logs emitted during the transaction.
+              items:
+                type: object
+                properties:
+                  logIndex:
+                    type: integer
+                    description: >-
+                      The position of the log in the block.
+                  address:
+                    type: string
+                    description: >-
+                      The contract address that emitted the event.
+                  topics:
+                    type: array
+                    description: >-
+                      Indexed event topics.
+                    items:
+                      type: string
+                  data:
+                    type: string
+                    description: >-
+                      Non-indexed event data.
+    ScanTransactionsResponse:
+      type: object
+      description: >-
+        Response containing scanned transactions in explorer format.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: array
+          description: >-
+            List of scanned transactions.
+          items:
+            $ref: '#/components/schemas/Transaction'
+        cursor:
+          type: string
+          description: >-
+            Pagination cursor for the next page of results.
+    ScanTransfersResponse:
+      type: object
+      description: >-
+        Response containing scanned token transfer events.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: array
+          description: >-
+            List of scanned transfer events.
+          items:
+            $ref: '#/components/schemas/TokenTransfer'
+        cursor:
+          type: string
+          description: >-
+            Pagination cursor for the next page of results.
+    NativeSupplyResponse:
+      type: object
+      description: >-
+        Response containing the native token supply for a blockchain network.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: object
+          description: >-
+            Native supply data.
+          properties:
+            supply:
+              type: string
+              description: >-
+                The current circulating supply of the native token.
+            chain:
+              type: string
+              description: >-
+                The blockchain network.
+    MarketDataPriceResponse:
+      type: object
+      description: >-
+        Response containing the current market price of a token.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: object
+          description: >-
+            Market price data.
+          properties:
+            price:
+              type: number
+              format: double
+              description: >-
+                The current market price in USD.
+            contractAddress:
+              type: string
+              description: >-
+                The contract address of the token.
+            chain:
+              type: string
+              description: >-
+                The blockchain network.
+    MarketDataMarketCapResponse:
+      type: object
+      description: >-
+        Response containing market capitalization data for a token.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: object
+          description: >-
+            Market capitalization data.
+          properties:
+            marketCap:
+              type: number
+              format: double
+              description: >-
+                The current market capitalization in USD.
+            contractAddress:
+              type: string
+              description: >-
+                The contract address of the token.
+            chain:
+              type: string
+              description: >-
+                The blockchain network.
+    MarketDataVolumeResponse:
+      type: object
+      description: >-
+        Response containing 24-hour trading volume for a token.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: object
+          description: >-
+            Trading volume data.
+          properties:
+            volume24h:
+              type: number
+              format: double
+              description: >-
+                The 24-hour trading volume in USD.
+            contractAddress:
+              type: string
+              description: >-
+                The contract address of the token.
+            chain:
+              type: string
+              description: >-
+                The blockchain network.
+    MarketDataTrendingResponse:
+      type: object
+      description: >-
+        Response containing a list of currently trending tokens.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: array
+          description: >-
+            List of trending tokens.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: >-
+                  The name of the trending token.
+              symbol:
+                type: string
+                description: >-
+                  The ticker symbol of the trending token.
+              contractAddress:
+                type: string
+                description: >-
+                  The contract address of the token.
+              price:
+                type: number
+                format: double
+                description: >-
+                  The current price in USD.
+              volume24h:
+                type: number
+                format: double
+                description: >-
+                  The 24-hour trading volume in USD.
+              priceChange24h:
+                type: number
+                format: double
+                description: >-
+                  The 24-hour price change percentage.
+    MarketDataChartResponse:
+      type: object
+      description: >-
+        Response containing time-series charting data for a token.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: array
+          description: >-
+            List of data points for the charting period.
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+                description: >-
+                  The timestamp of the data point.
+              price:
+                type: number
+                format: double
+                description: >-
+                  The price at the given timestamp in USD.
+              volume:
+                type: number
+                format: double
+                description: >-
+                  The trading volume at the given timestamp.
+              marketCap:
+                type: number
+                format: double
+                description: >-
+                  The market cap at the given timestamp.
+    MarketDataHistoryResponse:
+      type: object
+      description: >-
+        Response containing historical market data for a specific date.
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Indicates whether the request was successful.
+        data:
+          type: object
+          description: >-
+            Historical market data for the specified date.
+          properties:
+            date:
+              type: string
+              format: date
+              description: >-
+                The date of the historical data.
+            price:
+              type: number
+              format: double
+              description: >-
+                The price on the specified date in USD.
+            volume:
+              type: number
+              format: double
+              description: >-
+                The trading volume on the specified date.
+            marketCap:
+              type: number
+              format: double
+              description: >-
+                The market capitalization on the specified date.

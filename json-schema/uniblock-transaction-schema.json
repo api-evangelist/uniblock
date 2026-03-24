@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniblock.dev/schemas/uniblock/transaction.json",
+  "title": "Uniblock Transaction",
+  "description": "Schema representing a blockchain transaction with detailed execution information as returned by the Uniblock Unified API.",
+  "type": "object",
+  "required": ["transactionHash"],
+  "properties": {
+    "transactionHash": {
+      "type": "string",
+      "description": "The unique hash identifier of the transaction.",
+      "pattern": "^0x[a-fA-F0-9]{64}$"
+    },
+    "from": {
+      "type": "string",
+      "description": "The sender address."
+    },
+    "to": {
+      "type": "string",
+      "description": "The recipient address."
+    },
+    "value": {
+      "type": "string",
+      "description": "The value transferred in the native token's smallest unit."
+    },
+    "blockNumber": {
+      "type": "integer",
+      "description": "The block number containing the transaction.",
+      "minimum": 0
+    },
+    "blockTimestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp of the block containing the transaction."
+    },
+    "status": {
+      "type": "string",
+      "description": "The execution status of the transaction.",
+      "enum": ["success", "failed"]
+    },
+    "gasUsed": {
+      "type": "string",
+      "description": "The amount of gas consumed by the transaction."
+    },
+    "gasPrice": {
+      "type": "string",
+      "description": "The gas price at which the transaction was executed."
+    },
+    "nonce": {
+      "type": "integer",
+      "description": "The sender's transaction nonce.",
+      "minimum": 0
+    },
+    "input": {
+      "type": "string",
+      "description": "The input data of the transaction in hexadecimal format."
+    },
+    "logs": {
+      "type": "array",
+      "description": "Event logs emitted during the transaction execution.",
+      "items": {
+        "$ref": "#/$defs/TransactionLog"
+      }
+    }
+  },
+  "$defs": {
+    "TransactionLog": {
+      "type": "object",
+      "description": "An event log emitted by a smart contract during transaction execution.",
+      "properties": {
+        "logIndex": {
+          "type": "integer",
+          "description": "The position of the log entry in the block.",
+          "minimum": 0
+        },
+        "address": {
+          "type": "string",
+          "description": "The smart contract address that emitted the event."
+        },
+        "topics": {
+          "type": "array",
+          "description": "Indexed event topics used for filtering and identification.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "maxItems": 4
+        },
+        "data": {
+          "type": "string",
+          "description": "Non-indexed event data in hexadecimal format."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniblock.dev/schemas/uniblock/nft.json",
+  "title": "Uniblock NFT",
+  "description": "Schema representing a non-fungible token with metadata, collection information, and transfer data as returned by the Uniblock Unified API.",
+  "type": "object",
+  "required": ["contractAddress", "tokenId"],
+  "properties": {
+    "contractAddress": {
+      "type": "string",
+      "description": "The smart contract address of the NFT collection."
+    },
+    "tokenId": {
+      "type": "string",
+      "description": "The unique token ID within the collection."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the NFT."
+    },
+    "description": {
+      "type": "string",
+      "description": "A description of the NFT."
+    },
+    "tokenType": {
+      "type": "string",
+      "description": "The token standard type.",
+      "enum": ["ERC-721", "ERC-1155"]
+    },
+    "imageUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the NFT image."
+    },
+    "animationUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the NFT animation or media file."
+    },
+    "collectionName": {
+      "type": "string",
+      "description": "The name of the parent collection."
+    },
+    "attributes": {
+      "type": "array",
+      "description": "List of trait attributes for the NFT.",
+      "items": {
+        "$ref": "#/$defs/NftAttribute"
+      }
+    }
+  },
+  "$defs": {
+    "NftAttribute": {
+      "type": "object",
+      "description": "A trait attribute associated with an NFT.",
+      "required": ["traitType", "value"],
+      "properties": {
+        "traitType": {
+          "type": "string",
+          "description": "The name of the trait category."
+        },
+        "value": {
+          "type": "string",
+          "description": "The value of the trait."
+        }
+      }
+    },
+    "NftCollection": {
+      "type": "object",
+      "description": "Metadata about an NFT collection.",
+      "required": ["contractAddress"],
+      "properties": {
+        "contractAddress": {
+          "type": "string",
+          "description": "The smart contract address of the collection."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the collection."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the collection."
+        },
+        "symbol": {
+          "type": "string",
+          "description": "The symbol of the collection."
+        },
+        "totalSupply": {
+          "type": "integer",
+          "description": "The total number of NFTs in the collection.",
+          "minimum": 0
+        },
+        "imageUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the collection image."
+        },
+        "floorPrice": {
+          "type": "number",
+          "description": "The current floor price of the collection.",
+          "minimum": 0
+        },
+        "chain": {
+          "type": "string",
+          "description": "The blockchain network the collection exists on."
+        }
+      }
+    },
+    "NftTransfer": {
+      "type": "object",
+      "description": "An NFT transfer event between two addresses.",
+      "required": ["transactionHash", "from", "to", "contractAddress", "tokenId"],
+      "properties": {
+        "transactionHash": {
+          "type": "string",
+          "description": "The hash of the transaction containing this transfer.",
+          "pattern": "^0x[a-fA-F0-9]{64}$"
+        },
+        "from": {
+          "type": "string",
+          "description": "The sender address."
+        },
+        "to": {
+          "type": "string",
+          "description": "The recipient address."
+        },
+        "contractAddress": {
+          "type": "string",
+          "description": "The smart contract address of the NFT collection."
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "The token ID of the transferred NFT."
+        },
+        "tokenType": {
+          "type": "string",
+          "description": "The token standard type.",
+          "enum": ["ERC-721", "ERC-1155"]
+        },
+        "quantity": {
+          "type": "integer",
+          "description": "The number of tokens transferred (relevant for ERC-1155).",
+          "minimum": 1
+        },
+        "blockNumber": {
+          "type": "integer",
+          "description": "The block number in which the transfer occurred.",
+          "minimum": 0
+        },
+        "blockTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of the block in which the transfer occurred."
+        }
+      }
+    }
+  }
+}
