@@ -32,7 +32,7 @@ paths:
   /json-rpc/v1/{chain}:
     post:
       operationId: sendJsonRpcRequest
-      summary: Send a JSON-RPC request
+      summary: Uniblock Send a JSON-RPC request
       description: >-
         Sends a standard JSON-RPC 2.0 request to the specified blockchain
         network. Uniblock automatically routes the request to the best

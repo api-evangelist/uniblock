@@ -3,19 +3,17 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/uniblock/refs/heads/main/apis.yml
 name: Uniblock
 type: Index
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: 
+  https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Web3
   - Blockchain
   - APIs
 description: >-
-  Uniblock is a Web3 infrastructure platform that provides a standardized API
-  aggregating data from hundreds of DEXs and cross-chain bridges, abstracting the
-  complexity of multi-chain development into a single endpoint. The platform
-  completed $5.2 million in financing with $7.5 million in total funding. Their
-  auto-routing automatically directs API calls to the best available blockchain
-  data provider based on reliability, cost, and performance, with automatic
-  retries and failover across 300+ blockchains and 55+ providers.
+  Uniblock is a Web3 infrastructure platform that provides a standardized API aggregating
+  data from hundreds of DEXs and cross-chain bridges, abstracting the complexity of
+  multi-chain development into a single endpoint. The platform completed $5.2 million
+  in financing with $7.5 million in total funding.
 created: '2025-02-08'
 modified: '2026-03-24'
 specificationVersion: '0.19'
@@ -29,7 +27,8 @@ apis:
       - NFTs
       - Transactions
       - Market Data
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.uniblock.dev
     humanURL: https://docs.uniblock.dev/docs/unified-api-overview
     properties:
@@ -40,14 +39,10 @@ apis:
       - url: asyncapi/uniblock-webhooks-asyncapi.yml
         type: AsyncAPI
     description: >-
-      The Uniblock Unified API provides a single standardized interface for
-      interacting with multiple blockchain networks and data providers. It offers
-      higher-level endpoints for common data needs including token metadata and
-      balances, NFT collections and assets, transaction lookups, and market data
-      for pricing and analytics. The API abstracts away the differences between
-      upstream providers like Alchemy, Moralis, and Covalent, automatically
-      routing requests to the best provider based on reliability, cost, and
-      performance.
+      The Uniblock Unified API provides a single standardized interface for interacting
+      with multiple blockchain networks and data providers. It offers higher-level
+      endpoints for common data needs including token metadata and balances, NFT collections
+      and assets, transaction lookups, and market data for pricing and analytics.
   - aid: uniblock:direct-api
     name: Uniblock Direct API
     tags:
@@ -55,7 +50,8 @@ apis:
       - Blockchain
       - Providers
       - Pass-Through
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.uniblock.dev/direct/v1
     humanURL: https://docs.uniblock.dev/docs/direct-api-overview
     properties:
@@ -79,7 +75,8 @@ apis:
       - JSON-RPC
       - Nodes
       - EVM
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.uniblock.dev
     humanURL: https://docs.uniblock.dev/reference/unified-api-reference-overview
     properties:

@@ -49,7 +49,7 @@ paths:
   /token/metadata:
     get:
       operationId: getTokenMetadata
-      summary: Get token metadata
+      summary: Uniblock Get token metadata
       description: >-
         Retrieves metadata about a specific fungible token including name,
         symbol, decimals, and contract details. Supports multiple blockchain
@@ -87,7 +87,7 @@ paths:
   /token/balance:
     get:
       operationId: getTokenBalance
-      summary: Get token balances
+      summary: Uniblock Get token balances
       description: >-
         Retrieves the native and fungible token balances associated with a
         specific wallet address. Returns balances across tokens held by the
@@ -119,7 +119,7 @@ paths:
   /token/balance/historical:
     get:
       operationId: getTokenBalanceHistorical
-      summary: Get historical token balances
+      summary: Uniblock Get historical token balances
       description: >-
         Retrieves historical token balances for a specific wallet address at
         a given point in time, enabling tracking of balance changes over time.
@@ -156,7 +156,7 @@ paths:
   /token/transfers:
     get:
       operationId: getTokenTransfers
-      summary: Get token transfers
+      summary: Uniblock Get token transfers
       description: >-
         Retrieves a list of token transfers for a specific wallet address,
         including both incoming and outgoing transfers of fungible tokens.
@@ -190,7 +190,7 @@ paths:
   /token/allowances:
     get:
       operationId: getTokenAllowances
-      summary: Get token allowances
+      summary: Uniblock Get token allowances
       description: >-
         Retrieves token allowances granted by a specific wallet address to
         spender contracts. Useful for inspecting which contracts have approval
@@ -222,7 +222,7 @@ paths:
   /token/price:
     get:
       operationId: getTokenPrice
-      summary: Get token price
+      summary: Uniblock Get token price
       description: >-
         Retrieves the current USD price for a specific token by its contract
         address and chain. Aggregates pricing data from multiple exchange and
@@ -254,7 +254,7 @@ paths:
   /token/price/historical:
     get:
       operationId: getTokenPriceHistorical
-      summary: Get historical token price
+      summary: Uniblock Get historical token price
       description: >-
         Retrieves the historical price, volume, and market cap of a token at a
         given date, enabling analysis of price movements over time.
@@ -293,7 +293,7 @@ paths:
   /nft/balance:
     get:
       operationId: getNftBalance
-      summary: Get NFT balances
+      summary: Uniblock Get NFT balances
       description: >-
         Retrieves the NFT balances held by a specific wallet address, returning
         a list of NFTs owned including collection and token identifiers.
@@ -326,7 +326,7 @@ paths:
   /nft/metadata:
     get:
       operationId: getNftMetadata
-      summary: Get NFT metadata
+      summary: Uniblock Get NFT metadata
       description: >-
         Retrieves detailed metadata for a specific NFT including name,
         description, image URL, attributes, and trait information.
@@ -370,7 +370,7 @@ paths:
   /nft/collection-metadata:
     get:
       operationId: getNftCollectionMetadata
-      summary: Get NFT collection metadata
+      summary: Uniblock Get NFT collection metadata
       description: >-
         Retrieves metadata about an NFT collection including name, description,
         total supply, floor price, and other collection-level attributes.
@@ -401,7 +401,7 @@ paths:
   /nft/transfers:
     get:
       operationId: getNftTransfers
-      summary: Get NFT transfers
+      summary: Uniblock Get NFT transfers
       description: >-
         Retrieves a list of NFT transfer events for a specific wallet address
         or contract, including mints, sales, and transfers between addresses.
@@ -434,7 +434,7 @@ paths:
   /transactions:
     get:
       operationId: getTransactions
-      summary: Get transactions
+      summary: Uniblock Get transactions
       description: >-
         Retrieves a list of transactions associated with a specific wallet
         address, including both incoming and outgoing transactions across the
@@ -468,7 +468,7 @@ paths:
   /transactions/{transactionHash}:
     get:
       operationId: getTransactionByHash
-      summary: Get transaction by hash
+      summary: Uniblock Get transaction by hash
       description: >-
         Retrieves detailed information about a specific transaction by its
         transaction hash, including status, gas used, block number, and
@@ -513,7 +513,7 @@ paths:
   /scan/transactions:
     get:
       operationId: getScanTransactions
-      summary: Get scanned transactions
+      summary: Uniblock Get scanned transactions
       description: >-
         Retrieves transactions for a specific address using blockchain
         explorer-style scanning, useful for auditing transaction histories
@@ -547,7 +547,7 @@ paths:
   /scan/transfers:
     get:
       operationId: getScanTransfers
-      summary: Get scanned transfers
+      summary: Uniblock Get scanned transfers
       description: >-
         Retrieves token transfer events for a specific address using
         blockchain explorer-style scanning, including ERC-20 and ERC-721
@@ -581,7 +581,7 @@ paths:
   /scan/native-supply:
     get:
       operationId: getScanNativeSupply
-      summary: Get native token supply
+      summary: Uniblock Get native token supply
       description: >-
         Returns the current amount of the native token in circulation for the
         specified blockchain network, similar to block explorer supply queries.
@@ -611,7 +611,7 @@ paths:
   /market-data/price:
     get:
       operationId: getMarketDataPrice
-      summary: Get market data price
+      summary: Uniblock Get market data price
       description: >-
         Retrieves the current price of a token from aggregated market data
         sources, providing real-time pricing from multiple exchanges.
@@ -642,7 +642,7 @@ paths:
   /market-data/market-cap:
     get:
       operationId: getMarketDataMarketCap
-      summary: Get market capitalization
+      summary: Uniblock Get market capitalization
       description: >-
         Retrieves the current market capitalization for a specific token,
         calculated from circulating supply and current price data.
@@ -673,7 +673,7 @@ paths:
   /market-data/volume:
     get:
       operationId: getMarketDataVolume
-      summary: Get trading volume
+      summary: Uniblock Get trading volume
       description: >-
         Retrieves the 24-hour trading volume for a specific token across
         aggregated exchange data sources.
@@ -704,7 +704,7 @@ paths:
   /market-data/trending:
     get:
       operationId: getMarketDataTrending
-      summary: Get trending tokens
+      summary: Uniblock Get trending tokens
       description: >-
         Retrieves a list of currently trending tokens based on trading
         activity, volume, and market interest across aggregated data sources.
@@ -735,7 +735,7 @@ paths:
   /market-data/chart:
     get:
       operationId: getMarketDataChart
-      summary: Get charting data
+      summary: Uniblock Get charting data
       description: >-
         Retrieves price, volume, and market cap data for a token at a given
         date range and predefined granularity, suitable for rendering charts
@@ -792,7 +792,7 @@ paths:
   /market-data/history:
     get:
       operationId: getMarketDataHistory
-      summary: Get historical market data
+      summary: Uniblock Get historical market data
       description: >-
         Retrieves historical price, volume, and market cap of a token at a
         specific date, enabling point-in-time market analysis.
