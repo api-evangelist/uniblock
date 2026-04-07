@@ -3,12 +3,10 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/uniblock/refs/heads/main/apis.yml
 name: Uniblock
 type: Index
-image: 
-  https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Web3
   - Blockchain
-  - APIs
+  - Web3
 description: >-
   Uniblock is a Web3 infrastructure platform that provides a standardized API aggregating
   data from hundreds of DEXs and cross-chain bridges, abstracting the complexity of
@@ -21,14 +19,13 @@ apis:
   - aid: uniblock:unified-api
     name: Uniblock Unified API
     tags:
-      - Web3
       - Blockchain
-      - Tokens
-      - NFTs
-      - Transactions
       - Market Data
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - NFTs
+      - Tokens
+      - Transactions
+      - Web3
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.uniblock.dev
     humanURL: https://docs.uniblock.dev/docs/unified-api-overview
     properties:
@@ -46,12 +43,11 @@ apis:
   - aid: uniblock:direct-api
     name: Uniblock Direct API
     tags:
-      - Web3
       - Blockchain
-      - Providers
       - Pass-Through
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Providers
+      - Web3
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.uniblock.dev/direct/v1
     humanURL: https://docs.uniblock.dev/docs/direct-api-overview
     properties:
@@ -70,13 +66,12 @@ apis:
   - aid: uniblock:json-rpc-api
     name: Uniblock JSON-RPC API
     tags:
-      - Web3
       - Blockchain
+      - EVM
       - JSON-RPC
       - Nodes
-      - EVM
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Web3
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.uniblock.dev
     humanURL: https://docs.uniblock.dev/reference/unified-api-reference-overview
     properties:

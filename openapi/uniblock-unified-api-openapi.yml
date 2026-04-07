@@ -22,27 +22,27 @@ servers:
   - url: https://api.uniblock.dev/uni/v1
     description: Uniblock Production Server
 tags:
-  - name: Tokens
-    description: >-
-      Endpoints for retrieving fungible token data including metadata, balances,
-      prices, transfers, and allowances across multiple blockchain networks.
-  - name: NFTs
-    description: >-
-      Endpoints for retrieving non-fungible token data including balances,
-      metadata, transfers, and collection information.
-  - name: Transactions
-    description: >-
-      Endpoints for looking up transaction data by address or transaction hash,
-      including detailed transaction information.
-  - name: Scan
-    description: >-
-      Endpoints for scanning blockchain networks for transactions, transfers,
-      native supply, and block-level data similar to block explorers.
   - name: Market Data
     description: >-
       Endpoints for real-time and historical market data including token
       prices, market capitalization, trading volume, trending tokens, and
       charting data from multiple exchanges.
+  - name: NFTs
+    description: >-
+      Endpoints for retrieving non-fungible token data including balances,
+      metadata, transfers, and collection information.
+  - name: Scan
+    description: >-
+      Endpoints for scanning blockchain networks for transactions, transfers,
+      native supply, and block-level data similar to block explorers.
+  - name: Tokens
+    description: >-
+      Endpoints for retrieving fungible token data including metadata, balances,
+      prices, transfers, and allowances across multiple blockchain networks.
+  - name: Transactions
+    description: >-
+      Endpoints for looking up transaction data by address or transaction hash,
+      including detailed transaction information.
 security:
   - apiKeyHeader: []
 paths:
