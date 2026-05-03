@@ -1,75 +1,98 @@
-# Uniblock (uniblock)
-Uniblock is a Web3 infrastructure platform that aggregates data from hundreds of decentralized exchanges and cross-chain bridges into a single standardized API endpoint. Their developer platform abstracts the complexity of multi-chain blockchain development, with auto-routing that directs API calls to the best available data provider based on reliability, cost, and performance across 300+ blockchains and 55+ providers.
+# Uniblock
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/uniblock/refs/heads/main/apis.yml)
-
-## Scope
-
-- **Type:** Contract
-- **Position:** Consuming
-- **Access:** 3rd-Party
-
-## Tags:
-
- - Web3, Blockchain, APIs
-
-## Timestamps
-
-- **Created:** 2025-02-08
-- **Modified:** 2026-03-24
+Uniblock is a Web3 infrastructure platform that provides a standardized API aggregating data from hundreds of DEXs and cross-chain bridges, abstracting the complexity of multi-chain development into a single endpoint. The platform automatically routes API calls to the best available data provider based on reliability, cost, and performance across 300+ blockchains and 55+ providers.
 
 ## APIs
 
 ### Uniblock Unified API
-The Uniblock Unified API provides a single standardized interface for interacting with multiple blockchain networks and data providers. It offers higher-level endpoints for common data needs including token metadata and balances, NFT collections and assets, transaction lookups, and market data for pricing and analytics. The API abstracts away the differences between upstream providers like Alchemy, Moralis, and Covalent, automatically routing requests to the best provider based on reliability, cost, and performance.
 
-**Human URL:** [https://docs.uniblock.dev/docs/unified-api-overview](https://docs.uniblock.dev/docs/unified-api-overview)
+The Unified API provides higher-level endpoints for token metadata, NFT data, transactions, and market pricing across hundreds of blockchain networks.
 
-
-#### Tags:
-
- - Web3, Blockchain, Tokens, NFTs, Transactions, Market Data
-
-#### Properties
-
-- [Documentation](https://docs.uniblock.dev/docs/unified-api-overview)
-- [OpenAPI](openapi/uniblock-unified-api-openapi.yml)
-- [AsyncAPI](asyncapi/uniblock-webhooks-asyncapi.yml)
+- **Base URL:** https://api.uniblock.dev/uni/v1
+- **Documentation:** https://docs.uniblock.dev/docs/unified-api-overview
+- **OpenAPI:** [openapi/uniblock-unified-api-openapi.yml](openapi/uniblock-unified-api-openapi.yml)
 
 ### Uniblock Direct API
-The Uniblock Direct API gives developers access to provider-specific endpoints exactly as offered by upstream blockchain data providers. This is intended for use cases where a specific method is not yet abstracted into the Unified API, allowing direct pass-through access to providers like Alchemy, SimpleHash, TonAPI, and others. Requests follow the pattern of specifying the provider and endpoint path, while still benefiting from Uniblock's routing, retry, and failover infrastructure.
 
-**Human URL:** [https://docs.uniblock.dev/docs/direct-api-overview](https://docs.uniblock.dev/docs/direct-api-overview)
+The Direct API provides pass-through access to provider-specific endpoints for use cases not yet covered by the Unified API.
 
-
-#### Tags:
-
- - Web3, Blockchain, Providers, Pass-Through
-
-#### Properties
-
-- [Documentation](https://docs.uniblock.dev/docs/direct-api-overview)
-- [OpenAPI](openapi/uniblock-direct-api-openapi.yml)
+- **Base URL:** https://api.uniblock.dev/direct/v1
+- **Documentation:** https://docs.uniblock.dev/docs/direct-api-overview
+- **OpenAPI:** [openapi/uniblock-direct-api-openapi.yml](openapi/uniblock-direct-api-openapi.yml)
 
 ### Uniblock JSON-RPC API
-The Uniblock JSON-RPC API provides a single endpoint for standard JSON-RPC calls across hundreds of blockchain networks. Rather than managing individual node provider connections for each chain, developers can send JSON-RPC requests through Uniblock which automatically selects the best upstream node provider. This supports standard Ethereum and EVM-compatible JSON-RPC methods, as well as Solana and other chain-specific RPC interfaces, with built-in failover and automatic retries.
 
-**Human URL:** [https://docs.uniblock.dev/reference/unified-api-reference-overview](https://docs.uniblock.dev/reference/unified-api-reference-overview)
+The JSON-RPC API provides a single endpoint for standard JSON-RPC calls across hundreds of blockchain networks with built-in failover.
 
+- **Documentation:** https://docs.uniblock.dev/reference/unified-api-reference-overview
+- **OpenAPI:** [openapi/uniblock-json-rpc-api-openapi.yml](openapi/uniblock-json-rpc-api-openapi.yml)
 
-#### Tags:
+## Artifacts
 
- - Web3, Blockchain, JSON-RPC, Nodes, EVM
+### OpenAPI Specs
 
-#### Properties
+| File | Description |
+|------|-------------|
+| [openapi/uniblock-unified-api-openapi.yml](openapi/uniblock-unified-api-openapi.yml) | Unified API — tokens, NFTs, transactions, market data across 300+ chains |
+| [openapi/uniblock-direct-api-openapi.yml](openapi/uniblock-direct-api-openapi.yml) | Direct API — pass-through to upstream providers |
+| [openapi/uniblock-json-rpc-api-openapi.yml](openapi/uniblock-json-rpc-api-openapi.yml) | JSON-RPC API — unified node access |
 
-- [Documentation](https://docs.uniblock.dev/reference/unified-api-reference-overview)
-- [OpenAPI](openapi/uniblock-json-rpc-api-openapi.yml)
+### AsyncAPI
 
-## Common Properties
+| File | Description |
+|------|-------------|
+| [asyncapi/uniblock-webhooks-asyncapi.yml](asyncapi/uniblock-webhooks-asyncapi.yml) | Webhook events for blockchain data notifications |
+
+### Capabilities
+
+| File | Description |
+|------|-------------|
+| [capabilities/blockchain-data.yaml](capabilities/blockchain-data.yaml) | Workflow capability for multi-chain blockchain data (REST + MCP) |
+| [capabilities/shared/uniblock-unified-api.yaml](capabilities/shared/uniblock-unified-api.yaml) | Shared per-API definition for Unified API |
+
+### JSON Schema
+
+| File | Description |
+|------|-------------|
+| [json-schema/uniblock-token-schema.json](json-schema/uniblock-token-schema.json) | Token metadata and balance schema |
+| [json-schema/uniblock-nft-schema.json](json-schema/uniblock-nft-schema.json) | NFT metadata and collection schema |
+| [json-schema/uniblock-transaction-schema.json](json-schema/uniblock-transaction-schema.json) | Transaction data schema |
+| [json-schema/uniblock-webhook-event-schema.json](json-schema/uniblock-webhook-event-schema.json) | Webhook event payload schema |
+
+### JSON Structure
+
+| File | Description |
+|------|-------------|
+| [json-structure/uniblock-token-structure.json](json-structure/uniblock-token-structure.json) | Field-level documentation for the Token entity |
+
+### JSON-LD
+
+| File | Description |
+|------|-------------|
+| [json-ld/uniblock-context.jsonld](json-ld/uniblock-context.jsonld) | JSON-LD context for blockchain data linked data semantics |
+
+### Examples
+
+| File | Description |
+|------|-------------|
+| [examples/uniblock-get-token-metadata-example.json](examples/uniblock-get-token-metadata-example.json) | Example GET token metadata request for USDC on Ethereum |
+
+### Spectral Rules
+
+| File | Description |
+|------|-------------|
+| [rules/uniblock-rules.yml](rules/uniblock-rules.yml) | Spectral ruleset for Uniblock API conventions |
+
+### Vocabulary
+
+| File | Description |
+|------|-------------|
+| [vocabulary/uniblock-vocabulary.yml](vocabulary/uniblock-vocabulary.yml) | Blockchain, Web3, DeFi, NFT, and Uniblock platform vocabulary |
+
+## Properties
 
 - [Website](https://uniblock.dev/)
-- [Portal](https://docs.uniblock.dev/)
+- [Developer Portal](https://docs.uniblock.dev/)
 - [Documentation](https://docs.uniblock.dev/docs/welcome-to-uniblock)
 - [Getting Started](https://docs.uniblock.dev/docs/uniblock-quickstart-guide)
 - [Blog](https://www.uniblock.dev/blog)
@@ -77,9 +100,3 @@ The Uniblock JSON-RPC API provides a single endpoint for standard JSON-RPC calls
 - [Integrations](https://www.uniblock.dev/integrations)
 - [Chains](https://www.uniblock.dev/chains)
 - [Login](https://app.uniblock.dev/)
-
-## Maintainers
-
-**FN:** API Evangelist
-
-**Email:** info@apievangelist.com

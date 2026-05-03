@@ -1,0 +1,201 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Uniblock Blockchain Data"
+  description: >-
+    Unified capability for blockchain data access via Uniblock. Combines the
+    Unified API and Direct API into a single workflow surface for Web3
+    developers, DeFi analysts, portfolio trackers, and NFT platforms needing
+    multi-chain token, NFT, transaction, and market data.
+  tags:
+    - Uniblock
+    - Blockchain
+    - Web3
+    - Tokens
+    - NFTs
+    - Market Data
+    - DeFi
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      UNIBLOCK_API_KEY: UNIBLOCK_API_KEY
+
+capability:
+  consumes:
+    - import: uniblock-unified
+      location: ./shared/uniblock-unified-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: blockchain-data-api
+      description: "Unified REST API for multi-chain blockchain data via Uniblock."
+      resources:
+        - path: /v1/tokens/metadata
+          name: token-metadata
+          description: "Token metadata across blockchain networks"
+          operations:
+            - method: GET
+              name: get-token-metadata
+              description: "Get token name, symbol, decimals, and contract details"
+              call: "uniblock-unified.get-token-metadata"
+              with:
+                chain: "rest.chain"
+                contractAddress: "rest.contractAddress"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/tokens/balances
+          name: token-balances
+          description: "Token balances for a wallet"
+          operations:
+            - method: GET
+              name: get-token-balances
+              description: "Get all token balances for a wallet address"
+              call: "uniblock-unified.get-token-balances"
+              with:
+                chain: "rest.chain"
+                address: "rest.address"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/tokens/price
+          name: token-price
+          description: "Token market price"
+          operations:
+            - method: GET
+              name: get-market-price
+              description: "Get current market price for a token"
+              call: "uniblock-unified.get-market-price"
+              with:
+                chain: "rest.chain"
+                contractAddress: "rest.contractAddress"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/nfts
+          name: nft-balances
+          description: "NFT holdings for a wallet"
+          operations:
+            - method: GET
+              name: get-nft-balances
+              description: "Get all NFTs held by a wallet address"
+              call: "uniblock-unified.get-nft-balances"
+              with:
+                chain: "rest.chain"
+                address: "rest.address"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/nfts/metadata
+          name: nft-metadata
+          description: "NFT token metadata"
+          operations:
+            - method: GET
+              name: get-nft-metadata
+              description: "Get metadata for a specific NFT"
+              call: "uniblock-unified.get-nft-metadata"
+              with:
+                chain: "rest.chain"
+                contractAddress: "rest.contractAddress"
+                tokenId: "rest.tokenId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/transactions
+          name: transactions
+          description: "Transaction history"
+          operations:
+            - method: GET
+              name: get-transactions
+              description: "Get transaction history for a wallet"
+              call: "uniblock-unified.get-transactions"
+              with:
+                chain: "rest.chain"
+                address: "rest.address"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: blockchain-data-mcp
+      transport: http
+      description: "MCP server for AI-assisted blockchain data analysis via Uniblock."
+      tools:
+        - name: get-token-metadata
+          description: "Look up token metadata (name, symbol, decimals, contract) on any supported blockchain"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "uniblock-unified.get-token-metadata"
+          with:
+            chain: "tools.chain"
+            contractAddress: "tools.contractAddress"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-token-balances
+          description: "Get all token balances for a wallet address across a blockchain network"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "uniblock-unified.get-token-balances"
+          with:
+            chain: "tools.chain"
+            address: "tools.address"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-token-price
+          description: "Get current market price for a token by contract address"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "uniblock-unified.get-market-price"
+          with:
+            chain: "tools.chain"
+            contractAddress: "tools.contractAddress"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-nft-holdings
+          description: "Get all NFTs held by a wallet address on a blockchain network"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "uniblock-unified.get-nft-balances"
+          with:
+            chain: "tools.chain"
+            address: "tools.address"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-nft-metadata
+          description: "Get metadata for a specific NFT including image, attributes, and collection details"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "uniblock-unified.get-nft-metadata"
+          with:
+            chain: "tools.chain"
+            contractAddress: "tools.contractAddress"
+            tokenId: "tools.tokenId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-transaction-history
+          description: "Get transaction history for a wallet address"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "uniblock-unified.get-transactions"
+          with:
+            chain: "tools.chain"
+            address: "tools.address"
+          outputParameters:
+            - type: object
+              mapping: "$."

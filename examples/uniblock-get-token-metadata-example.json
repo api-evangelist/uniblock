@@ -1,0 +1,27 @@
+{
+  "summary": "Get token metadata for USDC on Ethereum",
+  "request": {
+    "method": "GET",
+    "url": "https://api.uniblock.dev/uni/v1/token/metadata?chain=ethereum&contractAddress=0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    "headers": {
+      "x-api-key": "{YOUR_API_KEY}",
+      "Accept": "application/json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "USD Coin",
+      "symbol": "USDC",
+      "decimals": 6,
+      "contractAddress": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "chain": "ethereum",
+      "totalSupply": "25000000000000000",
+      "logo": "https://assets.uniblock.dev/tokens/usdc.png",
+      "website": "https://www.circle.com/usdc"
+    }
+  }
+}

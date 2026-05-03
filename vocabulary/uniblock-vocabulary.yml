@@ -1,0 +1,104 @@
+name: Uniblock Vocabulary
+description: >-
+  Vocabulary and taxonomy for the Uniblock Web3 infrastructure platform,
+  covering blockchain data concepts, multi-chain architecture, DeFi terminology,
+  NFT standards, and the Uniblock API surface.
+tags:
+  - Uniblock
+  - Blockchain
+  - Web3
+  - DeFi
+  - NFTs
+modified: '2026-05-03'
+
+domains:
+  - name: Blockchain Fundamentals
+    description: Core blockchain and distributed ledger concepts
+    terms:
+      - term: Blockchain
+        definition: A distributed ledger that records transactions in blocks linked cryptographically
+      - term: Chain
+        definition: A specific blockchain network identified by a chain ID or name (e.g., ethereum, polygon, bsc)
+      - term: EVM
+        definition: Ethereum Virtual Machine — the runtime environment for smart contracts on Ethereum-compatible chains
+      - term: Smart Contract
+        definition: Self-executing code deployed on a blockchain at a specific address
+      - term: Wallet Address
+        definition: A public hexadecimal identifier derived from a cryptographic key pair that can hold and send assets
+      - term: Transaction
+        definition: A signed instruction from a wallet that modifies blockchain state
+      - term: Block
+        definition: A batch of confirmed transactions grouped and added to the blockchain
+      - term: Gas
+        definition: The unit measuring computational effort required to execute operations on EVM-compatible blockchains
+      - term: Nonce
+        definition: A sequential counter for transactions from a wallet, ensuring transaction ordering
+
+  - name: Token Standards
+    description: Fungible and non-fungible token standards
+    terms:
+      - term: ERC-20
+        definition: The Ethereum standard for fungible tokens — interchangeable units with name, symbol, and decimals
+      - term: ERC-721
+        definition: The Ethereum standard for non-fungible tokens (NFTs) — unique tokens with individual ownership
+      - term: ERC-1155
+        definition: A multi-token standard supporting both fungible and non-fungible tokens in one contract
+      - term: Token Decimals
+        definition: The number of decimal places for a fungible token — typically 18 for ETH and 6 for USDC
+      - term: Total Supply
+        definition: The total number of tokens in existence for a given contract
+      - term: Allowance
+        definition: The amount of tokens a spender is authorized to transfer on behalf of a token holder (ERC-20)
+
+  - name: NFT Concepts
+    description: Non-fungible token specific terminology
+    terms:
+      - term: NFT
+        definition: Non-Fungible Token — a unique, indivisible digital asset on a blockchain
+      - term: Token ID
+        definition: The unique numerical identifier for a specific NFT within a collection contract
+      - term: Collection
+        definition: A group of NFTs deployed under a single smart contract address
+      - term: Metadata
+        definition: Structured data describing an NFT including name, description, image, and attributes
+      - term: IPFS
+        definition: InterPlanetary File System — a decentralized storage protocol commonly used to host NFT metadata
+      - term: Mint
+        definition: The process of creating a new NFT and recording it on-chain
+
+  - name: DeFi Concepts
+    description: Decentralized finance terminology
+    terms:
+      - term: DEX
+        definition: Decentralized Exchange — an automated market maker protocol for trading tokens without a central intermediary
+        aliases: [Decentralized Exchange]
+      - term: Market Cap
+        definition: Total market capitalization — current price multiplied by circulating supply
+      - term: Trading Volume
+        definition: The total value of tokens traded over a period (commonly 24 hours)
+      - term: Price Impact
+        definition: The effect a trade has on the market price due to pool depth
+      - term: Liquidity Pool
+        definition: A smart contract holding token reserves that enables decentralized trading
+
+  - name: Uniblock Platform Concepts
+    description: Concepts specific to the Uniblock API platform
+    terms:
+      - term: Unified API
+        definition: Uniblock's higher-level API that abstracts multiple data providers into a single endpoint
+      - term: Direct API
+        definition: Uniblock's pass-through API for accessing provider-specific endpoints not yet in the Unified API
+      - term: JSON-RPC API
+        definition: Uniblock's unified endpoint for standard JSON-RPC blockchain node calls across 300+ networks
+      - term: Provider Routing
+        definition: Uniblock's automatic selection of the best upstream data provider based on reliability and cost
+      - term: Multi-Chain
+        definition: Support for interacting with multiple distinct blockchain networks through a single interface
+      - term: Cross-Chain
+        definition: Operations or data that span multiple blockchain networks
+      - term: Failover
+        definition: Automatic retry using an alternative provider when the primary provider fails
+      - term: Chain ID
+        definition: A numeric identifier uniquely identifying a blockchain network (e.g., 1 for Ethereum mainnet)
+      - term: Webhook
+        definition: An HTTP callback that Uniblock uses to deliver real-time blockchain event notifications

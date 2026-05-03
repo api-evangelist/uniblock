@@ -33,7 +33,7 @@ paths:
   /{provider}/{path}:
     get:
       operationId: directGetRequest
-      summary: Uniblock Direct GET request to a provider
+      summary: Direct GET Request to a Provider
       description: >-
         Sends a GET request through to the specified upstream provider
         endpoint. The response is returned exactly as the first-party
@@ -80,7 +80,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       operationId: directPostRequest
-      summary: Uniblock Direct POST request to a provider
+      summary: Direct POST Request to a Provider
       description: >-
         Sends a POST request through to the specified upstream provider
         endpoint. The request body is forwarded exactly as provided, and
@@ -134,7 +134,7 @@ paths:
   /{provider}/{prefix}/{path}:
     get:
       operationId: directGetRequestWithPrefix
-      summary: Uniblock Direct GET request to a provider with prefix
+      summary: Direct GET Request to a Provider with prefix
       description: >-
         Sends a GET request to a provider endpoint that requires a prefix
         in the URL, such as a network name. Some providers require specifying
@@ -179,7 +179,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       operationId: directPostRequestWithPrefix
-      summary: Uniblock Direct POST request to a provider with prefix
+      summary: Direct POST Request to a Provider with prefix
       description: >-
         Sends a POST request to a provider endpoint that requires a prefix
         in the URL. The request body and any authentication headers are

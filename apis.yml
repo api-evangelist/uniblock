@@ -116,6 +116,12 @@ common:
     url: https://www.uniblock.dev/chains
   - type: Login
     url: https://app.uniblock.dev/
+  - type: Spectral Rules
+    url: rules/uniblock-rules.yml
+  - type: Vocabulary
+    url: vocabulary/uniblock-vocabulary.yml
+  - type: Capabilities
+    url: capabilities/blockchain-data.yaml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

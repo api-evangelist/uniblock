@@ -1,0 +1,21 @@
+{
+  "title": "Uniblock Token Structure",
+  "description": "Field-level documentation for the Uniblock Token entity representing fungible token metadata and balance data.",
+  "type": "object",
+  "fields": [
+    { "name": "chain", "type": "string", "required": true, "description": "Blockchain network identifier (e.g., ethereum, polygon, bsc)" },
+    { "name": "contractAddress", "type": "string", "required": true, "description": "Token smart contract address (checksummed hex)" },
+    { "name": "name", "type": "string", "required": false, "description": "Token name (e.g., Ethereum)" },
+    { "name": "symbol", "type": "string", "required": false, "description": "Token ticker symbol (e.g., ETH)" },
+    { "name": "decimals", "type": "integer", "required": false, "description": "Number of decimal places (typically 18 for ERC-20)" },
+    { "name": "totalSupply", "type": "string", "required": false, "description": "Total supply in base units (as string to avoid precision loss)" },
+    { "name": "balance", "type": "string", "required": false, "description": "Wallet balance in base units" },
+    { "name": "balanceUSD", "type": "number", "required": false, "description": "Wallet balance converted to USD at current price" },
+    { "name": "price", "type": "number", "required": false, "description": "Current token price in USD" },
+    { "name": "priceChange24h", "type": "number", "required": false, "description": "Price change percentage over 24 hours" },
+    { "name": "marketCap", "type": "number", "required": false, "description": "Market capitalization in USD" },
+    { "name": "volume24h", "type": "number", "required": false, "description": "24-hour trading volume in USD" },
+    { "name": "logo", "type": "uri", "required": false, "description": "URL to the token logo image" },
+    { "name": "website", "type": "uri", "required": false, "description": "Token project website" }
+  ]
+}
