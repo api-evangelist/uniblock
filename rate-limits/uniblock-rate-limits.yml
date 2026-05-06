@@ -4,93 +4,64 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Uniblock
 providerId: uniblock
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - Blockchain
   - Web3
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Uniblock API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: Uniblock enforces rate limits at the plan level using compute units per second (CU/s)
+  along with a monthly CU envelope. Limits are bound to the project's API key. Exceeding the rate
+  returns HTTP 429; clients should back off, batch, cache, or upgrade to a higher plan. Specific
+  retry headers are not documented publicly.
+sources:
+  - https://uniblock.dev/pricing
+  - https://docs.uniblock.dev/guides/uniblock/rate-limits
 responseCodes:
   throttled: 429
   quotaExceeded: 429
-  serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Uniblock Unified API
-      - Uniblock Direct API
-      - Uniblock JSON-RPC API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
+  - name: Startup plan rate
+    scope: project
+    metric: compute_units_per_second
     limit: 1000
-    timeFrame: month
-    applies:
-      - Uniblock Unified API
-      - Uniblock Direct API
-      - Uniblock JSON-RPC API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Uniblock Unified API
-      - Uniblock Direct API
-      - Uniblock JSON-RPC API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Uniblock Unified API
-      - Uniblock Direct API
-      - Uniblock JSON-RPC API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
+    timeFrame: second
+    notes: Free Startup plan; 40M CUs per month.
+  - name: Growth plan rate
+    scope: project
+    metric: compute_units_per_second
+    limit: 2000
+    timeFrame: second
+    notes: Growth plan; 500M CUs per month.
+  - name: Pro plan rate
+    scope: project
+    metric: compute_units_per_second
+    limit: 8000
+    timeFrame: second
+    notes: Pro plan; 2B CUs per month.
+  - name: Business plan rate
+    scope: project
+    metric: compute_units_per_second
+    limit: 20000
+    timeFrame: second
+    notes: Business plan; 5.5B CUs per month.
+  - name: Enterprise plan rate
     scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Uniblock Unified API
-      - Uniblock Direct API
-      - Uniblock JSON-RPC API
+    metric: compute_units_per_second
+    limit: custom
+    notes: Negotiated CU/s and dedicated nodes per contract.
 policies:
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    description: On HTTP 429, implement retry with exponential backoff or brief delay before re-submission.
+  - name: Caching and Batching
+    description: Reduce CU consumption by lowering polling frequency, batching requests, and caching
+      responses where possible.
+  - name: Plan Upgrade
+    description: Sustained throughput needs above plan limits should be addressed by upgrading plan
+      tier rather than retrying past the limit.
+  - name: Plan-Scoped Enforcement
+    description: Rate limits are enforced at the Uniblock plan level per project, not globally per
+      account.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
