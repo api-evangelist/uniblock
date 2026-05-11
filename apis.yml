@@ -122,6 +122,9 @@ common:
     url: vocabulary/uniblock-vocabulary.yml
   - type: Capabilities
     url: capabilities/blockchain-data.yaml
+integrations:
+  - name: Deepstack
+  - name: Blog Image
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
