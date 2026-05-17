@@ -88,7 +88,7 @@ apis:
       JSON-RPC methods, as well as Solana and other chain-specific RPC interfaces,
       with built-in failover and automatic retries.
 common:
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/uniblock-context.jsonld
   - type: JSONSchema
     url: json-schema/uniblock-token-schema.json
@@ -104,7 +104,7 @@ common:
     url: https://docs.uniblock.dev/
   - type: Documentation
     url: https://docs.uniblock.dev/docs/welcome-to-uniblock
-  - type: Getting Started
+  - type: GettingStarted
     url: https://docs.uniblock.dev/docs/uniblock-quickstart-guide
   - type: Blog
     url: https://www.uniblock.dev/blog
