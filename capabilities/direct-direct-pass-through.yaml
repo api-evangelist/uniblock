@@ -1,0 +1,174 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Uniblock Direct API — Direct Pass-Through
+  description: 'Uniblock Direct API — Direct Pass-Through. 4 operations. Lead operation: Direct GET Request to a Provider.
+    Self-contained Naftiko capability covering one Uniblock business surface.'
+  tags:
+  - Uniblock
+  - Direct Pass-Through
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIBLOCK_API_KEY: UNIBLOCK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: direct-direct-pass-through
+    baseUri: https://api.uniblock.dev/direct/v1
+    description: Uniblock Direct API — Direct Pass-Through business capability. Self-contained, no shared references.
+    resources:
+    - name: provider-path
+      path: /{provider}/{path}
+      operations:
+      - name: directgetrequest
+        method: GET
+        description: Direct GET Request to a Provider
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: directpostrequest
+        method: POST
+        description: Direct POST Request to a Provider
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: provider-prefix-path
+      path: /{provider}/{prefix}/{path}
+      operations:
+      - name: directgetrequestwithprefix
+        method: GET
+        description: Direct GET Request to a Provider with prefix
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: directpostrequestwithprefix
+        method: POST
+        description: Direct POST Request to a Provider with prefix
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: apikey
+      key: x-api-key
+      value: '{{env.UNIBLOCK_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: direct-direct-pass-through-rest
+    port: 8080
+    description: REST adapter for Uniblock Direct API — Direct Pass-Through. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/{provider}/{path}
+      name: provider-path
+      description: REST surface for provider-path.
+      operations:
+      - method: GET
+        name: directgetrequest
+        description: Direct GET Request to a Provider
+        call: direct-direct-pass-through.directgetrequest
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: directpostrequest
+        description: Direct POST Request to a Provider
+        call: direct-direct-pass-through.directpostrequest
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{provider}/{prefix}/{path}
+      name: provider-prefix-path
+      description: REST surface for provider-prefix-path.
+      operations:
+      - method: GET
+        name: directgetrequestwithprefix
+        description: Direct GET Request to a Provider with prefix
+        call: direct-direct-pass-through.directgetrequestwithprefix
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: directpostrequestwithprefix
+        description: Direct POST Request to a Provider with prefix
+        call: direct-direct-pass-through.directpostrequestwithprefix
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: direct-direct-pass-through-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Uniblock Direct API — Direct Pass-Through. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: direct-get-request-provider
+      description: Direct GET Request to a Provider
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: direct-direct-pass-through.directgetrequest
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: direct-post-request-provider
+      description: Direct POST Request to a Provider
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: direct-direct-pass-through.directpostrequest
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: direct-get-request-provider-prefix
+      description: Direct GET Request to a Provider with prefix
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: direct-direct-pass-through.directgetrequestwithprefix
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: direct-post-request-provider-prefix
+      description: Direct POST Request to a Provider with prefix
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: direct-direct-pass-through.directpostrequestwithprefix
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

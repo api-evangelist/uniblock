@@ -1,0 +1,90 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Uniblock JSON-RPC API — JSON-RPC
+  description: 'Uniblock JSON-RPC API — JSON-RPC. 1 operations. Lead operation: Send a JSON-RPC Request. Self-contained Naftiko
+    capability covering one Uniblock business surface.'
+  tags:
+  - Uniblock
+  - JSON-RPC
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIBLOCK_API_KEY: UNIBLOCK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: json-rpc-json-rpc
+    baseUri: https://api.uniblock.dev
+    description: Uniblock JSON-RPC API — JSON-RPC business capability. Self-contained, no shared references.
+    resources:
+    - name: json-rpc-v1-chain
+      path: /json-rpc/v1/{chain}
+      operations:
+      - name: sendjsonrpcrequest
+        method: POST
+        description: Send a JSON-RPC Request
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: path
+          type: string
+          description: The blockchain network to send the JSON-RPC request to (e.g., ethereum, polygon, solana, bsc, arbitrum,
+            optimism, avalanche, base).
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: x-api-key
+      value: '{{env.UNIBLOCK_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: json-rpc-json-rpc-rest
+    port: 8080
+    description: REST adapter for Uniblock JSON-RPC API — JSON-RPC. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/json-rpc/v1/{chain}
+      name: json-rpc-v1-chain
+      description: REST surface for json-rpc-v1-chain.
+      operations:
+      - method: POST
+        name: sendjsonrpcrequest
+        description: Send a JSON-RPC Request
+        call: json-rpc-json-rpc.sendjsonrpcrequest
+        with:
+          chain: rest.chain
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: json-rpc-json-rpc-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Uniblock JSON-RPC API — JSON-RPC. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: send-json-rpc-request
+      description: Send a JSON-RPC Request
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: json-rpc-json-rpc.sendjsonrpcrequest
+      with:
+        chain: tools.chain
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

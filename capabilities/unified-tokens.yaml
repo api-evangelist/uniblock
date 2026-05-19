@@ -1,0 +1,282 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Uniblock Unified API — Tokens
+  description: 'Uniblock Unified API — Tokens. 7 operations. Lead operation: Get Token Allowances. Self-contained Naftiko
+    capability covering one Uniblock business surface.'
+  tags:
+  - Uniblock
+  - Tokens
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIBLOCK_API_KEY: UNIBLOCK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: unified-tokens
+    baseUri: https://api.uniblock.dev/uni/v1
+    description: Uniblock Unified API — Tokens business capability. Self-contained, no shared references.
+    resources:
+    - name: token-allowances
+      path: /token/allowances
+      operations:
+      - name: gettokenallowances
+        method: GET
+        description: Get Token Allowances
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: token-balance
+      path: /token/balance
+      operations:
+      - name: gettokenbalance
+        method: GET
+        description: Get Token Balances
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: token-balance-historical
+      path: /token/balance/historical
+      operations:
+      - name: gettokenbalancehistorical
+        method: GET
+        description: Get Historical Token Balances
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: blockNumber
+          in: query
+          type: integer
+          description: The block number at which to retrieve the historical balance.
+    - name: token-metadata
+      path: /token/metadata
+      operations:
+      - name: gettokenmetadata
+        method: GET
+        description: Get Token Metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: token-price
+      path: /token/price
+      operations:
+      - name: gettokenprice
+        method: GET
+        description: Get Token Price
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: token-price-historical
+      path: /token/price/historical
+      operations:
+      - name: gettokenpricehistorical
+        method: GET
+        description: Get Historical Token Price
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: date
+          in: query
+          type: string
+          description: The date for which to retrieve historical price data in ISO 8601 format.
+    - name: token-transfers
+      path: /token/transfers
+      operations:
+      - name: gettokentransfers
+        method: GET
+        description: Get Token Transfers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: x-api-key
+      value: '{{env.UNIBLOCK_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: unified-tokens-rest
+    port: 8080
+    description: REST adapter for Uniblock Unified API — Tokens. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/token/allowances
+      name: token-allowances
+      description: REST surface for token-allowances.
+      operations:
+      - method: GET
+        name: gettokenallowances
+        description: Get Token Allowances
+        call: unified-tokens.gettokenallowances
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/token/balance
+      name: token-balance
+      description: REST surface for token-balance.
+      operations:
+      - method: GET
+        name: gettokenbalance
+        description: Get Token Balances
+        call: unified-tokens.gettokenbalance
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/token/balance/historical
+      name: token-balance-historical
+      description: REST surface for token-balance-historical.
+      operations:
+      - method: GET
+        name: gettokenbalancehistorical
+        description: Get Historical Token Balances
+        call: unified-tokens.gettokenbalancehistorical
+        with:
+          blockNumber: rest.blockNumber
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/token/metadata
+      name: token-metadata
+      description: REST surface for token-metadata.
+      operations:
+      - method: GET
+        name: gettokenmetadata
+        description: Get Token Metadata
+        call: unified-tokens.gettokenmetadata
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/token/price
+      name: token-price
+      description: REST surface for token-price.
+      operations:
+      - method: GET
+        name: gettokenprice
+        description: Get Token Price
+        call: unified-tokens.gettokenprice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/token/price/historical
+      name: token-price-historical
+      description: REST surface for token-price-historical.
+      operations:
+      - method: GET
+        name: gettokenpricehistorical
+        description: Get Historical Token Price
+        call: unified-tokens.gettokenpricehistorical
+        with:
+          date: rest.date
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/token/transfers
+      name: token-transfers
+      description: REST surface for token-transfers.
+      operations:
+      - method: GET
+        name: gettokentransfers
+        description: Get Token Transfers
+        call: unified-tokens.gettokentransfers
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: unified-tokens-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Uniblock Unified API — Tokens. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-token-allowances
+      description: Get Token Allowances
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-tokens.gettokenallowances
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-token-balances
+      description: Get Token Balances
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-tokens.gettokenbalance
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-historical-token-balances
+      description: Get Historical Token Balances
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-tokens.gettokenbalancehistorical
+      with:
+        blockNumber: tools.blockNumber
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-token-metadata
+      description: Get Token Metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-tokens.gettokenmetadata
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-token-price
+      description: Get Token Price
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-tokens.gettokenprice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-historical-token-price
+      description: Get Historical Token Price
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-tokens.gettokenpricehistorical
+      with:
+        date: tools.date
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-token-transfers
+      description: Get Token Transfers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-tokens.gettokentransfers
+      outputParameters:
+      - type: object
+        mapping: $.

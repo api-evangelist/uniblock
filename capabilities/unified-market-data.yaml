@@ -1,0 +1,262 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Uniblock Unified API — Market Data
+  description: 'Uniblock Unified API — Market Data. 6 operations. Lead operation: Get Charting Data. Self-contained Naftiko
+    capability covering one Uniblock business surface.'
+  tags:
+  - Uniblock
+  - Market Data
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIBLOCK_API_KEY: UNIBLOCK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: unified-market-data
+    baseUri: https://api.uniblock.dev/uni/v1
+    description: Uniblock Unified API — Market Data business capability. Self-contained, no shared references.
+    resources:
+    - name: market-data-chart
+      path: /market-data/chart
+      operations:
+      - name: getmarketdatachart
+        method: GET
+        description: Get Charting Data
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: from
+          in: query
+          type: string
+          description: Start date for the charting period in ISO 8601 format.
+        - name: to
+          in: query
+          type: string
+          description: End date for the charting period in ISO 8601 format.
+        - name: granularity
+          in: query
+          type: string
+          description: Time interval granularity for data points.
+    - name: market-data-history
+      path: /market-data/history
+      operations:
+      - name: getmarketdatahistory
+        method: GET
+        description: Get Historical Market Data
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: date
+          in: query
+          type: string
+          description: The specific date for historical data retrieval in ISO 8601 format.
+    - name: market-data-market-cap
+      path: /market-data/market-cap
+      operations:
+      - name: getmarketdatamarketcap
+        method: GET
+        description: Get Market Capitalization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: market-data-price
+      path: /market-data/price
+      operations:
+      - name: getmarketdataprice
+        method: GET
+        description: Get Market Data Price
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: market-data-trending
+      path: /market-data/trending
+      operations:
+      - name: getmarketdatatrending
+        method: GET
+        description: Get Trending Tokens
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: market-data-volume
+      path: /market-data/volume
+      operations:
+      - name: getmarketdatavolume
+        method: GET
+        description: Get Trading Volume
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: x-api-key
+      value: '{{env.UNIBLOCK_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: unified-market-data-rest
+    port: 8080
+    description: REST adapter for Uniblock Unified API — Market Data. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/market-data/chart
+      name: market-data-chart
+      description: REST surface for market-data-chart.
+      operations:
+      - method: GET
+        name: getmarketdatachart
+        description: Get Charting Data
+        call: unified-market-data.getmarketdatachart
+        with:
+          from: rest.from
+          to: rest.to
+          granularity: rest.granularity
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/market-data/history
+      name: market-data-history
+      description: REST surface for market-data-history.
+      operations:
+      - method: GET
+        name: getmarketdatahistory
+        description: Get Historical Market Data
+        call: unified-market-data.getmarketdatahistory
+        with:
+          date: rest.date
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/market-data/market-cap
+      name: market-data-market-cap
+      description: REST surface for market-data-market-cap.
+      operations:
+      - method: GET
+        name: getmarketdatamarketcap
+        description: Get Market Capitalization
+        call: unified-market-data.getmarketdatamarketcap
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/market-data/price
+      name: market-data-price
+      description: REST surface for market-data-price.
+      operations:
+      - method: GET
+        name: getmarketdataprice
+        description: Get Market Data Price
+        call: unified-market-data.getmarketdataprice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/market-data/trending
+      name: market-data-trending
+      description: REST surface for market-data-trending.
+      operations:
+      - method: GET
+        name: getmarketdatatrending
+        description: Get Trending Tokens
+        call: unified-market-data.getmarketdatatrending
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/market-data/volume
+      name: market-data-volume
+      description: REST surface for market-data-volume.
+      operations:
+      - method: GET
+        name: getmarketdatavolume
+        description: Get Trading Volume
+        call: unified-market-data.getmarketdatavolume
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: unified-market-data-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Uniblock Unified API — Market Data. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-charting-data
+      description: Get Charting Data
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-market-data.getmarketdatachart
+      with:
+        from: tools.from
+        to: tools.to
+        granularity: tools.granularity
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-historical-market-data
+      description: Get Historical Market Data
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-market-data.getmarketdatahistory
+      with:
+        date: tools.date
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-market-capitalization
+      description: Get Market Capitalization
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-market-data.getmarketdatamarketcap
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-market-data-price
+      description: Get Market Data Price
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-market-data.getmarketdataprice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-trending-tokens
+      description: Get Trending Tokens
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-market-data.getmarketdatatrending
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-trading-volume
+      description: Get Trading Volume
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-market-data.getmarketdatavolume
+      outputParameters:
+      - type: object
+        mapping: $.

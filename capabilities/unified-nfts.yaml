@@ -1,0 +1,178 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Uniblock Unified API — NFTs
+  description: 'Uniblock Unified API — NFTs. 4 operations. Lead operation: Get NFT Balances. Self-contained Naftiko capability
+    covering one Uniblock business surface.'
+  tags:
+  - Uniblock
+  - NFTs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIBLOCK_API_KEY: UNIBLOCK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: unified-nfts
+    baseUri: https://api.uniblock.dev/uni/v1
+    description: Uniblock Unified API — NFTs business capability. Self-contained, no shared references.
+    resources:
+    - name: nft-balance
+      path: /nft/balance
+      operations:
+      - name: getnftbalance
+        method: GET
+        description: Get NFT Balances
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: nft-collection-metadata
+      path: /nft/collection-metadata
+      operations:
+      - name: getnftcollectionmetadata
+        method: GET
+        description: Get NFT Collection Metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: nft-metadata
+      path: /nft/metadata
+      operations:
+      - name: getnftmetadata
+        method: GET
+        description: Get NFT Metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tokenId
+          in: query
+          type: string
+          description: The token ID of the specific NFT within the collection.
+          required: true
+    - name: nft-transfers
+      path: /nft/transfers
+      operations:
+      - name: getnfttransfers
+        method: GET
+        description: Get NFT Transfers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: x-api-key
+      value: '{{env.UNIBLOCK_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: unified-nfts-rest
+    port: 8080
+    description: REST adapter for Uniblock Unified API — NFTs. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/nft/balance
+      name: nft-balance
+      description: REST surface for nft-balance.
+      operations:
+      - method: GET
+        name: getnftbalance
+        description: Get NFT Balances
+        call: unified-nfts.getnftbalance
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/nft/collection-metadata
+      name: nft-collection-metadata
+      description: REST surface for nft-collection-metadata.
+      operations:
+      - method: GET
+        name: getnftcollectionmetadata
+        description: Get NFT Collection Metadata
+        call: unified-nfts.getnftcollectionmetadata
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/nft/metadata
+      name: nft-metadata
+      description: REST surface for nft-metadata.
+      operations:
+      - method: GET
+        name: getnftmetadata
+        description: Get NFT Metadata
+        call: unified-nfts.getnftmetadata
+        with:
+          tokenId: rest.tokenId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/nft/transfers
+      name: nft-transfers
+      description: REST surface for nft-transfers.
+      operations:
+      - method: GET
+        name: getnfttransfers
+        description: Get NFT Transfers
+        call: unified-nfts.getnfttransfers
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: unified-nfts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Uniblock Unified API — NFTs. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-nft-balances
+      description: Get NFT Balances
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-nfts.getnftbalance
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-nft-collection-metadata
+      description: Get NFT Collection Metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-nfts.getnftcollectionmetadata
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-nft-metadata
+      description: Get NFT Metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-nfts.getnftmetadata
+      with:
+        tokenId: tools.tokenId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-nft-transfers
+      description: Get NFT Transfers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-nfts.getnfttransfers
+      outputParameters:
+      - type: object
+        mapping: $.

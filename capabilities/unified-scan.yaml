@@ -1,0 +1,136 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Uniblock Unified API — Scan
+  description: 'Uniblock Unified API — Scan. 3 operations. Lead operation: Get Native Token Supply. Self-contained Naftiko
+    capability covering one Uniblock business surface.'
+  tags:
+  - Uniblock
+  - Scan
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIBLOCK_API_KEY: UNIBLOCK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: unified-scan
+    baseUri: https://api.uniblock.dev/uni/v1
+    description: Uniblock Unified API — Scan business capability. Self-contained, no shared references.
+    resources:
+    - name: scan-native-supply
+      path: /scan/native-supply
+      operations:
+      - name: getscannativesupply
+        method: GET
+        description: Get Native Token Supply
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: scan-transactions
+      path: /scan/transactions
+      operations:
+      - name: getscantransactions
+        method: GET
+        description: Get Scanned Transactions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: scan-transfers
+      path: /scan/transfers
+      operations:
+      - name: getscantransfers
+        method: GET
+        description: Get Scanned Transfers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: x-api-key
+      value: '{{env.UNIBLOCK_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: unified-scan-rest
+    port: 8080
+    description: REST adapter for Uniblock Unified API — Scan. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/scan/native-supply
+      name: scan-native-supply
+      description: REST surface for scan-native-supply.
+      operations:
+      - method: GET
+        name: getscannativesupply
+        description: Get Native Token Supply
+        call: unified-scan.getscannativesupply
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/scan/transactions
+      name: scan-transactions
+      description: REST surface for scan-transactions.
+      operations:
+      - method: GET
+        name: getscantransactions
+        description: Get Scanned Transactions
+        call: unified-scan.getscantransactions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/scan/transfers
+      name: scan-transfers
+      description: REST surface for scan-transfers.
+      operations:
+      - method: GET
+        name: getscantransfers
+        description: Get Scanned Transfers
+        call: unified-scan.getscantransfers
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: unified-scan-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Uniblock Unified API — Scan. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-native-token-supply
+      description: Get Native Token Supply
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-scan.getscannativesupply
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-scanned-transactions
+      description: Get Scanned Transactions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-scan.getscantransactions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-scanned-transfers
+      description: Get Scanned Transfers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-scan.getscantransfers
+      outputParameters:
+      - type: object
+        mapping: $.
