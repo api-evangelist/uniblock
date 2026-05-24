@@ -126,6 +126,8 @@ common:
     url: vocabulary/uniblock-vocabulary.yml
   - type: Capabilities
     url: capabilities/blockchain-data.yaml
+  - type: LLMsTxt
+    url: https://docs.uniblock.dev/llms.txt
 integrations:
   - name: Deepstack
   - name: Blog Image
