@@ -1,0 +1,716 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Uniblock Unified API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Token Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/token/metadata",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              }
+            ]
+          },
+          "docs": "Retrieves metadata about a specific fungible token including name, symbol, decimals, and contract details. Supports multiple blockchain networks through automatic provider routing."
+        },
+        {
+          "info": {
+            "name": "Get Token Balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/token/balance",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "The wallet address to query data for."
+              }
+            ]
+          },
+          "docs": "Retrieves the native and fungible token balances associated with a specific wallet address. Returns balances across tokens held by the address on the specified blockchain network."
+        },
+        {
+          "info": {
+            "name": "Get Historical Token Balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/token/balance/historical",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "The wallet address to query data for."
+              },
+              {
+                "name": "blockNumber",
+                "value": "",
+                "type": "query",
+                "description": "The block number at which to retrieve the historical balance."
+              }
+            ]
+          },
+          "docs": "Retrieves historical token balances for a specific wallet address at a given point in time, enabling tracking of balance changes over time."
+        },
+        {
+          "info": {
+            "name": "Get Token Transfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/token/transfers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "The wallet address to query data for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving the next page of results."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of token transfers for a specific wallet address, including both incoming and outgoing transfers of fungible tokens. Useful for tracking token swaps and transfer history."
+        },
+        {
+          "info": {
+            "name": "Get Token Allowances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/token/allowances",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "The wallet address to query data for."
+              }
+            ]
+          },
+          "docs": "Retrieves token allowances granted by a specific wallet address to spender contracts. Useful for inspecting which contracts have approval to spend tokens on behalf of the wallet owner."
+        },
+        {
+          "info": {
+            "name": "Get Token Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/token/price",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              }
+            ]
+          },
+          "docs": "Retrieves the current USD price for a specific token by its contract address and chain. Aggregates pricing data from multiple exchange and data provider sources."
+        },
+        {
+          "info": {
+            "name": "Get Historical Token Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/token/price/historical",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "The date for which to retrieve historical price data in ISO 8601 format."
+              }
+            ]
+          },
+          "docs": "Retrieves the historical price, volume, and market cap of a token at a given date, enabling analysis of price movements over time."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "NFTs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get NFT Balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/nft/balance",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "The wallet address to query data for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving the next page of results."
+              }
+            ]
+          },
+          "docs": "Retrieves the NFT balances held by a specific wallet address, returning a list of NFTs owned including collection and token identifiers."
+        },
+        {
+          "info": {
+            "name": "Get NFT Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/nft/metadata",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query",
+                "description": "The token ID of the specific NFT within the collection."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed metadata for a specific NFT including name, description, image URL, attributes, and trait information."
+        },
+        {
+          "info": {
+            "name": "Get NFT Collection Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/nft/collection-metadata",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              }
+            ]
+          },
+          "docs": "Retrieves metadata about an NFT collection including name, description, total supply, floor price, and other collection-level attributes."
+        },
+        {
+          "info": {
+            "name": "Get NFT Transfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/nft/transfers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "The wallet address to query data for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving the next page of results."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of NFT transfer events for a specific wallet address or contract, including mints, sales, and transfers between addresses."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/transactions",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "The wallet address to query data for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving the next page of results."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of transactions associated with a specific wallet address, including both incoming and outgoing transactions across the specified blockchain network."
+        },
+        {
+          "info": {
+            "name": "Get Transaction by Hash",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/transactions/:transactionHash",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "transactionHash",
+                "value": "",
+                "type": "path",
+                "description": "The hash of the transaction to retrieve."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific transaction by its transaction hash, including status, gas used, block number, and input data."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Scan",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Scanned Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/scan/transactions",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "The wallet address to query data for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving the next page of results."
+              }
+            ]
+          },
+          "docs": "Retrieves transactions for a specific address using blockchain explorer-style scanning, useful for auditing transaction histories and monitoring network activity."
+        },
+        {
+          "info": {
+            "name": "Get Scanned Transfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/scan/transfers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "The wallet address to query data for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving the next page of results."
+              }
+            ]
+          },
+          "docs": "Retrieves token transfer events for a specific address using blockchain explorer-style scanning, including ERC-20 and ERC-721 transfers."
+        },
+        {
+          "info": {
+            "name": "Get Native Token Supply",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/scan/native-supply",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              }
+            ]
+          },
+          "docs": "Returns the current amount of the native token in circulation for the specified blockchain network, similar to block explorer supply queries."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Market Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Market Data Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/market-data/price",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              }
+            ]
+          },
+          "docs": "Retrieves the current price of a token from aggregated market data sources, providing real-time pricing from multiple exchanges."
+        },
+        {
+          "info": {
+            "name": "Get Market Capitalization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/market-data/market-cap",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              }
+            ]
+          },
+          "docs": "Retrieves the current market capitalization for a specific token, calculated from circulating supply and current price data."
+        },
+        {
+          "info": {
+            "name": "Get Trading Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/market-data/volume",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              }
+            ]
+          },
+          "docs": "Retrieves the 24-hour trading volume for a specific token across aggregated exchange data sources."
+        },
+        {
+          "info": {
+            "name": "Get Trending Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/market-data/trending",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of currently trending tokens based on trading activity, volume, and market interest across aggregated data sources."
+        },
+        {
+          "info": {
+            "name": "Get Charting Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/market-data/chart",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the charting period in ISO 8601 format."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End date for the charting period in ISO 8601 format."
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "Time interval granularity for data points."
+              }
+            ]
+          },
+          "docs": "Retrieves price, volume, and market cap data for a token at a given date range and predefined granularity, suitable for rendering charts and performing time-series analysis."
+        },
+        {
+          "info": {
+            "name": "Get Historical Market Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/uni/v1/market-data/history",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "The specific date for historical data retrieval in ISO 8601 format."
+              }
+            ]
+          },
+          "docs": "Retrieves historical price, volume, and market cap of a token at a specific date, enabling point-in-time market analysis."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

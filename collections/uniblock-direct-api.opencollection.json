@@ -1,0 +1,146 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Uniblock Direct API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Direct Pass-Through",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Direct GET Request to a Provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/:provider/:path",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path",
+                "description": "The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "The provider-specific endpoint path to call, exactly as documented by the upstream provider."
+              }
+            ]
+          },
+          "docs": "Sends a GET request through to the specified upstream provider endpoint. The response is returned exactly as the first-party provider would return it. If no authentication is passed explicitly, Uniblock will attempt to use the credentials stored in the project associated with your API key for the requested provider."
+        },
+        {
+          "info": {
+            "name": "Direct POST Request to a Provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.uniblock.dev/direct/v1/:provider/:path",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path",
+                "description": "The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "The provider-specific endpoint path to call, exactly as documented by the upstream provider."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a POST request through to the specified upstream provider endpoint. The request body is forwarded exactly as provided, and the response is returned directly from the upstream provider."
+        },
+        {
+          "info": {
+            "name": "Direct GET Request to a Provider with prefix",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/:provider/:prefix/:path",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path",
+                "description": "The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
+              },
+              {
+                "name": "prefix",
+                "value": "",
+                "type": "path",
+                "description": "An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "The provider-specific endpoint path to call, exactly as documented by the upstream provider."
+              }
+            ]
+          },
+          "docs": "Sends a GET request to a provider endpoint that requires a prefix in the URL, such as a network name. Some providers require specifying a prefix (e.g., the network identifier) as part of the base URL path."
+        },
+        {
+          "info": {
+            "name": "Direct POST Request to a Provider with prefix",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.uniblock.dev/direct/v1/:provider/:prefix/:path",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path",
+                "description": "The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
+              },
+              {
+                "name": "prefix",
+                "value": "",
+                "type": "path",
+                "description": "An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "The provider-specific endpoint path to call, exactly as documented by the upstream provider."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a POST request to a provider endpoint that requires a prefix in the URL. The request body and any authentication headers are forwarded to the upstream provider as provided."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

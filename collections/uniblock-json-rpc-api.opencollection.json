@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Uniblock JSON-RPC API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "JSON-RPC",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send a JSON-RPC Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.uniblock.dev/json-rpc/v1/:chain",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "path",
+                "description": "The blockchain network to send the JSON-RPC request to (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a standard JSON-RPC 2.0 request to the specified blockchain network. Uniblock automatically routes the request to the best available upstream node provider based on reliability, cost, and performance. Supports standard Ethereum methods like eth_blockNumber, eth_getBalance, eth_call, eth_sendRawTransaction, eth_getTransactionByHash, eth_getLogs, and others, as well as Solana and chain-specific methods."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
