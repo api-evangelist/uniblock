@@ -111,13 +111,13 @@ common:
     url: https://www.uniblock.dev/chains
   - type: Login
     url: https://app.uniblock.dev/
-  - type: Spectral Rules
+  - type: SpectralRules
     url: rules/uniblock-rules.yml
   - type: Vocabulary
     url: vocabulary/uniblock-vocabulary.yml
   - type: Capabilities
     url: capabilities/blockchain-data.yaml
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.uniblock.dev/llms.txt
 integrations:
   - name: Deepstack
