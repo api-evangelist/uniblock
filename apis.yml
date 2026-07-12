@@ -81,6 +81,10 @@ apis:
       Ethereum and EVM-compatible JSON-RPC methods, as well as Solana and other chain-specific RPC interfaces, with
       built-in failover and automatic retries.
 common:
+  - type: DomainSecurity
+    url: security/uniblock-domain-security.yml
+  - type: Authentication
+    url: authentication/uniblock-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/uniblock-dapp
   - type: JSONLD

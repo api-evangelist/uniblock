@@ -1,0 +1,21 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/uniblock-direct-api-openapi.yml, openapi/uniblock-json-rpc-api-openapi.yml,
+  openapi/uniblock-unified-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apiKeyHeader
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  description: Uniblock project API key passed as a header. If no provider-specific authentication
+    is passed in the request, Uniblock will use the credentials stored in the project associated
+    with this API key.
+  sources:
+  - openapi/uniblock-direct-api-openapi.yml
+  - openapi/uniblock-json-rpc-api-openapi.yml
+  - openapi/uniblock-unified-api-openapi.yml
