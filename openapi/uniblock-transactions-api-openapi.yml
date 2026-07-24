@@ -1,0 +1,265 @@
+openapi: 3.1.0
+info:
+  title: Uniblock Direct Direct Pass-Through Transactions API
+  description: The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers. Requests follow the pattern of specifying the provider and optional prefix in the URL path, while still benefiting from Uniblock's routing, retry, and failover infrastructure. Results are returned exactly as they would be if the first-party provider endpoint was called directly. This is intended for use cases where a specific method is not yet abstracted into the Unified API.
+  version: '1.0'
+  contact:
+    name: Uniblock Support
+    url: https://docs.uniblock.dev
+  termsOfService: https://uniblock.dev/terms
+servers:
+- url: https://api.uniblock.dev/direct/v1
+  description: Uniblock Direct API Production Server
+security:
+- apiKeyHeader: []
+tags:
+- name: Transactions
+  description: Endpoints for looking up transaction data by address or transaction hash, including detailed transaction information.
+paths:
+  /transactions:
+    get:
+      operationId: getTransactions
+      summary: Get Transactions
+      description: Retrieves a list of transactions associated with a specific wallet address, including both incoming and outgoing transactions across the specified blockchain network.
+      tags:
+      - Transactions
+      parameters:
+      - $ref: '#/components/parameters/chainParam'
+      - $ref: '#/components/parameters/walletAddressParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/cursorParam'
+      responses:
+        '200':
+          description: Successful response with transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionsResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /transactions/{transactionHash}:
+    get:
+      operationId: getTransactionByHash
+      summary: Get Transaction by Hash
+      description: Retrieves detailed information about a specific transaction by its transaction hash, including status, gas used, block number, and input data.
+      tags:
+      - Transactions
+      parameters:
+      - $ref: '#/components/parameters/chainParam'
+      - name: transactionHash
+        in: path
+        required: true
+        description: The hash of the transaction to retrieve.
+        schema:
+          type: string
+          pattern: ^0x[a-fA-F0-9]{64}$
+      responses:
+        '200':
+          description: Successful response with transaction details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionDetailResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Transaction not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  parameters:
+    walletAddressParam:
+      name: address
+      in: query
+      required: true
+      description: The wallet address to query data for.
+      schema:
+        type: string
+    chainParam:
+      name: chain
+      in: query
+      required: true
+      description: The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).
+      schema:
+        type: string
+        examples:
+        - ethereum
+        - polygon
+        - solana
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    cursorParam:
+      name: cursor
+      in: query
+      description: Pagination cursor for retrieving the next page of results.
+      schema:
+        type: string
+  schemas:
+    Transaction:
+      type: object
+      description: A blockchain transaction with summary information.
+      properties:
+        transactionHash:
+          type: string
+          description: The unique hash identifier of the transaction.
+        from:
+          type: string
+          description: The sender address.
+        to:
+          type: string
+          description: The recipient address.
+        value:
+          type: string
+          description: The value transferred in the native token's smallest unit.
+        blockNumber:
+          type: integer
+          description: The block number containing the transaction.
+        blockTimestamp:
+          type: string
+          format: date-time
+          description: The timestamp of the block containing the transaction.
+        status:
+          type: string
+          description: The execution status of the transaction.
+          enum:
+          - success
+          - failed
+        gasUsed:
+          type: string
+          description: The amount of gas consumed by the transaction.
+    TransactionDetailResponse:
+      type: object
+      description: Response containing detailed information about a single transaction.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: object
+          description: Detailed transaction data.
+          properties:
+            transactionHash:
+              type: string
+              description: The unique hash identifier of the transaction.
+            from:
+              type: string
+              description: The sender address.
+            to:
+              type: string
+              description: The recipient address.
+            value:
+              type: string
+              description: The value transferred in the native token's smallest unit.
+            blockNumber:
+              type: integer
+              description: The block number containing the transaction.
+            blockTimestamp:
+              type: string
+              format: date-time
+              description: The timestamp of the block containing the transaction.
+            status:
+              type: string
+              description: The execution status of the transaction.
+            gasUsed:
+              type: string
+              description: The amount of gas consumed by the transaction.
+            gasPrice:
+              type: string
+              description: The gas price at which the transaction was executed.
+            nonce:
+              type: integer
+              description: The sender's transaction nonce.
+            input:
+              type: string
+              description: The input data of the transaction.
+            logs:
+              type: array
+              description: Event logs emitted during the transaction.
+              items:
+                type: object
+                properties:
+                  logIndex:
+                    type: integer
+                    description: The position of the log in the block.
+                  address:
+                    type: string
+                    description: The contract address that emitted the event.
+                  topics:
+                    type: array
+                    description: Indexed event topics.
+                    items:
+                      type: string
+                  data:
+                    type: string
+                    description: Non-indexed event data.
+    TransactionsResponse:
+      type: object
+      description: Response containing a paginated list of transactions.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: array
+          description: List of transactions.
+          items:
+            $ref: '#/components/schemas/Transaction'
+        cursor:
+          type: string
+          description: Pagination cursor for the next page of results.
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: Error details object.
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Uniblock project API key passed as a header. If no provider-specific authentication is passed in the request, Uniblock will use the credentials stored in the project associated with this API key.
+externalDocs:
+  description: Uniblock Direct API Documentation
+  url: https://docs.uniblock.dev/docs/direct-api-overview

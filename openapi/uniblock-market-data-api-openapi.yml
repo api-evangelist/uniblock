@@ -1,0 +1,430 @@
+openapi: 3.1.0
+info:
+  title: Uniblock Direct Direct Pass-Through Market Data API
+  description: The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers. Requests follow the pattern of specifying the provider and optional prefix in the URL path, while still benefiting from Uniblock's routing, retry, and failover infrastructure. Results are returned exactly as they would be if the first-party provider endpoint was called directly. This is intended for use cases where a specific method is not yet abstracted into the Unified API.
+  version: '1.0'
+  contact:
+    name: Uniblock Support
+    url: https://docs.uniblock.dev
+  termsOfService: https://uniblock.dev/terms
+servers:
+- url: https://api.uniblock.dev/direct/v1
+  description: Uniblock Direct API Production Server
+security:
+- apiKeyHeader: []
+tags:
+- name: Market Data
+  description: Endpoints for real-time and historical market data including token prices, market capitalization, trading volume, trending tokens, and charting data from multiple exchanges.
+paths:
+  /market-data/price:
+    get:
+      operationId: getMarketDataPrice
+      summary: Get Market Data Price
+      description: Retrieves the current price of a token from aggregated market data sources, providing real-time pricing from multiple exchanges.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/chainParam'
+      - $ref: '#/components/parameters/contractAddressParam'
+      responses:
+        '200':
+          description: Successful response with market price
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketDataPriceResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /market-data/market-cap:
+    get:
+      operationId: getMarketDataMarketCap
+      summary: Get Market Capitalization
+      description: Retrieves the current market capitalization for a specific token, calculated from circulating supply and current price data.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/chainParam'
+      - $ref: '#/components/parameters/contractAddressParam'
+      responses:
+        '200':
+          description: Successful response with market cap
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketDataMarketCapResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /market-data/volume:
+    get:
+      operationId: getMarketDataVolume
+      summary: Get Trading Volume
+      description: Retrieves the 24-hour trading volume for a specific token across aggregated exchange data sources.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/chainParam'
+      - $ref: '#/components/parameters/contractAddressParam'
+      responses:
+        '200':
+          description: Successful response with trading volume
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketDataVolumeResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /market-data/trending:
+    get:
+      operationId: getMarketDataTrending
+      summary: Get Trending Tokens
+      description: Retrieves a list of currently trending tokens based on trading activity, volume, and market interest across aggregated data sources.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/chainParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: Successful response with trending tokens
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketDataTrendingResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /market-data/chart:
+    get:
+      operationId: getMarketDataChart
+      summary: Get Charting Data
+      description: Retrieves price, volume, and market cap data for a token at a given date range and predefined granularity, suitable for rendering charts and performing time-series analysis.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/chainParam'
+      - $ref: '#/components/parameters/contractAddressParam'
+      - name: from
+        in: query
+        description: Start date for the charting period in ISO 8601 format.
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        description: End date for the charting period in ISO 8601 format.
+        schema:
+          type: string
+          format: date
+      - name: granularity
+        in: query
+        description: Time interval granularity for data points.
+        schema:
+          type: string
+          enum:
+          - 1h
+          - 4h
+          - 1d
+          - 1w
+      responses:
+        '200':
+          description: Successful response with charting data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketDataChartResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /market-data/history:
+    get:
+      operationId: getMarketDataHistory
+      summary: Get Historical Market Data
+      description: Retrieves historical price, volume, and market cap of a token at a specific date, enabling point-in-time market analysis.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/chainParam'
+      - $ref: '#/components/parameters/contractAddressParam'
+      - name: date
+        in: query
+        description: The specific date for historical data retrieval in ISO 8601 format.
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Successful response with historical market data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketDataHistoryResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    MarketDataHistoryResponse:
+      type: object
+      description: Response containing historical market data for a specific date.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: object
+          description: Historical market data for the specified date.
+          properties:
+            date:
+              type: string
+              format: date
+              description: The date of the historical data.
+            price:
+              type: number
+              format: double
+              description: The price on the specified date in USD.
+            volume:
+              type: number
+              format: double
+              description: The trading volume on the specified date.
+            marketCap:
+              type: number
+              format: double
+              description: The market capitalization on the specified date.
+    MarketDataVolumeResponse:
+      type: object
+      description: Response containing 24-hour trading volume for a token.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: object
+          description: Trading volume data.
+          properties:
+            volume24h:
+              type: number
+              format: double
+              description: The 24-hour trading volume in USD.
+            contractAddress:
+              type: string
+              description: The contract address of the token.
+            chain:
+              type: string
+              description: The blockchain network.
+    MarketDataChartResponse:
+      type: object
+      description: Response containing time-series charting data for a token.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: array
+          description: List of data points for the charting period.
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+                description: The timestamp of the data point.
+              price:
+                type: number
+                format: double
+                description: The price at the given timestamp in USD.
+              volume:
+                type: number
+                format: double
+                description: The trading volume at the given timestamp.
+              marketCap:
+                type: number
+                format: double
+                description: The market cap at the given timestamp.
+    MarketDataMarketCapResponse:
+      type: object
+      description: Response containing market capitalization data for a token.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: object
+          description: Market capitalization data.
+          properties:
+            marketCap:
+              type: number
+              format: double
+              description: The current market capitalization in USD.
+            contractAddress:
+              type: string
+              description: The contract address of the token.
+            chain:
+              type: string
+              description: The blockchain network.
+    MarketDataTrendingResponse:
+      type: object
+      description: Response containing a list of currently trending tokens.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: array
+          description: List of trending tokens.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The name of the trending token.
+              symbol:
+                type: string
+                description: The ticker symbol of the trending token.
+              contractAddress:
+                type: string
+                description: The contract address of the token.
+              price:
+                type: number
+                format: double
+                description: The current price in USD.
+              volume24h:
+                type: number
+                format: double
+                description: The 24-hour trading volume in USD.
+              priceChange24h:
+                type: number
+                format: double
+                description: The 24-hour price change percentage.
+    MarketDataPriceResponse:
+      type: object
+      description: Response containing the current market price of a token.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: object
+          description: Market price data.
+          properties:
+            price:
+              type: number
+              format: double
+              description: The current market price in USD.
+            contractAddress:
+              type: string
+              description: The contract address of the token.
+            chain:
+              type: string
+              description: The blockchain network.
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: Error details object.
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+  parameters:
+    chainParam:
+      name: chain
+      in: query
+      required: true
+      description: The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).
+      schema:
+        type: string
+        examples:
+        - ethereum
+        - polygon
+        - solana
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    contractAddressParam:
+      name: contractAddress
+      in: query
+      required: true
+      description: The smart contract address of the token.
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Uniblock project API key passed as a header. If no provider-specific authentication is passed in the request, Uniblock will use the credentials stored in the project associated with this API key.
+externalDocs:
+  description: Uniblock Direct API Documentation
+  url: https://docs.uniblock.dev/docs/direct-api-overview

@@ -1,0 +1,385 @@
+openapi: 3.1.0
+info:
+  title: Uniblock Direct Direct Pass-Through NFTs API
+  description: The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers. Requests follow the pattern of specifying the provider and optional prefix in the URL path, while still benefiting from Uniblock's routing, retry, and failover infrastructure. Results are returned exactly as they would be if the first-party provider endpoint was called directly. This is intended for use cases where a specific method is not yet abstracted into the Unified API.
+  version: '1.0'
+  contact:
+    name: Uniblock Support
+    url: https://docs.uniblock.dev
+  termsOfService: https://uniblock.dev/terms
+servers:
+- url: https://api.uniblock.dev/direct/v1
+  description: Uniblock Direct API Production Server
+security:
+- apiKeyHeader: []
+tags:
+- name: NFTs
+  description: Endpoints for retrieving non-fungible token data including balances, metadata, transfers, and collection information.
+paths:
+  /nft/balance:
+    get:
+      operationId: getNftBalance
+      summary: Get NFT Balances
+      description: Retrieves the NFT balances held by a specific wallet address, returning a list of NFTs owned including collection and token identifiers.
+      tags:
+      - NFTs
+      parameters:
+      - $ref: '#/components/parameters/chainParam'
+      - $ref: '#/components/parameters/walletAddressParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/cursorParam'
+      responses:
+        '200':
+          description: Successful response with NFT balances
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NftBalanceResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /nft/metadata:
+    get:
+      operationId: getNftMetadata
+      summary: Get NFT Metadata
+      description: Retrieves detailed metadata for a specific NFT including name, description, image URL, attributes, and trait information.
+      tags:
+      - NFTs
+      parameters:
+      - $ref: '#/components/parameters/chainParam'
+      - $ref: '#/components/parameters/contractAddressParam'
+      - name: tokenId
+        in: query
+        required: true
+        description: The token ID of the specific NFT within the collection.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with NFT metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NftMetadataResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: NFT not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /nft/collection-metadata:
+    get:
+      operationId: getNftCollectionMetadata
+      summary: Get NFT Collection Metadata
+      description: Retrieves metadata about an NFT collection including name, description, total supply, floor price, and other collection-level attributes.
+      tags:
+      - NFTs
+      parameters:
+      - $ref: '#/components/parameters/chainParam'
+      - $ref: '#/components/parameters/contractAddressParam'
+      responses:
+        '200':
+          description: Successful response with collection metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NftCollectionMetadataResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /nft/transfers:
+    get:
+      operationId: getNftTransfers
+      summary: Get NFT Transfers
+      description: Retrieves a list of NFT transfer events for a specific wallet address or contract, including mints, sales, and transfers between addresses.
+      tags:
+      - NFTs
+      parameters:
+      - $ref: '#/components/parameters/chainParam'
+      - $ref: '#/components/parameters/walletAddressParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/cursorParam'
+      responses:
+        '200':
+          description: Successful response with NFT transfers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NftTransfersResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    NftAsset:
+      type: object
+      description: An NFT asset with basic identifying information.
+      properties:
+        contractAddress:
+          type: string
+          description: The smart contract address of the NFT collection.
+        tokenId:
+          type: string
+          description: The unique token ID within the collection.
+        name:
+          type: string
+          description: The name of the NFT.
+        tokenType:
+          type: string
+          description: The token standard type (e.g., ERC-721, ERC-1155).
+          enum:
+          - ERC-721
+          - ERC-1155
+        imageUrl:
+          type: string
+          format: uri
+          description: URL to the NFT image.
+        collectionName:
+          type: string
+          description: The name of the parent collection.
+    NftTransfersResponse:
+      type: object
+      description: Response containing a paginated list of NFT transfer events.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: array
+          description: List of NFT transfer events.
+          items:
+            $ref: '#/components/schemas/NftTransfer'
+        cursor:
+          type: string
+          description: Pagination cursor for the next page of results.
+    NftTransfer:
+      type: object
+      description: A single NFT transfer event between two addresses.
+      properties:
+        transactionHash:
+          type: string
+          description: The hash of the transaction containing this transfer.
+        from:
+          type: string
+          description: The sender address.
+        to:
+          type: string
+          description: The recipient address.
+        contractAddress:
+          type: string
+          description: The smart contract address of the NFT collection.
+        tokenId:
+          type: string
+          description: The token ID of the transferred NFT.
+        blockNumber:
+          type: integer
+          description: The block number in which the transfer occurred.
+        blockTimestamp:
+          type: string
+          format: date-time
+          description: The timestamp of the block in which the transfer occurred.
+    NftCollectionMetadataResponse:
+      type: object
+      description: Response containing metadata about an NFT collection.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: object
+          description: NFT collection metadata.
+          properties:
+            contractAddress:
+              type: string
+              description: The smart contract address of the collection.
+            name:
+              type: string
+              description: The name of the collection.
+            description:
+              type: string
+              description: A description of the collection.
+            symbol:
+              type: string
+              description: The symbol of the collection.
+            totalSupply:
+              type: integer
+              description: The total number of NFTs in the collection.
+            imageUrl:
+              type: string
+              format: uri
+              description: URL to the collection image.
+            floorPrice:
+              type: number
+              format: double
+              description: The current floor price of the collection.
+            chain:
+              type: string
+              description: The blockchain network the collection exists on.
+    NftBalanceResponse:
+      type: object
+      description: Response containing NFTs owned by a wallet address.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: array
+          description: List of NFTs held by the address.
+          items:
+            $ref: '#/components/schemas/NftAsset'
+        cursor:
+          type: string
+          description: Pagination cursor for the next page of results.
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: Error details object.
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+    NftMetadataResponse:
+      type: object
+      description: Response containing detailed metadata for a specific NFT.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: object
+          description: Detailed NFT metadata.
+          properties:
+            contractAddress:
+              type: string
+              description: The smart contract address of the NFT collection.
+            tokenId:
+              type: string
+              description: The unique token ID within the collection.
+            name:
+              type: string
+              description: The name of the NFT.
+            description:
+              type: string
+              description: A description of the NFT.
+            imageUrl:
+              type: string
+              format: uri
+              description: URL to the NFT image.
+            animationUrl:
+              type: string
+              format: uri
+              description: URL to the NFT animation or media file.
+            tokenType:
+              type: string
+              description: The token standard type.
+            attributes:
+              type: array
+              description: List of trait attributes for the NFT.
+              items:
+                type: object
+                properties:
+                  traitType:
+                    type: string
+                    description: The name of the trait category.
+                  value:
+                    type: string
+                    description: The value of the trait.
+  parameters:
+    walletAddressParam:
+      name: address
+      in: query
+      required: true
+      description: The wallet address to query data for.
+      schema:
+        type: string
+    chainParam:
+      name: chain
+      in: query
+      required: true
+      description: The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).
+      schema:
+        type: string
+        examples:
+        - ethereum
+        - polygon
+        - solana
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    cursorParam:
+      name: cursor
+      in: query
+      description: Pagination cursor for retrieving the next page of results.
+      schema:
+        type: string
+    contractAddressParam:
+      name: contractAddress
+      in: query
+      required: true
+      description: The smart contract address of the token.
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Uniblock project API key passed as a header. If no provider-specific authentication is passed in the request, Uniblock will use the credentials stored in the project associated with this API key.
+externalDocs:
+  description: Uniblock Direct API Documentation
+  url: https://docs.uniblock.dev/docs/direct-api-overview

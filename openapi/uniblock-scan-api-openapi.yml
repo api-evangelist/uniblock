@@ -1,0 +1,282 @@
+openapi: 3.1.0
+info:
+  title: Uniblock Direct Direct Pass-Through Scan API
+  description: The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers. Requests follow the pattern of specifying the provider and optional prefix in the URL path, while still benefiting from Uniblock's routing, retry, and failover infrastructure. Results are returned exactly as they would be if the first-party provider endpoint was called directly. This is intended for use cases where a specific method is not yet abstracted into the Unified API.
+  version: '1.0'
+  contact:
+    name: Uniblock Support
+    url: https://docs.uniblock.dev
+  termsOfService: https://uniblock.dev/terms
+servers:
+- url: https://api.uniblock.dev/direct/v1
+  description: Uniblock Direct API Production Server
+security:
+- apiKeyHeader: []
+tags:
+- name: Scan
+  description: Endpoints for scanning blockchain networks for transactions, transfers, native supply, and block-level data similar to block explorers.
+paths:
+  /scan/transactions:
+    get:
+      operationId: getScanTransactions
+      summary: Get Scanned Transactions
+      description: Retrieves transactions for a specific address using blockchain explorer-style scanning, useful for auditing transaction histories and monitoring network activity.
+      tags:
+      - Scan
+      parameters:
+      - $ref: '#/components/parameters/chainParam'
+      - $ref: '#/components/parameters/walletAddressParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/cursorParam'
+      responses:
+        '200':
+          description: Successful response with scanned transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanTransactionsResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /scan/transfers:
+    get:
+      operationId: getScanTransfers
+      summary: Get Scanned Transfers
+      description: Retrieves token transfer events for a specific address using blockchain explorer-style scanning, including ERC-20 and ERC-721 transfers.
+      tags:
+      - Scan
+      parameters:
+      - $ref: '#/components/parameters/chainParam'
+      - $ref: '#/components/parameters/walletAddressParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/cursorParam'
+      responses:
+        '200':
+          description: Successful response with scanned transfers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanTransfersResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /scan/native-supply:
+    get:
+      operationId: getScanNativeSupply
+      summary: Get Native Token Supply
+      description: Returns the current amount of the native token in circulation for the specified blockchain network, similar to block explorer supply queries.
+      tags:
+      - Scan
+      parameters:
+      - $ref: '#/components/parameters/chainParam'
+      responses:
+        '200':
+          description: Successful response with native token supply
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NativeSupplyResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  parameters:
+    walletAddressParam:
+      name: address
+      in: query
+      required: true
+      description: The wallet address to query data for.
+      schema:
+        type: string
+    chainParam:
+      name: chain
+      in: query
+      required: true
+      description: The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).
+      schema:
+        type: string
+        examples:
+        - ethereum
+        - polygon
+        - solana
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    cursorParam:
+      name: cursor
+      in: query
+      description: Pagination cursor for retrieving the next page of results.
+      schema:
+        type: string
+  schemas:
+    Transaction:
+      type: object
+      description: A blockchain transaction with summary information.
+      properties:
+        transactionHash:
+          type: string
+          description: The unique hash identifier of the transaction.
+        from:
+          type: string
+          description: The sender address.
+        to:
+          type: string
+          description: The recipient address.
+        value:
+          type: string
+          description: The value transferred in the native token's smallest unit.
+        blockNumber:
+          type: integer
+          description: The block number containing the transaction.
+        blockTimestamp:
+          type: string
+          format: date-time
+          description: The timestamp of the block containing the transaction.
+        status:
+          type: string
+          description: The execution status of the transaction.
+          enum:
+          - success
+          - failed
+        gasUsed:
+          type: string
+          description: The amount of gas consumed by the transaction.
+    NativeSupplyResponse:
+      type: object
+      description: Response containing the native token supply for a blockchain network.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: object
+          description: Native supply data.
+          properties:
+            supply:
+              type: string
+              description: The current circulating supply of the native token.
+            chain:
+              type: string
+              description: The blockchain network.
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: Error details object.
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+    ScanTransactionsResponse:
+      type: object
+      description: Response containing scanned transactions in explorer format.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: array
+          description: List of scanned transactions.
+          items:
+            $ref: '#/components/schemas/Transaction'
+        cursor:
+          type: string
+          description: Pagination cursor for the next page of results.
+    ScanTransfersResponse:
+      type: object
+      description: Response containing scanned token transfer events.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: array
+          description: List of scanned transfer events.
+          items:
+            $ref: '#/components/schemas/TokenTransfer'
+        cursor:
+          type: string
+          description: Pagination cursor for the next page of results.
+    TokenTransfer:
+      type: object
+      description: A single token transfer event between two addresses.
+      properties:
+        transactionHash:
+          type: string
+          description: The hash of the transaction containing this transfer.
+        from:
+          type: string
+          description: The sender address.
+        to:
+          type: string
+          description: The recipient address.
+        value:
+          type: string
+          description: The amount transferred in the token's smallest unit.
+        contractAddress:
+          type: string
+          description: The smart contract address of the transferred token.
+        tokenName:
+          type: string
+          description: The name of the transferred token.
+        tokenSymbol:
+          type: string
+          description: The symbol of the transferred token.
+        blockNumber:
+          type: integer
+          description: The block number in which the transfer occurred.
+        blockTimestamp:
+          type: string
+          format: date-time
+          description: The timestamp of the block in which the transfer occurred.
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Uniblock project API key passed as a header. If no provider-specific authentication is passed in the request, Uniblock will use the credentials stored in the project associated with this API key.
+externalDocs:
+  description: Uniblock Direct API Documentation
+  url: https://docs.uniblock.dev/docs/direct-api-overview
