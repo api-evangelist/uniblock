@@ -2,7 +2,20 @@ aid: uniblock
 url: https://raw.githubusercontent.com/api-evangelist/uniblock/refs/heads/main/apis.yml
 name: Uniblock
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/uniblock.png
 tags:
   - Blockchain
   - Web3
@@ -14,72 +27,136 @@ created: '2025-02-08'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: uniblock:unified-api
-    name: Uniblock Unified API
-    tags:
-      - Blockchain
-      - Market Data
-      - NFTs
-      - Tokens
-      - Transactions
-      - Web3
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    baseURL: https://api.uniblock.dev
-    humanURL: https://docs.uniblock.dev/docs/unified-api-overview
-    properties:
-      - url: https://docs.uniblock.dev/docs/unified-api-overview
-        type: Documentation
-      - url: openapi/uniblock-unified-api-openapi.yml
-        type: OpenAPI
-      - url: asyncapi/uniblock-webhooks-asyncapi.yml
-        type: AsyncAPI
-    description: >-
-      The Uniblock Unified API provides a single standardized interface for interacting with multiple blockchain
-      networks and data providers. It offers higher-level endpoints for common data needs including token metadata and
-      balances, NFT collections and assets, transaction lookups, and market data for pricing and analytics.
-  - aid: uniblock:direct-api
-    name: Uniblock Direct API
-    tags:
-      - Blockchain
-      - Pass-Through
-      - Providers
-      - Web3
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    baseURL: https://api.uniblock.dev/direct/v1
-    humanURL: https://docs.uniblock.dev/docs/direct-api-overview
-    properties:
-      - url: https://docs.uniblock.dev/docs/direct-api-overview
-        type: Documentation
-      - url: openapi/uniblock-direct-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      The Uniblock Direct API gives developers access to provider-specific endpoints exactly as offered by upstream
-      blockchain data providers. This is intended for use cases where a specific method is not yet abstracted into the
-      Unified API, allowing direct pass-through access to providers like Alchemy, SimpleHash, TonAPI, and others.
-      Requests follow the pattern of specifying the provider and endpoint path, while still benefiting from Uniblock's
-      routing, retry, and failover infrastructure.
-  - aid: uniblock:json-rpc-api
-    name: Uniblock JSON-RPC API
-    tags:
-      - Blockchain
-      - EVM
-      - JSON-RPC
-      - Nodes
-      - Web3
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    baseURL: https://api.uniblock.dev
-    humanURL: https://docs.uniblock.dev/reference/unified-api-reference-overview
-    properties:
-      - url: https://docs.uniblock.dev/reference/unified-api-reference-overview
-        type: Documentation
-      - url: openapi/uniblock-json-rpc-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      The Uniblock JSON-RPC API provides a single endpoint for standard JSON-RPC calls across hundreds of blockchain
-      networks. Rather than managing individual node provider connections for each chain, developers can send JSON-RPC
-      requests through Uniblock which automatically selects the best upstream node provider. This supports standard
-      Ethereum and EVM-compatible JSON-RPC methods, as well as Solana and other chain-specific RPC interfaces, with
-      built-in failover and automatic retries.
+- aid: uniblock:json-rpc-api
+  name: Uniblock JSON-RPC API
+  tags:
+  - Blockchain
+  - EVM
+  - JSON-RPC
+  - Nodes
+  - Web3
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  baseURL: https://api.uniblock.dev
+  humanURL: https://docs.uniblock.dev/reference/unified-api-reference-overview
+  properties:
+  - url: https://docs.uniblock.dev/reference/unified-api-reference-overview
+    type: Documentation
+  - url: openapi/uniblock-json-rpc-api-openapi.yml
+    type: OpenAPI
+  description: >-
+    The Uniblock JSON-RPC API provides a single endpoint for standard JSON-RPC calls across hundreds of
+    blockchain networks. Rather than managing individual node provider connections for each chain, developers
+    can send JSON-RPC requests through Uniblock which automatically selects the best upstream node provider.
+    This supports standard Ethereum and EVM-compatible JSON-RPC methods, as well as Solana and other chain-specific
+    RPC interfaces, with built-in failover and automatic retries.
+- aid: uniblock:uniblock-direct-pass-through-api
+  name: Uniblock Direct Pass-Through API
+  description: >-
+    Pass-through endpoints that proxy requests directly to upstream blockchain data providers such as
+    Alchemy, SimpleHash, TonAPI, Moralis, Covalent, Helius, Solscan, and others.
+  humanURL: https://docs.uniblock.dev/docs/unified-api-overview
+  baseURL: https://api.uniblock.dev
+  tags:
+  - Direct Pass-Through
+  properties:
+  - type: OpenAPI
+    url: openapi/uniblock-direct-pass-through-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uniblock.dev/docs/unified-api-overview
+  - type: AsyncAPI
+    url: asyncapi/uniblock-webhooks-asyncapi.yml
+  - type: Documentation
+    url: https://docs.uniblock.dev/docs/direct-api-overview
+- aid: uniblock:uniblock-market-data-api
+  name: Uniblock Market Data API
+  description: >-
+    Endpoints for real-time and historical market data including token prices, market capitalization,
+    trading volume, trending tokens, and charting data from multiple exchanges.
+  humanURL: https://docs.uniblock.dev/docs/unified-api-overview
+  baseURL: https://api.uniblock.dev
+  tags:
+  - Market Data
+  properties:
+  - type: OpenAPI
+    url: openapi/uniblock-market-data-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uniblock.dev/docs/unified-api-overview
+  - type: AsyncAPI
+    url: asyncapi/uniblock-webhooks-asyncapi.yml
+  - type: Documentation
+    url: https://docs.uniblock.dev/docs/direct-api-overview
+- aid: uniblock:uniblock-nfts-api
+  name: Uniblock NFTs API
+  description: >-
+    Endpoints for retrieving non-fungible token data including balances, metadata, transfers, and collection
+    information.
+  humanURL: https://docs.uniblock.dev/docs/unified-api-overview
+  baseURL: https://api.uniblock.dev
+  tags:
+  - NFTs
+  properties:
+  - type: OpenAPI
+    url: openapi/uniblock-nfts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uniblock.dev/docs/unified-api-overview
+  - type: AsyncAPI
+    url: asyncapi/uniblock-webhooks-asyncapi.yml
+  - type: Documentation
+    url: https://docs.uniblock.dev/docs/direct-api-overview
+- aid: uniblock:uniblock-scan-api
+  name: Uniblock Scan API
+  description: >-
+    Endpoints for scanning blockchain networks for transactions, transfers, native supply, and block-level
+    data similar to block explorers.
+  humanURL: https://docs.uniblock.dev/docs/unified-api-overview
+  baseURL: https://api.uniblock.dev
+  tags:
+  - Scan
+  properties:
+  - type: OpenAPI
+    url: openapi/uniblock-scan-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uniblock.dev/docs/unified-api-overview
+  - type: AsyncAPI
+    url: asyncapi/uniblock-webhooks-asyncapi.yml
+  - type: Documentation
+    url: https://docs.uniblock.dev/docs/direct-api-overview
+- aid: uniblock:uniblock-tokens-api
+  name: Uniblock Tokens API
+  description: >-
+    Endpoints for retrieving fungible token data including metadata, balances, prices, transfers, and
+    allowances across multiple blockchain networks.
+  humanURL: https://docs.uniblock.dev/docs/unified-api-overview
+  baseURL: https://api.uniblock.dev
+  tags:
+  - Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/uniblock-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uniblock.dev/docs/unified-api-overview
+  - type: AsyncAPI
+    url: asyncapi/uniblock-webhooks-asyncapi.yml
+  - type: Documentation
+    url: https://docs.uniblock.dev/docs/direct-api-overview
+- aid: uniblock:uniblock-transactions-api
+  name: Uniblock Transactions API
+  description: >-
+    Endpoints for looking up transaction data by address or transaction hash, including detailed transaction
+    information.
+  humanURL: https://docs.uniblock.dev/docs/unified-api-overview
+  baseURL: https://api.uniblock.dev
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/uniblock-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uniblock.dev/docs/unified-api-overview
+  - type: AsyncAPI
+    url: asyncapi/uniblock-webhooks-asyncapi.yml
+  - type: Documentation
+    url: https://docs.uniblock.dev/docs/direct-api-overview
 common:
   - type: AgenticAccess
     url: agentic-access/uniblock-agentic-access.yml
