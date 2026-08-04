@@ -1,0 +1,26 @@
+{
+  "provider": "uniblock",
+  "sources": [
+    "uniblock-direct-pass-through-api-openapi.yml",
+    "uniblock-json-rpc-api-openapi.yml",
+    "uniblock-market-data-api-openapi.yml",
+    "uniblock-nfts-api-openapi.yml",
+    "uniblock-scan-api-openapi.yml",
+    "uniblock-tokens-api-openapi.yml",
+    "uniblock-transactions-api-openapi.yml"
+  ],
+  "outputs": [
+    "uniblock-direct-pass-through-api-openapi.yml",
+    "uniblock-json-rpc-api-openapi.yml",
+    "uniblock-market-data-api-openapi.yml",
+    "uniblock-nfts-api-openapi.yml",
+    "uniblock-scan-api-openapi.yml",
+    "uniblock-tokens-api-openapi.yml",
+    "uniblock-transactions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
