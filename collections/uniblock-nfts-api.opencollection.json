@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Uniblock Direct Direct Pass-Through NFTs API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "NFTs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get NFT Balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/nft/balance",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "The wallet address to query data for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving the next page of results."
+              }
+            ]
+          },
+          "docs": "Retrieves the NFT balances held by a specific wallet address, returning a list of NFTs owned including collection and token identifiers."
+        },
+        {
+          "info": {
+            "name": "Get NFT Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/nft/metadata",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query",
+                "description": "The token ID of the specific NFT within the collection."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed metadata for a specific NFT including name, description, image URL, attributes, and trait information."
+        },
+        {
+          "info": {
+            "name": "Get NFT Collection Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/nft/collection-metadata",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              }
+            ]
+          },
+          "docs": "Retrieves metadata about an NFT collection including name, description, total supply, floor price, and other collection-level attributes."
+        },
+        {
+          "info": {
+            "name": "Get NFT Transfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/nft/transfers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "The wallet address to query data for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving the next page of results."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of NFT transfer events for a specific wallet address or contract, including mints, sales, and transfers between addresses."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

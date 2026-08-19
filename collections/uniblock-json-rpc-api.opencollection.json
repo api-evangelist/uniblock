@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Uniblock JSON-RPC API",
+    "name": "Uniblock Direct Direct Pass-Through JSON-RPC API",
     "version": "1.0"
   },
   "request": {
@@ -26,7 +26,7 @@
           },
           "http": {
             "method": "POST",
-            "url": "https://api.uniblock.dev/json-rpc/v1/:chain",
+            "url": "https://api.uniblock.dev/direct/v1/json-rpc/v1/:chain",
             "params": [
               {
                 "name": "chain",

@@ -1,0 +1,200 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Uniblock Direct Direct Pass-Through Market Data API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Market Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Market Data Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/market-data/price",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              }
+            ]
+          },
+          "docs": "Retrieves the current price of a token from aggregated market data sources, providing real-time pricing from multiple exchanges."
+        },
+        {
+          "info": {
+            "name": "Get Market Capitalization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/market-data/market-cap",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              }
+            ]
+          },
+          "docs": "Retrieves the current market capitalization for a specific token, calculated from circulating supply and current price data."
+        },
+        {
+          "info": {
+            "name": "Get Trading Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/market-data/volume",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              }
+            ]
+          },
+          "docs": "Retrieves the 24-hour trading volume for a specific token across aggregated exchange data sources."
+        },
+        {
+          "info": {
+            "name": "Get Trending Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/market-data/trending",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of currently trending tokens based on trading activity, volume, and market interest across aggregated data sources."
+        },
+        {
+          "info": {
+            "name": "Get Charting Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/market-data/chart",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the charting period in ISO 8601 format."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End date for the charting period in ISO 8601 format."
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "Time interval granularity for data points."
+              }
+            ]
+          },
+          "docs": "Retrieves price, volume, and market cap data for a token at a given date range and predefined granularity, suitable for rendering charts and performing time-series analysis."
+        },
+        {
+          "info": {
+            "name": "Get Historical Market Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/market-data/history",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "The specific date for historical data retrieval in ISO 8601 format."
+              }
+            ]
+          },
+          "docs": "Retrieves historical price, volume, and market cap of a token at a specific date, enabling point-in-time market analysis."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

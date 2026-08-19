@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "cf2848b3-dea9-420b-8466-38a8a2a18330",
+      "id": "f0f49e7b-3b5b-4473-bd1c-dd290403b280",
       "name": "JSON-RPC",
       "description": {
         "content": "Standard JSON-RPC 2.0 endpoint for sending blockchain RPC requests. Supports Ethereum, Solana, and other chain-specific RPC methods with automatic provider routing, failover, and retry logic.",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "9d901c13-bf1d-4b57-8b69-12bad716e3f6",
+          "id": "87894406-eab2-4566-8dfc-e6612963033b",
           "name": "Send a JSON-RPC Request",
           "request": {
             "name": "Send a JSON-RPC Request",
@@ -61,7 +61,7 @@
           },
           "response": [
             {
-              "id": "dc6c3784-e4c1-4044-9d8d-9f0caa36da9b",
+              "id": "f20cca73-570f-4d5e-9d4a-fdd78cdc69a1",
               "name": "Successful JSON-RPC response from the upstream node provider.",
               "originalRequest": {
                 "url": {
@@ -117,12 +117,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 4534,\n  \"result\": {}\n}",
+              "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 9484,\n  \"result\": {}\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "3fcf71c6-b028-4d1c-8f0d-0d2c1dc43a26",
+              "id": "6e002331-4530-4d85-bf38-82ec36f7fb40",
               "name": "Invalid JSON-RPC request",
               "originalRequest": {
                 "url": {
@@ -178,12 +178,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 229,\n  \"error\": {\n    \"code\": 7818,\n    \"message\": \"string\",\n    \"data\": {}\n  }\n}",
+              "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1084,\n  \"error\": {\n    \"code\": 7587,\n    \"message\": \"string\",\n    \"data\": {}\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "9fc65342-150d-4ca3-adf8-4d151f1c8bfd",
+              "id": "683c0fdf-4449-4103-9e51-9f11c92ecbe3",
               "name": "Unauthorized - missing or invalid API key",
               "originalRequest": {
                 "url": {
@@ -244,7 +244,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "c607f198-6ed0-4c0e-934c-1532895e491e",
+              "id": "a729d011-6d18-475b-abbc-3baf21148755",
               "name": "Upstream node provider error",
               "originalRequest": {
                 "url": {
@@ -300,7 +300,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 229,\n  \"error\": {\n    \"code\": 7818,\n    \"message\": \"string\",\n    \"data\": {}\n  }\n}",
+              "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1084,\n  \"error\": {\n    \"code\": 7587,\n    \"message\": \"string\",\n    \"data\": {}\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -318,7 +318,7 @@
   "variable": [
     {
       "type": "string",
-      "value": "https://api.uniblock.dev",
+      "value": "https://api.uniblock.dev/direct/v1",
       "key": "baseUrl"
     }
   ],
@@ -340,11 +340,11 @@
     ]
   },
   "info": {
-    "_postman_id": "d2df21c8-dc29-4a90-89d3-fe0cb2ae6030",
-    "name": "Uniblock JSON-RPC API",
+    "_postman_id": "99a9dce1-a210-40b8-9424-7745074d1c44",
+    "name": "Uniblock Direct Direct Pass-Through JSON-RPC API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "The Uniblock JSON-RPC API provides a single endpoint for standard JSON-RPC calls across hundreds of blockchain networks. Rather than managing individual node provider connections for each chain, developers can send JSON-RPC requests through Uniblock which automatically selects the best upstream node provider. This supports standard Ethereum and EVM-compatible JSON-RPC methods, Solana RPC interfaces, and other chain-specific RPC methods, with built-in failover and automatic retries across 55+ providers.\n\nContact Support:\n Name: Uniblock Support",
+      "content": "The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers. Requests follow the pattern of specifying the provider and optional prefix in the URL path, while still benefiting from Uniblock's routing, retry, and failover infrastructure. Results are returned exactly as they would be if the first-party provider endpoint was called directly. This is intended for use cases where a specific method is not yet abstracted into the Unified API.\n\nContact Support:\n Name: Uniblock Support",
       "type": "text/plain"
     }
   }

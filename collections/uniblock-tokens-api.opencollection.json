@@ -1,0 +1,225 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Uniblock Direct Direct Pass-Through Tokens API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Token Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/token/metadata",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              }
+            ]
+          },
+          "docs": "Retrieves metadata about a specific fungible token including name, symbol, decimals, and contract details. Supports multiple blockchain networks through automatic provider routing."
+        },
+        {
+          "info": {
+            "name": "Get Token Balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/token/balance",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "The wallet address to query data for."
+              }
+            ]
+          },
+          "docs": "Retrieves the native and fungible token balances associated with a specific wallet address. Returns balances across tokens held by the address on the specified blockchain network."
+        },
+        {
+          "info": {
+            "name": "Get Historical Token Balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/token/balance/historical",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "The wallet address to query data for."
+              },
+              {
+                "name": "blockNumber",
+                "value": "",
+                "type": "query",
+                "description": "The block number at which to retrieve the historical balance."
+              }
+            ]
+          },
+          "docs": "Retrieves historical token balances for a specific wallet address at a given point in time, enabling tracking of balance changes over time."
+        },
+        {
+          "info": {
+            "name": "Get Token Transfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/token/transfers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "The wallet address to query data for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving the next page of results."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of token transfers for a specific wallet address, including both incoming and outgoing transfers of fungible tokens. Useful for tracking token swaps and transfer history."
+        },
+        {
+          "info": {
+            "name": "Get Token Allowances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/token/allowances",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "The wallet address to query data for."
+              }
+            ]
+          },
+          "docs": "Retrieves token allowances granted by a specific wallet address to spender contracts. Useful for inspecting which contracts have approval to spend tokens on behalf of the wallet owner."
+        },
+        {
+          "info": {
+            "name": "Get Token Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/token/price",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              }
+            ]
+          },
+          "docs": "Retrieves the current USD price for a specific token by its contract address and chain. Aggregates pricing data from multiple exchange and data provider sources."
+        },
+        {
+          "info": {
+            "name": "Get Historical Token Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uniblock.dev/direct/v1/token/price/historical",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+              },
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "query",
+                "description": "The smart contract address of the token."
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "The date for which to retrieve historical price data in ISO 8601 format."
+              }
+            ]
+          },
+          "docs": "Retrieves the historical price, volume, and market cap of a token at a given date, enabling analysis of price movements over time."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
