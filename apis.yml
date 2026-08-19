@@ -25,7 +25,7 @@ description: >-
   completed $5.2 million in financing with $7.5 million in total funding.
 created: '2025-02-08'
 modified: '2026-05-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: uniblock:json-rpc-api
   name: Uniblock JSON-RPC API
