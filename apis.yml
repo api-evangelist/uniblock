@@ -93,6 +93,8 @@ apis:
   humanURL: https://docs.uniblock.dev/docs/unified-api-overview
   baseURL: https://api.uniblock.dev
   tags:
+  - NFT
+  tags_raw:
   - NFTs
   properties:
   - type: OpenAPI
@@ -111,6 +113,8 @@ apis:
   humanURL: https://docs.uniblock.dev/docs/unified-api-overview
   baseURL: https://api.uniblock.dev
   tags:
+  - Scans
+  tags_raw:
   - Scan
   properties:
   - type: OpenAPI
@@ -147,6 +151,8 @@ apis:
   humanURL: https://docs.uniblock.dev/docs/unified-api-overview
   baseURL: https://api.uniblock.dev
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
