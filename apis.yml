@@ -105,7 +105,7 @@ apis:
   humanURL: https://docs.uniblock.dev/docs/unified-api-overview
   baseURL: https://api.uniblock.dev
   tags:
-  - NFTs
+  - NFT
   tags_raw:
   - NFTs
   properties:
