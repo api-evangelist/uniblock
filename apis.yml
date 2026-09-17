@@ -156,7 +156,7 @@ apis:
     url: asyncapi/uniblock-webhooks-asyncapi.yml
   - type: Documentation
     url: https://docs.uniblock.dev/docs/direct-api-overview
-- aid: uniblock:uniblock-nf-ts-api
+- aid: uniblock:uniblock-nfts-api
   name: Uniblock NF Ts API
   description: >-
     Endpoints for retrieving non-fungible token data including balances, metadata, transfers, and collection
@@ -164,10 +164,10 @@ apis:
   humanURL: https://docs.uniblock.dev/reference/unified-api-reference-overview
   baseURL: https://api.uniblock.dev
   tags:
-  - NF Ts
+  - NFTs
   properties:
   - type: OpenAPI
-    url: openapi/uniblock-nf-ts-api-openapi.yml
+    url: openapi/uniblock-nfts-api-openapi.yml
   - type: Documentation
     url: https://docs.uniblock.dev/docs/unified-api-overview
   - type: AsyncAPI
