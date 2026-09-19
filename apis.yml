@@ -46,6 +46,12 @@ apis:
   - Blockchain
   - EVM
   - JSON-RPC
+  - Node
+  - Web3
+  tags_raw:
+  - Blockchain
+  - EVM
+  - JSON-RPC
   - Nodes
   - Web3
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
@@ -164,6 +170,8 @@ apis:
   humanURL: https://docs.uniblock.dev/reference/unified-api-reference-overview
   baseURL: https://api.uniblock.dev
   tags:
+  - NFT
+  tags_raw:
   - NFTs
   properties:
   - type: OpenAPI
