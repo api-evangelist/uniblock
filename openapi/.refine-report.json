@@ -1,26 +1,39 @@
 {
   "provider": "uniblock",
   "sources": [
-    "uniblock-direct-pass-through-api-openapi.yml",
-    "uniblock-json-rpc-api-openapi.yml",
-    "uniblock-market-data-api-openapi.yml",
-    "uniblock-nfts-api-openapi.yml",
-    "uniblock-scan-api-openapi.yml",
-    "uniblock-tokens-api-openapi.yml",
-    "uniblock-transactions-api-openapi.yml"
+    "_original/uniblock-direct-api-openapi.yml",
+    "_original/uniblock-unified-api-openapi.yml",
+    "uniblock-json-rpc-api-openapi.yml"
   ],
   "outputs": [
     "uniblock-direct-pass-through-api-openapi.yml",
-    "uniblock-json-rpc-api-openapi.yml",
     "uniblock-market-data-api-openapi.yml",
     "uniblock-nfts-api-openapi.yml",
     "uniblock-scan-api-openapi.yml",
     "uniblock-tokens-api-openapi.yml",
-    "uniblock-transactions-api-openapi.yml"
+    "uniblock-transactions-api-openapi.yml",
+    "uniblock-json-rpc-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
-  "warnings": [],
-  "notes": [],
-  "skipped": []
+  "warnings": [
+    "uniblock-json-rpc-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /json-rpc/v1/{chain} post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "uniblock-direct-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "uniblock-unified-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: uniblock-nf-ts-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 7 total)"
+  ],
+  "skipped": [
+    "uniblock-direct-pass-through-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "uniblock-market-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "uniblock-nf-ts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "uniblock-scan-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "uniblock-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "uniblock-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

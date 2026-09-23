@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Uniblock Direct Direct Pass-Through API
-  description: The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers. Requests follow the pattern of specifying the provider and optional prefix in the URL path, while still benefiting from Uniblock's routing, retry, and failover infrastructure. Results are returned exactly as they would be if the first-party provider endpoint was called directly. This is intended for use cases where a specific method is not yet abstracted into the Unified API.
+  description: The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers.
   version: '1.0'
   contact:
     name: Uniblock Support
@@ -211,13 +211,6 @@ components:
         - tonapi
         - helius
         - solscan
-    pathParam:
-      name: path
-      in: path
-      required: true
-      description: The provider-specific endpoint path to call, exactly as documented by the upstream provider.
-      schema:
-        type: string
     prefixParam:
       name: prefix
       in: path
@@ -228,7 +221,18 @@ components:
         examples:
         - ethereum
         - v2.0
+    pathParam:
+      name: path
+      in: path
+      required: true
+      description: The provider-specific endpoint path to call, exactly as documented by the upstream provider.
+      schema:
+        type: string
   schemas:
+    ProviderResponse:
+      type: object
+      description: Response from the upstream provider returned as-is. The structure varies depending on the provider and endpoint called.
+      additionalProperties: true
     ErrorResponse:
       type: object
       description: Standard error response returned when a request fails.
@@ -247,10 +251,6 @@ components:
             message:
               type: string
               description: Human-readable error message describing what went wrong.
-    ProviderResponse:
-      type: object
-      description: Response from the upstream provider returned as-is. The structure varies depending on the provider and endpoint called.
-      additionalProperties: true
   securitySchemes:
     apiKeyHeader:
       type: apiKey

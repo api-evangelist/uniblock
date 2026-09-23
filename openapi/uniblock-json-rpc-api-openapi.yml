@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Uniblock Direct Direct Pass-Through JSON-RPC API
-  description: The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers. Requests follow the pattern of specifying the provider and optional prefix in the URL path, while still benefiting from Uniblock's routing, retry, and failover infrastructure. Results are returned exactly as they would be if the first-party provider endpoint was called directly. This is intended for use cases where a specific method is not yet abstracted into the Unified API.
+  title: Uniblock Direct Direct Pass-Through JSON RPC API
+  description: The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers.
   version: '1.0'
   contact:
     name: Uniblock Support
@@ -110,48 +110,6 @@ paths:
                 $ref: '#/components/schemas/JsonRpcErrorResponse'
 components:
   schemas:
-    JsonRpcResponse:
-      type: object
-      description: A standard JSON-RPC 2.0 success response from the blockchain node.
-      properties:
-        jsonrpc:
-          type: string
-          description: The JSON-RPC protocol version.
-          enum:
-          - '2.0'
-        id:
-          oneOf:
-          - type: integer
-          - type: string
-          description: The request identifier, matching the id from the request.
-        result:
-          description: The result of the RPC method call. The structure depends on the specific method invoked.
-    JsonRpcErrorResponse:
-      type: object
-      description: A standard JSON-RPC 2.0 error response from the blockchain node.
-      properties:
-        jsonrpc:
-          type: string
-          description: The JSON-RPC protocol version.
-          enum:
-          - '2.0'
-        id:
-          oneOf:
-          - type: integer
-          - type: string
-          description: The request identifier, matching the id from the request.
-        error:
-          type: object
-          description: The error object containing details about the failure.
-          properties:
-            code:
-              type: integer
-              description: A numeric error code indicating the type of error. Standard JSON-RPC error codes include -32700 (parse error), -32600 (invalid request), -32601 (method not found), -32602 (invalid params), -32603 (internal error).
-            message:
-              type: string
-              description: A human-readable error message.
-            data:
-              description: Additional error data provided by the node, if available.
     JsonRpcRequest:
       type: object
       required:
@@ -195,6 +153,48 @@ components:
             message:
               type: string
               description: Human-readable error message describing what went wrong.
+    JsonRpcResponse:
+      type: object
+      description: A standard JSON-RPC 2.0 success response from the blockchain node.
+      properties:
+        jsonrpc:
+          type: string
+          description: The JSON-RPC protocol version.
+          enum:
+          - '2.0'
+        id:
+          oneOf:
+          - type: integer
+          - type: string
+          description: The request identifier, matching the id from the request.
+        result:
+          description: The result of the RPC method call. The structure depends on the specific method invoked.
+    JsonRpcErrorResponse:
+      type: object
+      description: A standard JSON-RPC 2.0 error response from the blockchain node.
+      properties:
+        jsonrpc:
+          type: string
+          description: The JSON-RPC protocol version.
+          enum:
+          - '2.0'
+        id:
+          oneOf:
+          - type: integer
+          - type: string
+          description: The request identifier, matching the id from the request.
+        error:
+          type: object
+          description: The error object containing details about the failure.
+          properties:
+            code:
+              type: integer
+              description: A numeric error code indicating the type of error. Standard JSON-RPC error codes include -32700 (parse error), -32600 (invalid request), -32601 (method not found), -32602 (invalid params), -32603 (internal error).
+            message:
+              type: string
+              description: A human-readable error message.
+            data:
+              description: Additional error data provided by the node, if available.
   securitySchemes:
     apiKeyHeader:
       type: apiKey

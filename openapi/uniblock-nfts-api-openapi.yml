@@ -1,15 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Uniblock Direct Direct Pass-Through NFTs API
-  description: The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers. Requests follow the pattern of specifying the provider and optional prefix in the URL path, while still benefiting from Uniblock's routing, retry, and failover infrastructure. Results are returned exactly as they would be if the first-party provider endpoint was called directly. This is intended for use cases where a specific method is not yet abstracted into the Unified API.
+  title: Uniblock Unified NF Ts API
+  description: The Uniblock Unified API provides a single standardized interface for interacting with multiple blockchain networks and data providers.
   version: '1.0'
   contact:
     name: Uniblock Support
     url: https://docs.uniblock.dev
   termsOfService: https://uniblock.dev/terms
 servers:
-- url: https://api.uniblock.dev/direct/v1
-  description: Uniblock Direct API Production Server
+- url: https://api.uniblock.dev/uni/v1
+  description: Uniblock Production Server
 security:
 - apiKeyHeader: []
 tags:
@@ -150,44 +150,18 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    NftAsset:
+    NftBalanceResponse:
       type: object
-      description: An NFT asset with basic identifying information.
-      properties:
-        contractAddress:
-          type: string
-          description: The smart contract address of the NFT collection.
-        tokenId:
-          type: string
-          description: The unique token ID within the collection.
-        name:
-          type: string
-          description: The name of the NFT.
-        tokenType:
-          type: string
-          description: The token standard type (e.g., ERC-721, ERC-1155).
-          enum:
-          - ERC-721
-          - ERC-1155
-        imageUrl:
-          type: string
-          format: uri
-          description: URL to the NFT image.
-        collectionName:
-          type: string
-          description: The name of the parent collection.
-    NftTransfersResponse:
-      type: object
-      description: Response containing a paginated list of NFT transfer events.
+      description: Response containing NFTs owned by a wallet address.
       properties:
         success:
           type: boolean
           description: Indicates whether the request was successful.
         data:
           type: array
-          description: List of NFT transfer events.
+          description: List of NFTs held by the address.
           items:
-            $ref: '#/components/schemas/NftTransfer'
+            $ref: '#/components/schemas/NftAsset'
         cursor:
           type: string
           description: Pagination cursor for the next page of results.
@@ -254,39 +228,21 @@ components:
             chain:
               type: string
               description: The blockchain network the collection exists on.
-    NftBalanceResponse:
+    NftTransfersResponse:
       type: object
-      description: Response containing NFTs owned by a wallet address.
+      description: Response containing a paginated list of NFT transfer events.
       properties:
         success:
           type: boolean
           description: Indicates whether the request was successful.
         data:
           type: array
-          description: List of NFTs held by the address.
+          description: List of NFT transfer events.
           items:
-            $ref: '#/components/schemas/NftAsset'
+            $ref: '#/components/schemas/NftTransfer'
         cursor:
           type: string
           description: Pagination cursor for the next page of results.
-    ErrorResponse:
-      type: object
-      description: Standard error response returned when a request fails.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-          example: false
-        error:
-          type: object
-          description: Error details object.
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
     NftMetadataResponse:
       type: object
       description: Response containing detailed metadata for a specific NFT.
@@ -333,12 +289,55 @@ components:
                   value:
                     type: string
                     description: The value of the trait.
+    NftAsset:
+      type: object
+      description: An NFT asset with basic identifying information.
+      properties:
+        contractAddress:
+          type: string
+          description: The smart contract address of the NFT collection.
+        tokenId:
+          type: string
+          description: The unique token ID within the collection.
+        name:
+          type: string
+          description: The name of the NFT.
+        tokenType:
+          type: string
+          description: The token standard type (e.g., ERC-721, ERC-1155).
+          enum:
+          - ERC-721
+          - ERC-1155
+        imageUrl:
+          type: string
+          format: uri
+          description: URL to the NFT image.
+        collectionName:
+          type: string
+          description: The name of the parent collection.
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: Error details object.
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
   parameters:
-    walletAddressParam:
-      name: address
+    cursorParam:
+      name: cursor
       in: query
-      required: true
-      description: The wallet address to query data for.
+      description: Pagination cursor for retrieving the next page of results.
       schema:
         type: string
     chainParam:
@@ -352,6 +351,13 @@ components:
         - ethereum
         - polygon
         - solana
+    contractAddressParam:
+      name: contractAddress
+      in: query
+      required: true
+      description: The smart contract address of the token.
+      schema:
+        type: string
     limitParam:
       name: limit
       in: query
@@ -361,17 +367,11 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-    cursorParam:
-      name: cursor
-      in: query
-      description: Pagination cursor for retrieving the next page of results.
-      schema:
-        type: string
-    contractAddressParam:
-      name: contractAddress
+    walletAddressParam:
+      name: address
       in: query
       required: true
-      description: The smart contract address of the token.
+      description: The wallet address to query data for.
       schema:
         type: string
   securitySchemes:
@@ -379,7 +379,7 @@ components:
       type: apiKey
       in: header
       name: x-api-key
-      description: Uniblock project API key passed as a header. If no provider-specific authentication is passed in the request, Uniblock will use the credentials stored in the project associated with this API key.
+      description: Uniblock project API key passed as a header. Obtain your API key by creating a project on the Uniblock dashboard at app.uniblock.dev.
 externalDocs:
-  description: Uniblock Direct API Documentation
-  url: https://docs.uniblock.dev/docs/direct-api-overview
+  description: Uniblock Unified API Documentation
+  url: https://docs.uniblock.dev/docs/unified-api-overview
