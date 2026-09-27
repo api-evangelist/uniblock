@@ -240,32 +240,85 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    TokenMetadata:
+    TokenTransfersResponse:
       type: object
-      description: Metadata for a fungible token including identifiers and contract details.
+      description: Response containing a paginated list of token transfers.
       properties:
-        name:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: array
+          description: List of token transfer events.
+          items:
+            $ref: '#/components/schemas/TokenTransfer'
+        cursor:
           type: string
-          description: The display name of the token.
-        symbol:
-          type: string
-          description: The ticker symbol of the token.
-        decimals:
-          type: integer
-          description: The number of decimal places the token uses.
+          description: Pagination cursor for the next page of results.
+    TokenAllowance:
+      type: object
+      description: A token allowance granted to a spender contract.
+      properties:
         contractAddress:
           type: string
           description: The smart contract address of the token.
-        chain:
+        spender:
           type: string
-          description: The blockchain network the token exists on.
-        logo:
+          description: The address of the approved spender.
+        allowance:
           type: string
-          format: uri
-          description: URL to the token logo image.
-        totalSupply:
+          description: The approved allowance amount.
+        tokenName:
           type: string
-          description: The total supply of the token in its smallest unit.
+          description: The name of the token.
+        tokenSymbol:
+          type: string
+          description: The symbol of the token.
+    TokenPriceHistoricalResponse:
+      type: object
+      description: Response containing historical price data for a token.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: object
+          description: Historical token price data.
+          properties:
+            usdPrice:
+              type: number
+              format: double
+              description: The historical price of the token in USD.
+            date:
+              type: string
+              format: date
+              description: The date of the historical price.
+            volume:
+              type: number
+              format: double
+              description: The trading volume on the specified date.
+            marketCap:
+              type: number
+              format: double
+              description: The market capitalization on the specified date.
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: Error details object.
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
     TokenBalance:
       type: object
       description: Balance of a specific token held by a wallet address.
@@ -288,25 +341,6 @@ components:
         balanceFormatted:
           type: string
           description: The token balance formatted with proper decimal places.
-    TokenAllowance:
-      type: object
-      description: A token allowance granted to a spender contract.
-      properties:
-        contractAddress:
-          type: string
-          description: The smart contract address of the token.
-        spender:
-          type: string
-          description: The address of the approved spender.
-        allowance:
-          type: string
-          description: The approved allowance amount.
-        tokenName:
-          type: string
-          description: The name of the token.
-        tokenSymbol:
-          type: string
-          description: The symbol of the token.
     TokenPriceResponse:
       type: object
       description: Response containing the current price of a token.
@@ -328,45 +362,6 @@ components:
             contractAddress:
               type: string
               description: The contract address of the token.
-    TokenBalanceResponse:
-      type: object
-      description: Response containing token balances for a wallet address.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-        data:
-          type: array
-          description: List of token balances held by the address.
-          items:
-            $ref: '#/components/schemas/TokenBalance'
-    TokenAllowancesResponse:
-      type: object
-      description: Response containing token allowances granted by a wallet address.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-        data:
-          type: array
-          description: List of token allowances.
-          items:
-            $ref: '#/components/schemas/TokenAllowance'
-    TokenTransfersResponse:
-      type: object
-      description: Response containing a paginated list of token transfers.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-        data:
-          type: array
-          description: List of token transfer events.
-          items:
-            $ref: '#/components/schemas/TokenTransfer'
-        cursor:
-          type: string
-          description: Pagination cursor for the next page of results.
     TokenTransfer:
       type: object
       description: A single token transfer event between two addresses.
@@ -399,33 +394,44 @@ components:
           type: string
           format: date-time
           description: The timestamp of the block in which the transfer occurred.
-    TokenPriceHistoricalResponse:
+    TokenMetadata:
       type: object
-      description: Response containing historical price data for a token.
+      description: Metadata for a fungible token including identifiers and contract details.
+      properties:
+        name:
+          type: string
+          description: The display name of the token.
+        symbol:
+          type: string
+          description: The ticker symbol of the token.
+        decimals:
+          type: integer
+          description: The number of decimal places the token uses.
+        contractAddress:
+          type: string
+          description: The smart contract address of the token.
+        chain:
+          type: string
+          description: The blockchain network the token exists on.
+        logo:
+          type: string
+          format: uri
+          description: URL to the token logo image.
+        totalSupply:
+          type: string
+          description: The total supply of the token in its smallest unit.
+    TokenAllowancesResponse:
+      type: object
+      description: Response containing token allowances granted by a wallet address.
       properties:
         success:
           type: boolean
           description: Indicates whether the request was successful.
         data:
-          type: object
-          description: Historical token price data.
-          properties:
-            usdPrice:
-              type: number
-              format: double
-              description: The historical price of the token in USD.
-            date:
-              type: string
-              format: date
-              description: The date of the historical price.
-            volume:
-              type: number
-              format: double
-              description: The trading volume on the specified date.
-            marketCap:
-              type: number
-              format: double
-              description: The market capitalization on the specified date.
+          type: array
+          description: List of token allowances.
+          items:
+            $ref: '#/components/schemas/TokenAllowance'
     TokenMetadataResponse:
       type: object
       description: Response containing metadata about a fungible token.
@@ -435,31 +441,19 @@ components:
           description: Indicates whether the request was successful.
         data:
           $ref: '#/components/schemas/TokenMetadata'
-    ErrorResponse:
+    TokenBalanceResponse:
       type: object
-      description: Standard error response returned when a request fails.
+      description: Response containing token balances for a wallet address.
       properties:
         success:
           type: boolean
           description: Indicates whether the request was successful.
-          example: false
-        error:
-          type: object
-          description: Error details object.
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
+        data:
+          type: array
+          description: List of token balances held by the address.
+          items:
+            $ref: '#/components/schemas/TokenBalance'
   parameters:
-    cursorParam:
-      name: cursor
-      in: query
-      description: Pagination cursor for retrieving the next page of results.
-      schema:
-        type: string
     chainParam:
       name: chain
       in: query
@@ -471,6 +465,12 @@ components:
         - ethereum
         - polygon
         - solana
+    cursorParam:
+      name: cursor
+      in: query
+      description: Pagination cursor for retrieving the next page of results.
+      schema:
+        type: string
     contractAddressParam:
       name: contractAddress
       in: query

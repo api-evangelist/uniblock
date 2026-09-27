@@ -140,38 +140,24 @@ components:
         gasUsed:
           type: string
           description: The amount of gas consumed by the transaction.
-    NativeSupplyResponse:
+    ErrorResponse:
       type: object
-      description: Response containing the native token supply for a blockchain network.
+      description: Standard error response returned when a request fails.
       properties:
         success:
           type: boolean
           description: Indicates whether the request was successful.
-        data:
+          example: false
+        error:
           type: object
-          description: Native supply data.
+          description: Error details object.
           properties:
-            supply:
+            code:
               type: string
-              description: The current circulating supply of the native token.
-            chain:
+              description: Machine-readable error code.
+            message:
               type: string
-              description: The blockchain network.
-    ScanTransactionsResponse:
-      type: object
-      description: Response containing scanned transactions in explorer format.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-        data:
-          type: array
-          description: List of scanned transactions.
-          items:
-            $ref: '#/components/schemas/Transaction'
-        cursor:
-          type: string
-          description: Pagination cursor for the next page of results.
+              description: Human-readable error message describing what went wrong.
     TokenTransfer:
       type: object
       description: A single token transfer event between two addresses.
@@ -219,32 +205,39 @@ components:
         cursor:
           type: string
           description: Pagination cursor for the next page of results.
-    ErrorResponse:
+    NativeSupplyResponse:
       type: object
-      description: Standard error response returned when a request fails.
+      description: Response containing the native token supply for a blockchain network.
       properties:
         success:
           type: boolean
           description: Indicates whether the request was successful.
-          example: false
-        error:
+        data:
           type: object
-          description: Error details object.
+          description: Native supply data.
           properties:
-            code:
+            supply:
               type: string
-              description: Machine-readable error code.
-            message:
+              description: The current circulating supply of the native token.
+            chain:
               type: string
-              description: Human-readable error message describing what went wrong.
+              description: The blockchain network.
+    ScanTransactionsResponse:
+      type: object
+      description: Response containing scanned transactions in explorer format.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: array
+          description: List of scanned transactions.
+          items:
+            $ref: '#/components/schemas/Transaction'
+        cursor:
+          type: string
+          description: Pagination cursor for the next page of results.
   parameters:
-    walletAddressParam:
-      name: address
-      in: query
-      required: true
-      description: The wallet address to query data for.
-      schema:
-        type: string
     chainParam:
       name: chain
       in: query
@@ -256,6 +249,12 @@ components:
         - ethereum
         - polygon
         - solana
+    cursorParam:
+      name: cursor
+      in: query
+      description: Pagination cursor for retrieving the next page of results.
+      schema:
+        type: string
     limitParam:
       name: limit
       in: query
@@ -265,10 +264,11 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-    cursorParam:
-      name: cursor
+    walletAddressParam:
+      name: address
       in: query
-      description: Pagination cursor for retrieving the next page of results.
+      required: true
+      description: The wallet address to query data for.
       schema:
         type: string
   securitySchemes:

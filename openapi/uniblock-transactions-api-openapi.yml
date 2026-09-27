@@ -122,6 +122,24 @@ components:
         gasUsed:
           type: string
           description: The amount of gas consumed by the transaction.
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: Error details object.
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
     TransactionsResponse:
       type: object
       description: Response containing a paginated list of transactions.
@@ -202,31 +220,7 @@ components:
                   data:
                     type: string
                     description: Non-indexed event data.
-    ErrorResponse:
-      type: object
-      description: Standard error response returned when a request fails.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-          example: false
-        error:
-          type: object
-          description: Error details object.
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
   parameters:
-    cursorParam:
-      name: cursor
-      in: query
-      description: Pagination cursor for retrieving the next page of results.
-      schema:
-        type: string
     chainParam:
       name: chain
       in: query
@@ -238,6 +232,12 @@ components:
         - ethereum
         - polygon
         - solana
+    cursorParam:
+      name: cursor
+      in: query
+      description: Pagination cursor for retrieving the next page of results.
+      schema:
+        type: string
     limitParam:
       name: limit
       in: query

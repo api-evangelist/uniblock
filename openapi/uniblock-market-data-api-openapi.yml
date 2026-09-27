@@ -220,6 +220,27 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    MarketDataVolumeResponse:
+      type: object
+      description: Response containing 24-hour trading volume for a token.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: object
+          description: Trading volume data.
+          properties:
+            volume24h:
+              type: number
+              format: double
+              description: The 24-hour trading volume in USD.
+            contractAddress:
+              type: string
+              description: The contract address of the token.
+            chain:
+              type: string
+              description: The blockchain network.
     MarketDataChartResponse:
       type: object
       description: Response containing time-series charting data for a token.
@@ -283,21 +304,60 @@ components:
                 type: number
                 format: double
                 description: The 24-hour price change percentage.
-    MarketDataVolumeResponse:
+    ErrorResponse:
       type: object
-      description: Response containing 24-hour trading volume for a token.
+      description: Standard error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: Error details object.
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+    MarketDataPriceResponse:
+      type: object
+      description: Response containing the current market price of a token.
       properties:
         success:
           type: boolean
           description: Indicates whether the request was successful.
         data:
           type: object
-          description: Trading volume data.
+          description: Market price data.
           properties:
-            volume24h:
+            price:
               type: number
               format: double
-              description: The 24-hour trading volume in USD.
+              description: The current market price in USD.
+            contractAddress:
+              type: string
+              description: The contract address of the token.
+            chain:
+              type: string
+              description: The blockchain network.
+    MarketDataMarketCapResponse:
+      type: object
+      description: Response containing market capitalization data for a token.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: object
+          description: Market capitalization data.
+          properties:
+            marketCap:
+              type: number
+              format: double
+              description: The current market capitalization in USD.
             contractAddress:
               type: string
               description: The contract address of the token.
@@ -331,66 +391,6 @@ components:
               type: number
               format: double
               description: The market capitalization on the specified date.
-    MarketDataMarketCapResponse:
-      type: object
-      description: Response containing market capitalization data for a token.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-        data:
-          type: object
-          description: Market capitalization data.
-          properties:
-            marketCap:
-              type: number
-              format: double
-              description: The current market capitalization in USD.
-            contractAddress:
-              type: string
-              description: The contract address of the token.
-            chain:
-              type: string
-              description: The blockchain network.
-    MarketDataPriceResponse:
-      type: object
-      description: Response containing the current market price of a token.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-        data:
-          type: object
-          description: Market price data.
-          properties:
-            price:
-              type: number
-              format: double
-              description: The current market price in USD.
-            contractAddress:
-              type: string
-              description: The contract address of the token.
-            chain:
-              type: string
-              description: The blockchain network.
-    ErrorResponse:
-      type: object
-      description: Standard error response returned when a request fails.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-          example: false
-        error:
-          type: object
-          description: Error details object.
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
   parameters:
     chainParam:
       name: chain

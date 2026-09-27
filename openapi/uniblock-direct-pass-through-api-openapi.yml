@@ -195,6 +195,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  schemas:
+    ProviderResponse:
+      type: object
+      description: Response from the upstream provider returned as-is. The structure varies depending on the provider and endpoint called.
+      additionalProperties: true
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: Error details object.
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
   parameters:
     providerParam:
       name: provider
@@ -228,29 +251,6 @@ components:
       description: The provider-specific endpoint path to call, exactly as documented by the upstream provider.
       schema:
         type: string
-  schemas:
-    ProviderResponse:
-      type: object
-      description: Response from the upstream provider returned as-is. The structure varies depending on the provider and endpoint called.
-      additionalProperties: true
-    ErrorResponse:
-      type: object
-      description: Standard error response returned when a request fails.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-          example: false
-        error:
-          type: object
-          description: Error details object.
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
   securitySchemes:
     apiKeyHeader:
       type: apiKey
