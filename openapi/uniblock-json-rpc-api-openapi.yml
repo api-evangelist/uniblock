@@ -110,65 +110,6 @@ paths:
                 $ref: '#/components/schemas/JsonRpcErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard Uniblock error response for non-RPC errors.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-          example: false
-        error:
-          type: object
-          description: Error details object.
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
-    JsonRpcResponse:
-      type: object
-      description: A standard JSON-RPC 2.0 success response from the blockchain node.
-      properties:
-        jsonrpc:
-          type: string
-          description: The JSON-RPC protocol version.
-          enum:
-          - '2.0'
-        id:
-          oneOf:
-          - type: integer
-          - type: string
-          description: The request identifier, matching the id from the request.
-        result:
-          description: The result of the RPC method call. The structure depends on the specific method invoked.
-    JsonRpcRequest:
-      type: object
-      required:
-      - jsonrpc
-      - id
-      - method
-      description: A standard JSON-RPC 2.0 request object for blockchain node calls.
-      properties:
-        jsonrpc:
-          type: string
-          description: The JSON-RPC protocol version. Must be "2.0".
-          enum:
-          - '2.0'
-        id:
-          oneOf:
-          - type: integer
-          - type: string
-          description: A unique identifier for the request, used to match responses.
-        method:
-          type: string
-          description: The RPC method name to invoke. Supports standard Ethereum methods (eth_blockNumber, eth_getBalance, eth_call, eth_sendRawTransaction, eth_getTransactionByHash, eth_getTransactionReceipt, eth_getLogs, eth_gasPrice, eth_estimateGas, eth_getBlockByNumber, etc.), Solana methods (getBalance, getTransaction, getBlock, etc.), and other chain-specific methods.
-        params:
-          type: array
-          description: An ordered list of parameter values for the RPC method. The structure and content depends on the specific method being called.
-          items: {}
     JsonRpcErrorResponse:
       type: object
       description: A standard JSON-RPC 2.0 error response from the blockchain node.
@@ -195,6 +136,65 @@ components:
               description: A human-readable error message.
             data:
               description: Additional error data provided by the node, if available.
+    JsonRpcRequest:
+      type: object
+      required:
+      - jsonrpc
+      - id
+      - method
+      description: A standard JSON-RPC 2.0 request object for blockchain node calls.
+      properties:
+        jsonrpc:
+          type: string
+          description: The JSON-RPC protocol version. Must be "2.0".
+          enum:
+          - '2.0'
+        id:
+          oneOf:
+          - type: integer
+          - type: string
+          description: A unique identifier for the request, used to match responses.
+        method:
+          type: string
+          description: The RPC method name to invoke. Supports standard Ethereum methods (eth_blockNumber, eth_getBalance, eth_call, eth_sendRawTransaction, eth_getTransactionByHash, eth_getTransactionReceipt, eth_getLogs, eth_gasPrice, eth_estimateGas, eth_getBlockByNumber, etc.), Solana methods (getBalance, getTransaction, getBlock, etc.), and other chain-specific methods.
+        params:
+          type: array
+          description: An ordered list of parameter values for the RPC method. The structure and content depends on the specific method being called.
+          items: {}
+    JsonRpcResponse:
+      type: object
+      description: A standard JSON-RPC 2.0 success response from the blockchain node.
+      properties:
+        jsonrpc:
+          type: string
+          description: The JSON-RPC protocol version.
+          enum:
+          - '2.0'
+        id:
+          oneOf:
+          - type: integer
+          - type: string
+          description: The request identifier, matching the id from the request.
+        result:
+          description: The result of the RPC method call. The structure depends on the specific method invoked.
+    ErrorResponse:
+      type: object
+      description: Standard Uniblock error response for non-RPC errors.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: Error details object.
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
   securitySchemes:
     apiKeyHeader:
       type: apiKey

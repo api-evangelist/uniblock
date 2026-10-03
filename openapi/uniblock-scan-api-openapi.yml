@@ -107,7 +107,59 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  parameters:
+    cursorParam:
+      name: cursor
+      in: query
+      description: Pagination cursor for retrieving the next page of results.
+      schema:
+        type: string
+    walletAddressParam:
+      name: address
+      in: query
+      required: true
+      description: The wallet address to query data for.
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    chainParam:
+      name: chain
+      in: query
+      required: true
+      description: The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).
+      schema:
+        type: string
+        examples:
+        - ethereum
+        - polygon
+        - solana
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: Error details object.
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
     Transaction:
       type: object
       description: A blockchain transaction with summary information.
@@ -140,24 +192,36 @@ components:
         gasUsed:
           type: string
           description: The amount of gas consumed by the transaction.
-    ErrorResponse:
+    ScanTransfersResponse:
       type: object
-      description: Standard error response returned when a request fails.
+      description: Response containing scanned token transfer events.
       properties:
         success:
           type: boolean
           description: Indicates whether the request was successful.
-          example: false
-        error:
-          type: object
-          description: Error details object.
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
+        data:
+          type: array
+          description: List of scanned transfer events.
+          items:
+            $ref: '#/components/schemas/TokenTransfer'
+        cursor:
+          type: string
+          description: Pagination cursor for the next page of results.
+    ScanTransactionsResponse:
+      type: object
+      description: Response containing scanned transactions in explorer format.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: array
+          description: List of scanned transactions.
+          items:
+            $ref: '#/components/schemas/Transaction'
+        cursor:
+          type: string
+          description: Pagination cursor for the next page of results.
     TokenTransfer:
       type: object
       description: A single token transfer event between two addresses.
@@ -190,21 +254,6 @@ components:
           type: string
           format: date-time
           description: The timestamp of the block in which the transfer occurred.
-    ScanTransfersResponse:
-      type: object
-      description: Response containing scanned token transfer events.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-        data:
-          type: array
-          description: List of scanned transfer events.
-          items:
-            $ref: '#/components/schemas/TokenTransfer'
-        cursor:
-          type: string
-          description: Pagination cursor for the next page of results.
     NativeSupplyResponse:
       type: object
       description: Response containing the native token supply for a blockchain network.
@@ -222,55 +271,6 @@ components:
             chain:
               type: string
               description: The blockchain network.
-    ScanTransactionsResponse:
-      type: object
-      description: Response containing scanned transactions in explorer format.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-        data:
-          type: array
-          description: List of scanned transactions.
-          items:
-            $ref: '#/components/schemas/Transaction'
-        cursor:
-          type: string
-          description: Pagination cursor for the next page of results.
-  parameters:
-    chainParam:
-      name: chain
-      in: query
-      required: true
-      description: The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).
-      schema:
-        type: string
-        examples:
-        - ethereum
-        - polygon
-        - solana
-    cursorParam:
-      name: cursor
-      in: query
-      description: Pagination cursor for retrieving the next page of results.
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of results to return per page.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    walletAddressParam:
-      name: address
-      in: query
-      required: true
-      description: The wallet address to query data for.
-      schema:
-        type: string
   securitySchemes:
     apiKeyHeader:
       type: apiKey

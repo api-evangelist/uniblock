@@ -196,10 +196,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ProviderResponse:
-      type: object
-      description: Response from the upstream provider returned as-is. The structure varies depending on the provider and endpoint called.
-      additionalProperties: true
     ErrorResponse:
       type: object
       description: Standard error response returned when a request fails.
@@ -218,22 +214,11 @@ components:
             message:
               type: string
               description: Human-readable error message describing what went wrong.
+    ProviderResponse:
+      type: object
+      description: Response from the upstream provider returned as-is. The structure varies depending on the provider and endpoint called.
+      additionalProperties: true
   parameters:
-    providerParam:
-      name: provider
-      in: path
-      required: true
-      description: The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan).
-      schema:
-        type: string
-        examples:
-        - alchemy
-        - moralis
-        - covalent
-        - simplehash
-        - tonapi
-        - helius
-        - solscan
     prefixParam:
       name: prefix
       in: path
@@ -251,6 +236,21 @@ components:
       description: The provider-specific endpoint path to call, exactly as documented by the upstream provider.
       schema:
         type: string
+    providerParam:
+      name: provider
+      in: path
+      required: true
+      description: The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan).
+      schema:
+        type: string
+        examples:
+        - alchemy
+        - moralis
+        - covalent
+        - simplehash
+        - tonapi
+        - helius
+        - solscan
   securitySchemes:
     apiKeyHeader:
       type: apiKey

@@ -150,87 +150,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    NftCollectionMetadataResponse:
-      type: object
-      description: Response containing metadata about an NFT collection.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-        data:
-          type: object
-          description: NFT collection metadata.
-          properties:
-            contractAddress:
-              type: string
-              description: The smart contract address of the collection.
-            name:
-              type: string
-              description: The name of the collection.
-            description:
-              type: string
-              description: A description of the collection.
-            symbol:
-              type: string
-              description: The symbol of the collection.
-            totalSupply:
-              type: integer
-              description: The total number of NFTs in the collection.
-            imageUrl:
-              type: string
-              format: uri
-              description: URL to the collection image.
-            floorPrice:
-              type: number
-              format: double
-              description: The current floor price of the collection.
-            chain:
-              type: string
-              description: The blockchain network the collection exists on.
-    NftAsset:
-      type: object
-      description: An NFT asset with basic identifying information.
-      properties:
-        contractAddress:
-          type: string
-          description: The smart contract address of the NFT collection.
-        tokenId:
-          type: string
-          description: The unique token ID within the collection.
-        name:
-          type: string
-          description: The name of the NFT.
-        tokenType:
-          type: string
-          description: The token standard type (e.g., ERC-721, ERC-1155).
-          enum:
-          - ERC-721
-          - ERC-1155
-        imageUrl:
-          type: string
-          format: uri
-          description: URL to the NFT image.
-        collectionName:
-          type: string
-          description: The name of the parent collection.
-    ErrorResponse:
-      type: object
-      description: Standard error response returned when a request fails.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-          example: false
-        error:
-          type: object
-          description: Error details object.
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
     NftBalanceResponse:
       type: object
       description: Response containing NFTs owned by a wallet address.
@@ -272,21 +191,43 @@ components:
           type: string
           format: date-time
           description: The timestamp of the block in which the transfer occurred.
-    NftTransfersResponse:
+    NftCollectionMetadataResponse:
       type: object
-      description: Response containing a paginated list of NFT transfer events.
+      description: Response containing metadata about an NFT collection.
       properties:
         success:
           type: boolean
           description: Indicates whether the request was successful.
         data:
-          type: array
-          description: List of NFT transfer events.
-          items:
-            $ref: '#/components/schemas/NftTransfer'
-        cursor:
-          type: string
-          description: Pagination cursor for the next page of results.
+          type: object
+          description: NFT collection metadata.
+          properties:
+            contractAddress:
+              type: string
+              description: The smart contract address of the collection.
+            name:
+              type: string
+              description: The name of the collection.
+            description:
+              type: string
+              description: A description of the collection.
+            symbol:
+              type: string
+              description: The symbol of the collection.
+            totalSupply:
+              type: integer
+              description: The total number of NFTs in the collection.
+            imageUrl:
+              type: string
+              format: uri
+              description: URL to the collection image.
+            floorPrice:
+              type: number
+              format: double
+              description: The current floor price of the collection.
+            chain:
+              type: string
+              description: The blockchain network the collection exists on.
     NftMetadataResponse:
       type: object
       description: Response containing detailed metadata for a specific NFT.
@@ -333,29 +274,77 @@ components:
                   value:
                     type: string
                     description: The value of the trait.
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: Error details object.
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+    NftAsset:
+      type: object
+      description: An NFT asset with basic identifying information.
+      properties:
+        contractAddress:
+          type: string
+          description: The smart contract address of the NFT collection.
+        tokenId:
+          type: string
+          description: The unique token ID within the collection.
+        name:
+          type: string
+          description: The name of the NFT.
+        tokenType:
+          type: string
+          description: The token standard type (e.g., ERC-721, ERC-1155).
+          enum:
+          - ERC-721
+          - ERC-1155
+        imageUrl:
+          type: string
+          format: uri
+          description: URL to the NFT image.
+        collectionName:
+          type: string
+          description: The name of the parent collection.
+    NftTransfersResponse:
+      type: object
+      description: Response containing a paginated list of NFT transfer events.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: array
+          description: List of NFT transfer events.
+          items:
+            $ref: '#/components/schemas/NftTransfer'
+        cursor:
+          type: string
+          description: Pagination cursor for the next page of results.
   parameters:
-    chainParam:
-      name: chain
-      in: query
-      required: true
-      description: The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).
-      schema:
-        type: string
-        examples:
-        - ethereum
-        - polygon
-        - solana
     cursorParam:
       name: cursor
       in: query
       description: Pagination cursor for retrieving the next page of results.
       schema:
         type: string
-    contractAddressParam:
-      name: contractAddress
+    walletAddressParam:
+      name: address
       in: query
       required: true
-      description: The smart contract address of the token.
+      description: The wallet address to query data for.
       schema:
         type: string
     limitParam:
@@ -367,11 +356,22 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-    walletAddressParam:
-      name: address
+    chainParam:
+      name: chain
       in: query
       required: true
-      description: The wallet address to query data for.
+      description: The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).
+      schema:
+        type: string
+        examples:
+        - ethereum
+        - polygon
+        - solana
+    contractAddressParam:
+      name: contractAddress
+      in: query
+      required: true
+      description: The smart contract address of the token.
       schema:
         type: string
   securitySchemes:

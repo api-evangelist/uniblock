@@ -89,72 +89,41 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  parameters:
+    cursorParam:
+      name: cursor
+      in: query
+      description: Pagination cursor for retrieving the next page of results.
+      schema:
+        type: string
+    walletAddressParam:
+      name: address
+      in: query
+      required: true
+      description: The wallet address to query data for.
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    chainParam:
+      name: chain
+      in: query
+      required: true
+      description: The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).
+      schema:
+        type: string
+        examples:
+        - ethereum
+        - polygon
+        - solana
   schemas:
-    Transaction:
-      type: object
-      description: A blockchain transaction with summary information.
-      properties:
-        transactionHash:
-          type: string
-          description: The unique hash identifier of the transaction.
-        from:
-          type: string
-          description: The sender address.
-        to:
-          type: string
-          description: The recipient address.
-        value:
-          type: string
-          description: The value transferred in the native token's smallest unit.
-        blockNumber:
-          type: integer
-          description: The block number containing the transaction.
-        blockTimestamp:
-          type: string
-          format: date-time
-          description: The timestamp of the block containing the transaction.
-        status:
-          type: string
-          description: The execution status of the transaction.
-          enum:
-          - success
-          - failed
-        gasUsed:
-          type: string
-          description: The amount of gas consumed by the transaction.
-    ErrorResponse:
-      type: object
-      description: Standard error response returned when a request fails.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-          example: false
-        error:
-          type: object
-          description: Error details object.
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
-    TransactionsResponse:
-      type: object
-      description: Response containing a paginated list of transactions.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-        data:
-          type: array
-          description: List of transactions.
-          items:
-            $ref: '#/components/schemas/Transaction'
-        cursor:
-          type: string
-          description: Pagination cursor for the next page of results.
     TransactionDetailResponse:
       type: object
       description: Response containing detailed information about a single transaction.
@@ -220,40 +189,71 @@ components:
                   data:
                     type: string
                     description: Non-indexed event data.
-  parameters:
-    chainParam:
-      name: chain
-      in: query
-      required: true
-      description: The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).
-      schema:
-        type: string
-        examples:
-        - ethereum
-        - polygon
-        - solana
-    cursorParam:
-      name: cursor
-      in: query
-      description: Pagination cursor for retrieving the next page of results.
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of results to return per page.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    walletAddressParam:
-      name: address
-      in: query
-      required: true
-      description: The wallet address to query data for.
-      schema:
-        type: string
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: Error details object.
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+    Transaction:
+      type: object
+      description: A blockchain transaction with summary information.
+      properties:
+        transactionHash:
+          type: string
+          description: The unique hash identifier of the transaction.
+        from:
+          type: string
+          description: The sender address.
+        to:
+          type: string
+          description: The recipient address.
+        value:
+          type: string
+          description: The value transferred in the native token's smallest unit.
+        blockNumber:
+          type: integer
+          description: The block number containing the transaction.
+        blockTimestamp:
+          type: string
+          format: date-time
+          description: The timestamp of the block containing the transaction.
+        status:
+          type: string
+          description: The execution status of the transaction.
+          enum:
+          - success
+          - failed
+        gasUsed:
+          type: string
+          description: The amount of gas consumed by the transaction.
+    TransactionsResponse:
+      type: object
+      description: Response containing a paginated list of transactions.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: array
+          description: List of transactions.
+          items:
+            $ref: '#/components/schemas/Transaction'
+        cursor:
+          type: string
+          description: Pagination cursor for the next page of results.
   securitySchemes:
     apiKeyHeader:
       type: apiKey
