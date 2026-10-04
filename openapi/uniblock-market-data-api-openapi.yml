@@ -220,67 +220,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    MarketDataTrendingResponse:
-      type: object
-      description: Response containing a list of currently trending tokens.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-        data:
-          type: array
-          description: List of trending tokens.
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: The name of the trending token.
-              symbol:
-                type: string
-                description: The ticker symbol of the trending token.
-              contractAddress:
-                type: string
-                description: The contract address of the token.
-              price:
-                type: number
-                format: double
-                description: The current price in USD.
-              volume24h:
-                type: number
-                format: double
-                description: The 24-hour trading volume in USD.
-              priceChange24h:
-                type: number
-                format: double
-                description: The 24-hour price change percentage.
-    MarketDataHistoryResponse:
-      type: object
-      description: Response containing historical market data for a specific date.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-        data:
-          type: object
-          description: Historical market data for the specified date.
-          properties:
-            date:
-              type: string
-              format: date
-              description: The date of the historical data.
-            price:
-              type: number
-              format: double
-              description: The price on the specified date in USD.
-            volume:
-              type: number
-              format: double
-              description: The trading volume on the specified date.
-            marketCap:
-              type: number
-              format: double
-              description: The market capitalization on the specified date.
     ErrorResponse:
       type: object
       description: Standard error response returned when a request fails.
@@ -314,6 +253,54 @@ components:
               type: number
               format: double
               description: The 24-hour trading volume in USD.
+            contractAddress:
+              type: string
+              description: The contract address of the token.
+            chain:
+              type: string
+              description: The blockchain network.
+    MarketDataHistoryResponse:
+      type: object
+      description: Response containing historical market data for a specific date.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: object
+          description: Historical market data for the specified date.
+          properties:
+            date:
+              type: string
+              format: date
+              description: The date of the historical data.
+            price:
+              type: number
+              format: double
+              description: The price on the specified date in USD.
+            volume:
+              type: number
+              format: double
+              description: The trading volume on the specified date.
+            marketCap:
+              type: number
+              format: double
+              description: The market capitalization on the specified date.
+    MarketDataMarketCapResponse:
+      type: object
+      description: Response containing market capitalization data for a token.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: object
+          description: Market capitalization data.
+          properties:
+            marketCap:
+              type: number
+              format: double
+              description: The current market capitalization in USD.
             contractAddress:
               type: string
               description: The contract address of the token.
@@ -370,28 +357,50 @@ components:
                 type: number
                 format: double
                 description: The market cap at the given timestamp.
-    MarketDataMarketCapResponse:
+    MarketDataTrendingResponse:
       type: object
-      description: Response containing market capitalization data for a token.
+      description: Response containing a list of currently trending tokens.
       properties:
         success:
           type: boolean
           description: Indicates whether the request was successful.
         data:
-          type: object
-          description: Market capitalization data.
-          properties:
-            marketCap:
-              type: number
-              format: double
-              description: The current market capitalization in USD.
-            contractAddress:
-              type: string
-              description: The contract address of the token.
-            chain:
-              type: string
-              description: The blockchain network.
+          type: array
+          description: List of trending tokens.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The name of the trending token.
+              symbol:
+                type: string
+                description: The ticker symbol of the trending token.
+              contractAddress:
+                type: string
+                description: The contract address of the token.
+              price:
+                type: number
+                format: double
+                description: The current price in USD.
+              volume24h:
+                type: number
+                format: double
+                description: The 24-hour trading volume in USD.
+              priceChange24h:
+                type: number
+                format: double
+                description: The 24-hour price change percentage.
   parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
     chainParam:
       name: chain
       in: query
@@ -403,15 +412,6 @@ components:
         - ethereum
         - polygon
         - solana
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of results to return per page.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
     contractAddressParam:
       name: contractAddress
       in: query

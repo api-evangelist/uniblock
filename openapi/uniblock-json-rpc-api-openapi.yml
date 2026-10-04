@@ -110,32 +110,24 @@ paths:
                 $ref: '#/components/schemas/JsonRpcErrorResponse'
 components:
   schemas:
-    JsonRpcErrorResponse:
+    ErrorResponse:
       type: object
-      description: A standard JSON-RPC 2.0 error response from the blockchain node.
+      description: Standard Uniblock error response for non-RPC errors.
       properties:
-        jsonrpc:
-          type: string
-          description: The JSON-RPC protocol version.
-          enum:
-          - '2.0'
-        id:
-          oneOf:
-          - type: integer
-          - type: string
-          description: The request identifier, matching the id from the request.
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+          example: false
         error:
           type: object
-          description: The error object containing details about the failure.
+          description: Error details object.
           properties:
             code:
-              type: integer
-              description: A numeric error code indicating the type of error. Standard JSON-RPC error codes include -32700 (parse error), -32600 (invalid request), -32601 (method not found), -32602 (invalid params), -32603 (internal error).
+              type: string
+              description: Machine-readable error code.
             message:
               type: string
-              description: A human-readable error message.
-            data:
-              description: Additional error data provided by the node, if available.
+              description: Human-readable error message describing what went wrong.
     JsonRpcRequest:
       type: object
       required:
@@ -177,24 +169,32 @@ components:
           description: The request identifier, matching the id from the request.
         result:
           description: The result of the RPC method call. The structure depends on the specific method invoked.
-    ErrorResponse:
+    JsonRpcErrorResponse:
       type: object
-      description: Standard Uniblock error response for non-RPC errors.
+      description: A standard JSON-RPC 2.0 error response from the blockchain node.
       properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-          example: false
+        jsonrpc:
+          type: string
+          description: The JSON-RPC protocol version.
+          enum:
+          - '2.0'
+        id:
+          oneOf:
+          - type: integer
+          - type: string
+          description: The request identifier, matching the id from the request.
         error:
           type: object
-          description: Error details object.
+          description: The error object containing details about the failure.
           properties:
             code:
-              type: string
-              description: Machine-readable error code.
+              type: integer
+              description: A numeric error code indicating the type of error. Standard JSON-RPC error codes include -32700 (parse error), -32600 (invalid request), -32601 (method not found), -32602 (invalid params), -32603 (internal error).
             message:
               type: string
-              description: Human-readable error message describing what went wrong.
+              description: A human-readable error message.
+            data:
+              description: Additional error data provided by the node, if available.
   securitySchemes:
     apiKeyHeader:
       type: apiKey

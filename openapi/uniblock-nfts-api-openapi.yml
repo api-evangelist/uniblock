@@ -150,21 +150,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    NftBalanceResponse:
-      type: object
-      description: Response containing NFTs owned by a wallet address.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-        data:
-          type: array
-          description: List of NFTs held by the address.
-          items:
-            $ref: '#/components/schemas/NftAsset'
-        cursor:
-          type: string
-          description: Pagination cursor for the next page of results.
     NftTransfer:
       type: object
       description: A single NFT transfer event between two addresses.
@@ -191,43 +176,24 @@ components:
           type: string
           format: date-time
           description: The timestamp of the block in which the transfer occurred.
-    NftCollectionMetadataResponse:
+    ErrorResponse:
       type: object
-      description: Response containing metadata about an NFT collection.
+      description: Standard error response returned when a request fails.
       properties:
         success:
           type: boolean
           description: Indicates whether the request was successful.
-        data:
+          example: false
+        error:
           type: object
-          description: NFT collection metadata.
+          description: Error details object.
           properties:
-            contractAddress:
+            code:
               type: string
-              description: The smart contract address of the collection.
-            name:
+              description: Machine-readable error code.
+            message:
               type: string
-              description: The name of the collection.
-            description:
-              type: string
-              description: A description of the collection.
-            symbol:
-              type: string
-              description: The symbol of the collection.
-            totalSupply:
-              type: integer
-              description: The total number of NFTs in the collection.
-            imageUrl:
-              type: string
-              format: uri
-              description: URL to the collection image.
-            floorPrice:
-              type: number
-              format: double
-              description: The current floor price of the collection.
-            chain:
-              type: string
-              description: The blockchain network the collection exists on.
+              description: Human-readable error message describing what went wrong.
     NftMetadataResponse:
       type: object
       description: Response containing detailed metadata for a specific NFT.
@@ -274,24 +240,73 @@ components:
                   value:
                     type: string
                     description: The value of the trait.
-    ErrorResponse:
+    NftTransfersResponse:
       type: object
-      description: Standard error response returned when a request fails.
+      description: Response containing a paginated list of NFT transfer events.
       properties:
         success:
           type: boolean
           description: Indicates whether the request was successful.
-          example: false
-        error:
+        data:
+          type: array
+          description: List of NFT transfer events.
+          items:
+            $ref: '#/components/schemas/NftTransfer'
+        cursor:
+          type: string
+          description: Pagination cursor for the next page of results.
+    NftBalanceResponse:
+      type: object
+      description: Response containing NFTs owned by a wallet address.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: array
+          description: List of NFTs held by the address.
+          items:
+            $ref: '#/components/schemas/NftAsset'
+        cursor:
+          type: string
+          description: Pagination cursor for the next page of results.
+    NftCollectionMetadataResponse:
+      type: object
+      description: Response containing metadata about an NFT collection.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
           type: object
-          description: Error details object.
+          description: NFT collection metadata.
           properties:
-            code:
+            contractAddress:
               type: string
-              description: Machine-readable error code.
-            message:
+              description: The smart contract address of the collection.
+            name:
               type: string
-              description: Human-readable error message describing what went wrong.
+              description: The name of the collection.
+            description:
+              type: string
+              description: A description of the collection.
+            symbol:
+              type: string
+              description: The symbol of the collection.
+            totalSupply:
+              type: integer
+              description: The total number of NFTs in the collection.
+            imageUrl:
+              type: string
+              format: uri
+              description: URL to the collection image.
+            floorPrice:
+              type: number
+              format: double
+              description: The current floor price of the collection.
+            chain:
+              type: string
+              description: The blockchain network the collection exists on.
     NftAsset:
       type: object
       description: An NFT asset with basic identifying information.
@@ -318,35 +333,7 @@ components:
         collectionName:
           type: string
           description: The name of the parent collection.
-    NftTransfersResponse:
-      type: object
-      description: Response containing a paginated list of NFT transfer events.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-        data:
-          type: array
-          description: List of NFT transfer events.
-          items:
-            $ref: '#/components/schemas/NftTransfer'
-        cursor:
-          type: string
-          description: Pagination cursor for the next page of results.
   parameters:
-    cursorParam:
-      name: cursor
-      in: query
-      description: Pagination cursor for retrieving the next page of results.
-      schema:
-        type: string
-    walletAddressParam:
-      name: address
-      in: query
-      required: true
-      description: The wallet address to query data for.
-      schema:
-        type: string
     limitParam:
       name: limit
       in: query
@@ -367,6 +354,19 @@ components:
         - ethereum
         - polygon
         - solana
+    cursorParam:
+      name: cursor
+      in: query
+      description: Pagination cursor for retrieving the next page of results.
+      schema:
+        type: string
+    walletAddressParam:
+      name: address
+      in: query
+      required: true
+      description: The wallet address to query data for.
+      schema:
+        type: string
     contractAddressParam:
       name: contractAddress
       in: query

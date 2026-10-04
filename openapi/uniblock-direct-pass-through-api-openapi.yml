@@ -219,23 +219,6 @@ components:
       description: Response from the upstream provider returned as-is. The structure varies depending on the provider and endpoint called.
       additionalProperties: true
   parameters:
-    prefixParam:
-      name: prefix
-      in: path
-      required: true
-      description: An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix.
-      schema:
-        type: string
-        examples:
-        - ethereum
-        - v2.0
-    pathParam:
-      name: path
-      in: path
-      required: true
-      description: The provider-specific endpoint path to call, exactly as documented by the upstream provider.
-      schema:
-        type: string
     providerParam:
       name: provider
       in: path
@@ -251,6 +234,23 @@ components:
         - tonapi
         - helius
         - solscan
+    pathParam:
+      name: path
+      in: path
+      required: true
+      description: The provider-specific endpoint path to call, exactly as documented by the upstream provider.
+      schema:
+        type: string
+    prefixParam:
+      name: prefix
+      in: path
+      required: true
+      description: An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix.
+      schema:
+        type: string
+        examples:
+        - ethereum
+        - v2.0
   securitySchemes:
     apiKeyHeader:
       type: apiKey
