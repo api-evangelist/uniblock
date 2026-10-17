@@ -110,24 +110,6 @@ paths:
                 $ref: '#/components/schemas/JsonRpcErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard Uniblock error response for non-RPC errors.
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request was successful.
-          example: false
-        error:
-          type: object
-          description: Error details object.
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
     JsonRpcRequest:
       type: object
       required:
@@ -195,6 +177,24 @@ components:
               description: A human-readable error message.
             data:
               description: Additional error data provided by the node, if available.
+    ErrorResponse:
+      type: object
+      description: Standard Uniblock error response for non-RPC errors.
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+          example: false
+        error:
+          type: object
+          description: Error details object.
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
   securitySchemes:
     apiKeyHeader:
       type: apiKey

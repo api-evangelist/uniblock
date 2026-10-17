@@ -195,7 +195,44 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  parameters:
+    pathParam:
+      name: path
+      in: path
+      required: true
+      description: The provider-specific endpoint path to call, exactly as documented by the upstream provider.
+      schema:
+        type: string
+    prefixParam:
+      name: prefix
+      in: path
+      required: true
+      description: An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix.
+      schema:
+        type: string
+        examples:
+        - ethereum
+        - v2.0
+    providerParam:
+      name: provider
+      in: path
+      required: true
+      description: The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan).
+      schema:
+        type: string
+        examples:
+        - alchemy
+        - moralis
+        - covalent
+        - simplehash
+        - tonapi
+        - helius
+        - solscan
   schemas:
+    ProviderResponse:
+      type: object
+      description: Response from the upstream provider returned as-is. The structure varies depending on the provider and endpoint called.
+      additionalProperties: true
     ErrorResponse:
       type: object
       description: Standard error response returned when a request fails.
@@ -214,43 +251,6 @@ components:
             message:
               type: string
               description: Human-readable error message describing what went wrong.
-    ProviderResponse:
-      type: object
-      description: Response from the upstream provider returned as-is. The structure varies depending on the provider and endpoint called.
-      additionalProperties: true
-  parameters:
-    providerParam:
-      name: provider
-      in: path
-      required: true
-      description: The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan).
-      schema:
-        type: string
-        examples:
-        - alchemy
-        - moralis
-        - covalent
-        - simplehash
-        - tonapi
-        - helius
-        - solscan
-    pathParam:
-      name: path
-      in: path
-      required: true
-      description: The provider-specific endpoint path to call, exactly as documented by the upstream provider.
-      schema:
-        type: string
-    prefixParam:
-      name: prefix
-      in: path
-      required: true
-      description: An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix.
-      schema:
-        type: string
-        examples:
-        - ethereum
-        - v2.0
   securitySchemes:
     apiKeyHeader:
       type: apiKey
