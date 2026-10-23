@@ -183,6 +183,8 @@ apis:
   - type: Documentation
     url: https://docs.uniblock.dev/docs/direct-api-overview
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/uniblock/overview
   - type: Plans
     url: plans/uniblock-plans-pricing.yml
   - type: RateLimits
