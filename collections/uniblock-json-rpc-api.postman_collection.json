@@ -1,325 +1,348 @@
 {
+  "info": {
+    "_postman_id": "6c48c8bf-c06b-45cf-8615-27e860416e0e",
+    "name": "Uniblock Direct Direct Pass-Through JSON RPC API",
+    "description": "The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers.\n\nContact Support:\n Name: Uniblock Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:32:19.000Z",
+    "updatedAt": "2026-10-21T20:32:19.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6c48c8bf-c06b-45cf-8615-27e860416e0e"
+  },
   "item": [
     {
-      "id": "f0f49e7b-3b5b-4473-bd1c-dd290403b280",
-      "name": "JSON-RPC",
-      "description": {
-        "content": "Standard JSON-RPC 2.0 endpoint for sending blockchain RPC requests. Supports Ethereum, Solana, and other chain-specific RPC methods with automatic provider routing, failover, and retry logic.",
-        "type": "text/plain"
-      },
+      "name": "json-rpc",
       "item": [
         {
-          "id": "87894406-eab2-4566-8dfc-e6612963033b",
-          "name": "Send a JSON-RPC Request",
-          "request": {
-            "name": "Send a JSON-RPC Request",
-            "description": {
-              "content": "Sends a standard JSON-RPC 2.0 request to the specified blockchain network. Uniblock automatically routes the request to the best available upstream node provider based on reliability, cost, and performance. Supports standard Ethereum methods like eth_blockNumber, eth_getBalance, eth_call, eth_sendRawTransaction, eth_getTransactionByHash, eth_getLogs, and others, as well as Solana and chain-specific methods.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "json-rpc",
-                "v1",
-                ":chain"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "chain",
-                  "description": "(Required) The blockchain network to send the JSON-RPC request to (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"jsonrpc\": \"<string>\",\n  \"id\": \"<integer>\",\n  \"method\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "v1",
+          "item": [
             {
-              "id": "f20cca73-570f-4d5e-9d4a-fdd78cdc69a1",
-              "name": "Successful JSON-RPC response from the upstream node provider.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "json-rpc",
-                    "v1",
-                    ":chain"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "chain",
-                      "description": "(Required) The blockchain network to send the JSON-RPC request to (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1,\n  \"method\": \"eth_blockNumber\",\n  \"params\": []\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{chain}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Send a JSON-RPC Request",
+                  "id": "3762a692-6808-44ce-b766-34f8e867c02b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": \"<integer>\",\n  \"method\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/json-rpc/v1/:chain",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "json-rpc",
+                        "v1",
+                        ":chain"
+                      ],
+                      "variable": [
+                        {
+                          "id": "59be6ca8-18be-4616-870c-bd029357664b",
+                          "key": "chain",
+                          "value": "<string>",
+                          "description": "(Required) The blockchain network to send the JSON-RPC request to (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+                        }
+                      ]
+                    },
+                    "description": "Sends a standard JSON-RPC 2.0 request to the specified blockchain network. Uniblock automatically routes the request to the best available upstream node provider based on reliability, cost, and performance. Supports standard Ethereum methods like eth_blockNumber, eth_getBalance, eth_call, eth_sendRawTransaction, eth_getTransactionByHash, eth_getLogs, and others, as well as Solana and chain-specific methods."
+                  },
+                  "response": [
+                    {
+                      "id": "16fcc5d3-c363-4d80-8aa7-77610e5a2cca",
+                      "name": "Successful JSON-RPC response from the upstream node provider.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": \"<integer>\",\n  \"method\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/json-rpc/v1/:chain",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "json-rpc",
+                            "v1",
+                            ":chain"
+                          ],
+                          "variable": [
+                            {
+                              "key": "chain"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": \"<integer>\",\n  \"result\": {\n    \"description\": \"The result of the RPC method call. The structure depends on the specific method invoked.\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:20.000Z",
+                      "updatedAt": "2026-10-21T20:32:20.000Z",
+                      "uid": "35240-16fcc5d3-c363-4d80-8aa7-77610e5a2cca"
+                    },
+                    {
+                      "id": "686da00d-b8a1-47cb-8087-b49f300e9fa9",
+                      "name": "Invalid JSON-RPC request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": \"<integer>\",\n  \"method\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/json-rpc/v1/:chain",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "json-rpc",
+                            "v1",
+                            ":chain"
+                          ],
+                          "variable": [
+                            {
+                              "key": "chain"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": \"<integer>\",\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"data\": {\n      \"description\": \"Additional error data provided by the node, if available.\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:20.000Z",
+                      "updatedAt": "2026-10-21T20:32:20.000Z",
+                      "uid": "35240-686da00d-b8a1-47cb-8087-b49f300e9fa9"
+                    },
+                    {
+                      "id": "c5668319-f3bd-4232-8a06-bcda98cb0c3c",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": \"<integer>\",\n  \"method\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/json-rpc/v1/:chain",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "json-rpc",
+                            "v1",
+                            ":chain"
+                          ],
+                          "variable": [
+                            {
+                              "key": "chain"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:20.000Z",
+                      "updatedAt": "2026-10-21T20:32:20.000Z",
+                      "uid": "35240-c5668319-f3bd-4232-8a06-bcda98cb0c3c"
+                    },
+                    {
+                      "id": "c40da39f-1026-4ab7-ad53-5bfe71f43559",
+                      "name": "Upstream node provider error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": \"<integer>\",\n  \"method\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/json-rpc/v1/:chain",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "json-rpc",
+                            "v1",
+                            ":chain"
+                          ],
+                          "variable": [
+                            {
+                              "key": "chain"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Gateway",
+                      "code": 502,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": \"<integer>\",\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"data\": {\n      \"description\": \"Additional error data provided by the node, if available.\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:20.000Z",
+                      "updatedAt": "2026-10-21T20:32:20.000Z",
+                      "uid": "35240-c40da39f-1026-4ab7-ad53-5bfe71f43559"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:32:20.000Z",
+                  "updatedAt": "2026-10-21T20:32:20.000Z",
+                  "uid": "35240-3762a692-6808-44ce-b766-34f8e867c02b"
                 }
               ],
-              "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 9484,\n  \"result\": {}\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6e002331-4530-4d85-bf38-82ec36f7fb40",
-              "name": "Invalid JSON-RPC request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "json-rpc",
-                    "v1",
-                    ":chain"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "chain",
-                      "description": "(Required) The blockchain network to send the JSON-RPC request to (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1,\n  \"method\": \"eth_blockNumber\",\n  \"params\": []\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1084,\n  \"error\": {\n    \"code\": 7587,\n    \"message\": \"string\",\n    \"data\": {}\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "683c0fdf-4449-4103-9e51-9f11c92ecbe3",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "json-rpc",
-                    "v1",
-                    ":chain"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "chain",
-                      "description": "(Required) The blockchain network to send the JSON-RPC request to (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1,\n  \"method\": \"eth_blockNumber\",\n  \"params\": []\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a729d011-6d18-475b-abbc-3baf21148755",
-              "name": "Upstream node provider error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "json-rpc",
-                    "v1",
-                    ":chain"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "chain",
-                      "description": "(Required) The blockchain network to send the JSON-RPC request to (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1,\n  \"method\": \"eth_blockNumber\",\n  \"params\": []\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Gateway",
-              "code": 502,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1084,\n  \"error\": {\n    \"code\": 7587,\n    \"message\": \"string\",\n    \"data\": {}\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "b5ab3bcb-9d81-4e9a-ae4a-1b738b155eed",
+              "createdAt": "2026-10-21T20:32:20.000Z",
+              "updatedAt": "2026-10-21T20:32:20.000Z",
+              "uid": "35240-b5ab3bcb-9d81-4e9a-ae4a-1b738b155eed"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "fb6eb24b-48cb-4e61-874d-3d04d3d7a43e",
+          "createdAt": "2026-10-21T20:32:20.000Z",
+          "updatedAt": "2026-10-21T20:32:20.000Z",
+          "uid": "35240-fb6eb24b-48cb-4e61-874d-3d04d3d7a43e"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.uniblock.dev/direct/v1",
-      "key": "baseUrl"
+      "id": "03e71ce8-591c-4552-9a7a-83c79fa06b76",
+      "createdAt": "2026-10-21T20:32:20.000Z",
+      "updatedAt": "2026-10-21T20:32:20.000Z",
+      "uid": "35240-03e71ce8-591c-4552-9a7a-83c79fa06b76"
     }
   ],
   "auth": {
@@ -327,25 +350,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "x-api-key"
+        "value": "x-api-key",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "99a9dce1-a210-40b8-9424-7745074d1c44",
-    "name": "Uniblock Direct Direct Pass-Through JSON-RPC API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers. Requests follow the pattern of specifying the provider and optional prefix in the URL path, while still benefiting from Uniblock's routing, retry, and failover infrastructure. Results are returned exactly as they would be if the first-party provider endpoint was called directly. This is intended for use cases where a specific method is not yet abstracted into the Unified API.\n\nContact Support:\n Name: Uniblock Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.uniblock.dev/direct/v1"
     }
-  }
+  ]
 }

@@ -1,1612 +1,1692 @@
 {
+  "info": {
+    "_postman_id": "86dd39e4-de6d-4227-860a-4afce25386ce",
+    "name": "Uniblock Unified Tokens API",
+    "description": "The Uniblock Unified API provides a single standardized interface for interacting with multiple blockchain networks and data providers.\n\nContact Support:\n Name: Uniblock Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:32:50.000Z",
+    "updatedAt": "2026-10-21T20:32:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-86dd39e4-de6d-4227-860a-4afce25386ce"
+  },
   "item": [
     {
-      "id": "e480efb0-a99b-4567-9cd0-4432e7462777",
-      "name": "Tokens",
-      "description": {
-        "content": "Endpoints for retrieving fungible token data including metadata, balances, prices, transfers, and allowances across multiple blockchain networks.",
-        "type": "text/plain"
-      },
+      "name": "token",
       "item": [
         {
-          "id": "faa1d13d-6761-46b0-a6c6-0ef6291c813e",
-          "name": "Get Token Metadata",
-          "request": {
-            "name": "Get Token Metadata",
-            "description": {
-              "content": "Retrieves metadata about a specific fungible token including name, symbol, decimals, and contract details. Supports multiple blockchain networks through automatic provider routing.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "token",
-                "metadata"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "chain",
-                  "value": "<string>",
-                  "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                },
-                {
-                  "disabled": false,
-                  "key": "contractAddress",
-                  "value": "<string>",
-                  "description": "(Required) The smart contract address of the token."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "metadata",
+          "item": [
             {
-              "id": "c09cfcbd-878e-4004-b70e-baa8aacf6093",
-              "name": "Successful response with token metadata",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "token",
-                    "metadata"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "contractAddress",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "Get Token Metadata",
+              "id": "edb4a713-3fd5-4d91-a91c-585851e8daaa",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"data\": {\n    \"name\": \"string\",\n    \"symbol\": \"string\",\n    \"decimals\": 9271,\n    \"contractAddress\": \"string\",\n    \"chain\": \"string\",\n    \"logo\": \"https://FDLwyfTPTkLzGbskBSQJPKLKSOty.ilQY\",\n    \"totalSupply\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "24593b4f-f1b2-404f-aba9-02753df3fb56",
-              "name": "Bad request - invalid parameters",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/token/metadata?chain=<string>&contractAddress=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "token",
                     "metadata"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
                       "key": "chain",
-                      "value": "ethereum"
+                      "value": "<string>"
                     },
                     {
+                      "description": "(Required) The smart contract address of the token.",
                       "key": "contractAddress",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieves metadata about a specific fungible token including name, symbol, decimals, and contract details. Supports multiple blockchain networks through automatic provider routing."
               },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "96c49c62-99ed-44c4-b047-096207af8c6c",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "token",
-                    "metadata"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "e019289a-e556-41e3-a3fd-fb449c2b2c47",
+                  "name": "Successful response with token metadata",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/metadata?chain=<string>&contractAddress=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "metadata"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The smart contract address of the token.",
+                          "key": "contractAddress",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "contractAddress",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"data\": {\n    \"name\": \"<string>\",\n    \"symbol\": \"<string>\",\n    \"decimals\": \"<integer>\",\n    \"contractAddress\": \"<string>\",\n    \"chain\": \"<string>\",\n    \"logo\": \"<uri>\",\n    \"totalSupply\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-e019289a-e556-41e3-a3fd-fb449c2b2c47"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c4513a3e-6b08-4883-b52d-d2d4596531c1",
-              "name": "Token not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "token",
-                    "metadata"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "1d59e9c7-06d1-41e0-969a-cb53d8c9db01",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/metadata?chain=<string>&contractAddress=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "metadata"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The smart contract address of the token.",
+                          "key": "contractAddress",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "contractAddress",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-1d59e9c7-06d1-41e0-969a-cb53d8c9db01"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "1d86e0f0-19ab-4f26-a725-450766b2ef75",
+                  "name": "Unauthorized - missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/metadata?chain=<string>&contractAddress=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "metadata"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The smart contract address of the token.",
+                          "key": "contractAddress",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-1d86e0f0-19ab-4f26-a725-450766b2ef75"
+                },
+                {
+                  "id": "d83f70d2-4000-41ab-b32d-f7c8b3f50bea",
+                  "name": "Token not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/metadata?chain=<string>&contractAddress=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "metadata"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The smart contract address of the token.",
+                          "key": "contractAddress",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-d83f70d2-4000-41ab-b32d-f7c8b3f50bea"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:32:50.000Z",
+              "updatedAt": "2026-10-21T20:32:50.000Z",
+              "uid": "35240-edb4a713-3fd5-4d91-a91c-585851e8daaa"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "cedc9121-26ce-489e-8e75-a8672afba35b",
+          "createdAt": "2026-10-21T20:32:50.000Z",
+          "updatedAt": "2026-10-21T20:32:50.000Z",
+          "uid": "35240-cedc9121-26ce-489e-8e75-a8672afba35b"
         },
         {
-          "id": "ee381ef1-b2ad-4591-af2a-3211444a7012",
-          "name": "Get Token Balances",
-          "request": {
-            "name": "Get Token Balances",
-            "description": {
-              "content": "Retrieves the native and fungible token balances associated with a specific wallet address. Returns balances across tokens held by the address on the specified blockchain network.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "token",
-                "balance"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
+          "name": "balance",
+          "item": [
+            {
+              "name": "historical",
+              "item": [
                 {
-                  "disabled": false,
-                  "key": "chain",
-                  "value": "<string>",
-                  "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                },
-                {
-                  "disabled": false,
-                  "key": "address",
-                  "value": "<string>",
-                  "description": "(Required) The wallet address to query data for."
+                  "name": "Get Historical Token Balances",
+                  "id": "a8c89406-8113-4f36-8c22-7170d50b8eca",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/balance/historical?chain=<string>&address=<string>&blockNumber=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "balance",
+                        "historical"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The wallet address to query data for.",
+                          "key": "address",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The block number at which to retrieve the historical balance.",
+                          "key": "blockNumber",
+                          "value": "<integer>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves historical token balances for a specific wallet address at a given point in time, enabling tracking of balance changes over time."
+                  },
+                  "response": [
+                    {
+                      "id": "adac389d-d4fe-4ef7-86d0-287f398fa20d",
+                      "name": "Successful response with historical token balances",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/token/balance/historical?chain=<string>&address=<string>&blockNumber=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "balance",
+                            "historical"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                              "key": "chain",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The wallet address to query data for.",
+                              "key": "address",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The block number at which to retrieve the historical balance.",
+                              "key": "blockNumber",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\",\n  \"data\": [\n    {\n      \"contractAddress\": \"<string>\",\n      \"name\": \"<string>\",\n      \"symbol\": \"<string>\",\n      \"decimals\": \"<integer>\",\n      \"balance\": \"<string>\",\n      \"balanceFormatted\": \"<string>\"\n    },\n    {\n      \"contractAddress\": \"<string>\",\n      \"name\": \"<string>\",\n      \"symbol\": \"<string>\",\n      \"decimals\": \"<integer>\",\n      \"balance\": \"<string>\",\n      \"balanceFormatted\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T20:32:50.000Z",
+                      "updatedAt": "2026-10-21T20:32:50.000Z",
+                      "uid": "35240-adac389d-d4fe-4ef7-86d0-287f398fa20d"
+                    },
+                    {
+                      "id": "d70ddfb2-4a89-44bd-8fcc-7fcc25ef0f01",
+                      "name": "Bad request - invalid parameters",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/token/balance/historical?chain=<string>&address=<string>&blockNumber=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "balance",
+                            "historical"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                              "key": "chain",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The wallet address to query data for.",
+                              "key": "address",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The block number at which to retrieve the historical balance.",
+                              "key": "blockNumber",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:50.000Z",
+                      "updatedAt": "2026-10-21T20:32:50.000Z",
+                      "uid": "35240-d70ddfb2-4a89-44bd-8fcc-7fcc25ef0f01"
+                    },
+                    {
+                      "id": "de31cdae-7565-429a-b787-7cf5b30e1771",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/token/balance/historical?chain=<string>&address=<string>&blockNumber=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "balance",
+                            "historical"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                              "key": "chain",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The wallet address to query data for.",
+                              "key": "address",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The block number at which to retrieve the historical balance.",
+                              "key": "blockNumber",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:50.000Z",
+                      "updatedAt": "2026-10-21T20:32:50.000Z",
+                      "uid": "35240-de31cdae-7565-429a-b787-7cf5b30e1771"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-a8c89406-8113-4f36-8c22-7170d50b8eca"
                 }
               ],
-              "variable": []
+              "id": "b9eb056a-8178-4aa1-ad55-022fd0a13fa9",
+              "createdAt": "2026-10-21T20:32:50.000Z",
+              "updatedAt": "2026-10-21T20:32:50.000Z",
+              "uid": "35240-b9eb056a-8178-4aa1-ad55-022fd0a13fa9"
             },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
             {
-              "id": "80cedef2-9580-442f-8526-cea2b533458b",
-              "name": "Successful response with token balances",
-              "originalRequest": {
+              "name": "Get Token Balances",
+              "id": "4b90703d-9457-487e-9d5b-5f9399931064",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/token/balance?chain=<string>&address=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "token",
                     "balance"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
                       "key": "chain",
-                      "value": "ethereum"
+                      "value": "<string>"
                     },
                     {
+                      "description": "(Required) The wallet address to query data for.",
                       "key": "address",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieves the native and fungible token balances associated with a specific wallet address. Returns balances across tokens held by the address on the specified blockchain network."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"contractAddress\": \"string\",\n      \"name\": \"string\",\n      \"symbol\": \"string\",\n      \"decimals\": 7344,\n      \"balance\": \"string\",\n      \"balanceFormatted\": \"string\"\n    },\n    {\n      \"contractAddress\": \"string\",\n      \"name\": \"string\",\n      \"symbol\": \"string\",\n      \"decimals\": 6246,\n      \"balance\": \"string\",\n      \"balanceFormatted\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b2206e0a-8b78-44e2-a78f-6c08e9a76db7",
-              "name": "Bad request - invalid parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "token",
-                    "balance"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "fe7a8c5c-73dd-4848-a06b-c751f92dc3e4",
+                  "name": "Successful response with token balances",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/balance?chain=<string>&address=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "balance"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The wallet address to query data for.",
+                          "key": "address",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "address",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"data\": [\n    {\n      \"contractAddress\": \"<string>\",\n      \"name\": \"<string>\",\n      \"symbol\": \"<string>\",\n      \"decimals\": \"<integer>\",\n      \"balance\": \"<string>\",\n      \"balanceFormatted\": \"<string>\"\n    },\n    {\n      \"contractAddress\": \"<string>\",\n      \"name\": \"<string>\",\n      \"symbol\": \"<string>\",\n      \"decimals\": \"<integer>\",\n      \"balance\": \"<string>\",\n      \"balanceFormatted\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-fe7a8c5c-73dd-4848-a06b-c751f92dc3e4"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "82cb50b8-4fa3-416d-8c3a-281928aae2d8",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "token",
-                    "balance"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "a3ad2d1d-4856-4d10-a3df-c3bcc200dafb",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/balance?chain=<string>&address=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "balance"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The wallet address to query data for.",
+                          "key": "address",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "address",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-a3ad2d1d-4856-4d10-a3df-c3bcc200dafb"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "1d671c62-e747-42da-b2bd-c306053e0aca",
+                  "name": "Unauthorized - missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/balance?chain=<string>&address=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "balance"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The wallet address to query data for.",
+                          "key": "address",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-1d671c62-e747-42da-b2bd-c306053e0aca"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:32:50.000Z",
+              "updatedAt": "2026-10-21T20:32:50.000Z",
+              "uid": "35240-4b90703d-9457-487e-9d5b-5f9399931064"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "0c5c613c-ea3f-4513-9304-6d79dcb4db3b",
+          "createdAt": "2026-10-21T20:32:50.000Z",
+          "updatedAt": "2026-10-21T20:32:50.000Z",
+          "uid": "35240-0c5c613c-ea3f-4513-9304-6d79dcb4db3b"
         },
         {
-          "id": "18740868-654a-4675-8d82-6a728cb45d9a",
-          "name": "Get Historical Token Balances",
-          "request": {
-            "name": "Get Historical Token Balances",
-            "description": {
-              "content": "Retrieves historical token balances for a specific wallet address at a given point in time, enabling tracking of balance changes over time.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "token",
-                "balance",
-                "historical"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "chain",
-                  "value": "<string>",
-                  "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                },
-                {
-                  "disabled": false,
-                  "key": "address",
-                  "value": "<string>",
-                  "description": "(Required) The wallet address to query data for."
-                },
-                {
-                  "disabled": false,
-                  "key": "blockNumber",
-                  "value": "<integer>",
-                  "description": "The block number at which to retrieve the historical balance."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "transfers",
+          "item": [
             {
-              "id": "29751650-ddce-41fa-9807-bd488c9d34e9",
-              "name": "Successful response with historical token balances",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "token",
-                    "balance",
-                    "historical"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "address",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "blockNumber",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "Get Token Transfers",
+              "id": "887102e2-744b-4285-a31d-91ffbbe93c9f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"contractAddress\": \"string\",\n      \"name\": \"string\",\n      \"symbol\": \"string\",\n      \"decimals\": 7344,\n      \"balance\": \"string\",\n      \"balanceFormatted\": \"string\"\n    },\n    {\n      \"contractAddress\": \"string\",\n      \"name\": \"string\",\n      \"symbol\": \"string\",\n      \"decimals\": 6246,\n      \"balance\": \"string\",\n      \"balanceFormatted\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8110fc7d-a6be-48c6-9b6c-17bc163346f7",
-              "name": "Bad request - invalid parameters",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "token",
-                    "balance",
-                    "historical"
-                  ],
+                  "raw": "{{baseUrl}}/token/transfers?chain=<string>&address=<string>&limit=25&cursor=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "address",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "blockNumber",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "acb807d4-db72-4aa7-ba0a-b7b6af2d55e7",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "token",
-                    "balance",
-                    "historical"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "address",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "blockNumber",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "d3cd2050-79e7-499a-a41c-17c358009a09",
-          "name": "Get Token Transfers",
-          "request": {
-            "name": "Get Token Transfers",
-            "description": {
-              "content": "Retrieves a list of token transfers for a specific wallet address, including both incoming and outgoing transfers of fungible tokens. Useful for tracking token swaps and transfer history.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "token",
-                "transfers"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "chain",
-                  "value": "<string>",
-                  "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                },
-                {
-                  "disabled": false,
-                  "key": "address",
-                  "value": "<string>",
-                  "description": "(Required) The wallet address to query data for."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "25",
-                  "description": "Maximum number of results to return per page."
-                },
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>",
-                  "description": "Pagination cursor for retrieving the next page of results."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "37be78f5-4d94-46a3-8328-4ad4dd07c35c",
-              "name": "Successful response with token transfers",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "token",
                     "transfers"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
                       "key": "chain",
-                      "value": "ethereum"
+                      "value": "<string>"
                     },
                     {
+                      "description": "(Required) The wallet address to query data for.",
                       "key": "address",
                       "value": "<string>"
                     },
                     {
+                      "description": "Maximum number of results to return per page.",
                       "key": "limit",
                       "value": "25"
                     },
                     {
+                      "description": "Pagination cursor for retrieving the next page of results.",
                       "key": "cursor",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieves a list of token transfers for a specific wallet address, including both incoming and outgoing transfers of fungible tokens. Useful for tracking token swaps and transfer history."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"data\": [\n    {\n      \"transactionHash\": \"string\",\n      \"from\": \"string\",\n      \"to\": \"string\",\n      \"value\": \"string\",\n      \"contractAddress\": \"string\",\n      \"tokenName\": \"string\",\n      \"tokenSymbol\": \"string\",\n      \"blockNumber\": 7504,\n      \"blockTimestamp\": \"1970-01-12T04:49:06.958Z\"\n    },\n    {\n      \"transactionHash\": \"string\",\n      \"from\": \"string\",\n      \"to\": \"string\",\n      \"value\": \"string\",\n      \"contractAddress\": \"string\",\n      \"tokenName\": \"string\",\n      \"tokenSymbol\": \"string\",\n      \"blockNumber\": 6344,\n      \"blockTimestamp\": \"1988-03-22T07:00:49.439Z\"\n    }\n  ],\n  \"cursor\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3b58c193-3656-4ede-9c71-6a0620e89564",
-              "name": "Bad request - invalid parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "token",
-                    "transfers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "86971612-ae45-4ff8-aefc-9f7de90f14c8",
+                  "name": "Successful response with token transfers",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/transfers?chain=<string>&address=<string>&limit=25&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "transfers"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The wallet address to query data for.",
+                          "key": "address",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of results to return per page.",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Pagination cursor for retrieving the next page of results.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "address",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"data\": [\n    {\n      \"transactionHash\": \"<string>\",\n      \"from\": \"<string>\",\n      \"to\": \"<string>\",\n      \"value\": \"<string>\",\n      \"contractAddress\": \"<string>\",\n      \"tokenName\": \"<string>\",\n      \"tokenSymbol\": \"<string>\",\n      \"blockNumber\": \"<integer>\",\n      \"blockTimestamp\": \"<dateTime>\"\n    },\n    {\n      \"transactionHash\": \"<string>\",\n      \"from\": \"<string>\",\n      \"to\": \"<string>\",\n      \"value\": \"<string>\",\n      \"contractAddress\": \"<string>\",\n      \"tokenName\": \"<string>\",\n      \"tokenSymbol\": \"<string>\",\n      \"blockNumber\": \"<integer>\",\n      \"blockTimestamp\": \"<dateTime>\"\n    }\n  ],\n  \"cursor\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-86971612-ae45-4ff8-aefc-9f7de90f14c8"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b4ed5a22-eb6d-4fa9-8199-7891d5b38e01",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "token",
-                    "transfers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "ffa66114-9fb2-41c9-af61-582424be7dc4",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/transfers?chain=<string>&address=<string>&limit=25&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "transfers"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The wallet address to query data for.",
+                          "key": "address",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of results to return per page.",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Pagination cursor for retrieving the next page of results.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "address",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-ffa66114-9fb2-41c9-af61-582424be7dc4"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "abf5ac15-ae11-4e8b-b4a5-301ccee7b766",
+                  "name": "Unauthorized - missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/transfers?chain=<string>&address=<string>&limit=25&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "transfers"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The wallet address to query data for.",
+                          "key": "address",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of results to return per page.",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Pagination cursor for retrieving the next page of results.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-abf5ac15-ae11-4e8b-b4a5-301ccee7b766"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:32:50.000Z",
+              "updatedAt": "2026-10-21T20:32:50.000Z",
+              "uid": "35240-887102e2-744b-4285-a31d-91ffbbe93c9f"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "c59ab94f-27cc-4f0c-915a-ec6fc3a0200a",
+          "createdAt": "2026-10-21T20:32:50.000Z",
+          "updatedAt": "2026-10-21T20:32:50.000Z",
+          "uid": "35240-c59ab94f-27cc-4f0c-915a-ec6fc3a0200a"
         },
         {
-          "id": "f1320353-7220-4456-9c35-96bf42ac152e",
-          "name": "Get Token Allowances",
-          "request": {
-            "name": "Get Token Allowances",
-            "description": {
-              "content": "Retrieves token allowances granted by a specific wallet address to spender contracts. Useful for inspecting which contracts have approval to spend tokens on behalf of the wallet owner.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "token",
-                "allowances"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "chain",
-                  "value": "<string>",
-                  "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                },
-                {
-                  "disabled": false,
-                  "key": "address",
-                  "value": "<string>",
-                  "description": "(Required) The wallet address to query data for."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "allowances",
+          "item": [
             {
-              "id": "ad015a1b-6471-45f0-97a8-81c00f751463",
-              "name": "Successful response with token allowances",
-              "originalRequest": {
+              "name": "Get Token Allowances",
+              "id": "e684009d-e3b6-4bf6-9089-50941aff20d3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/token/allowances?chain=<string>&address=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "token",
                     "allowances"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
                       "key": "chain",
-                      "value": "ethereum"
+                      "value": "<string>"
                     },
                     {
+                      "description": "(Required) The wallet address to query data for.",
                       "key": "address",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieves token allowances granted by a specific wallet address to spender contracts. Useful for inspecting which contracts have approval to spend tokens on behalf of the wallet owner."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"data\": [\n    {\n      \"contractAddress\": \"string\",\n      \"spender\": \"string\",\n      \"allowance\": \"string\",\n      \"tokenName\": \"string\",\n      \"tokenSymbol\": \"string\"\n    },\n    {\n      \"contractAddress\": \"string\",\n      \"spender\": \"string\",\n      \"allowance\": \"string\",\n      \"tokenName\": \"string\",\n      \"tokenSymbol\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c3d37d79-f7dc-4dcd-a5c6-d45a7535cc2a",
-              "name": "Bad request - invalid parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "token",
-                    "allowances"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "cf5d8c7f-ea2b-4d57-8ca1-7a69509fb339",
+                  "name": "Successful response with token allowances",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/allowances?chain=<string>&address=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "allowances"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The wallet address to query data for.",
+                          "key": "address",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "address",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"data\": [\n    {\n      \"contractAddress\": \"<string>\",\n      \"spender\": \"<string>\",\n      \"allowance\": \"<string>\",\n      \"tokenName\": \"<string>\",\n      \"tokenSymbol\": \"<string>\"\n    },\n    {\n      \"contractAddress\": \"<string>\",\n      \"spender\": \"<string>\",\n      \"allowance\": \"<string>\",\n      \"tokenName\": \"<string>\",\n      \"tokenSymbol\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-cf5d8c7f-ea2b-4d57-8ca1-7a69509fb339"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "414741b2-01f4-4377-aa98-d3ed41dadbf6",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "token",
-                    "allowances"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "2622b0cb-e1b6-4397-a316-c14a42d43fa3",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/allowances?chain=<string>&address=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "allowances"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The wallet address to query data for.",
+                          "key": "address",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "address",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-2622b0cb-e1b6-4397-a316-c14a42d43fa3"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "71c568f7-fe1d-4e50-acee-92bce8bdffb5",
+                  "name": "Unauthorized - missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/allowances?chain=<string>&address=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "allowances"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The wallet address to query data for.",
+                          "key": "address",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-71c568f7-fe1d-4e50-acee-92bce8bdffb5"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:32:50.000Z",
+              "updatedAt": "2026-10-21T20:32:50.000Z",
+              "uid": "35240-e684009d-e3b6-4bf6-9089-50941aff20d3"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "b74e9fa5-636d-41e6-97e5-788fefa7f61a",
+          "createdAt": "2026-10-21T20:32:50.000Z",
+          "updatedAt": "2026-10-21T20:32:50.000Z",
+          "uid": "35240-b74e9fa5-636d-41e6-97e5-788fefa7f61a"
         },
         {
-          "id": "82b45853-66e4-4a45-a7be-6e3fee25c8af",
-          "name": "Get Token Price",
-          "request": {
-            "name": "Get Token Price",
-            "description": {
-              "content": "Retrieves the current USD price for a specific token by its contract address and chain. Aggregates pricing data from multiple exchange and data provider sources.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "token",
-                "price"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "chain",
-                  "value": "<string>",
-                  "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                },
-                {
-                  "disabled": false,
-                  "key": "contractAddress",
-                  "value": "<string>",
-                  "description": "(Required) The smart contract address of the token."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "price",
+          "item": [
             {
-              "id": "33a47727-e382-41db-b6e9-245449249691",
-              "name": "Successful response with token price",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "token",
-                    "price"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "historical",
+              "item": [
+                {
+                  "name": "Get Historical Token Price",
+                  "id": "db3afbbc-3ebb-4569-96f9-deb4cb89ccb5",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/price/historical?chain=<string>&contractAddress=<string>&date=<date>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "price",
+                        "historical"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The smart contract address of the token.",
+                          "key": "contractAddress",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The date for which to retrieve historical price data in ISO 8601 format.",
+                          "key": "date",
+                          "value": "<date>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the historical price, volume, and market cap of a token at a given date, enabling analysis of price movements over time."
+                  },
+                  "response": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
+                      "id": "200f55be-8724-4db8-8439-add12e00e48f",
+                      "name": "Successful response with historical token price",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/token/price/historical?chain=<string>&contractAddress=<string>&date=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "price",
+                            "historical"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                              "key": "chain",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The smart contract address of the token.",
+                              "key": "contractAddress",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The date for which to retrieve historical price data in ISO 8601 format.",
+                              "key": "date",
+                              "value": "<date>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\",\n  \"data\": {\n    \"usdPrice\": \"<double>\",\n    \"date\": \"<date>\",\n    \"volume\": \"<double>\",\n    \"marketCap\": \"<double>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:50.000Z",
+                      "updatedAt": "2026-10-21T20:32:50.000Z",
+                      "uid": "35240-200f55be-8724-4db8-8439-add12e00e48f"
                     },
                     {
-                      "key": "contractAddress",
-                      "value": "<string>"
+                      "id": "e381fa80-e872-45df-9e3e-9c0aafd10b88",
+                      "name": "Bad request - invalid parameters",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/token/price/historical?chain=<string>&contractAddress=<string>&date=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "price",
+                            "historical"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                              "key": "chain",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The smart contract address of the token.",
+                              "key": "contractAddress",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The date for which to retrieve historical price data in ISO 8601 format.",
+                              "key": "date",
+                              "value": "<date>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:50.000Z",
+                      "updatedAt": "2026-10-21T20:32:50.000Z",
+                      "uid": "35240-e381fa80-e872-45df-9e3e-9c0aafd10b88"
+                    },
+                    {
+                      "id": "50915be9-3706-4855-bdf4-f91062c2891c",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/token/price/historical?chain=<string>&contractAddress=<string>&date=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "price",
+                            "historical"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                              "key": "chain",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The smart contract address of the token.",
+                              "key": "contractAddress",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The date for which to retrieve historical price data in ISO 8601 format.",
+                              "key": "date",
+                              "value": "<date>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:50.000Z",
+                      "updatedAt": "2026-10-21T20:32:50.000Z",
+                      "uid": "35240-50915be9-3706-4855-bdf4-f91062c2891c"
                     }
                   ],
-                  "variable": []
-                },
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-db3afbbc-3ebb-4569-96f9-deb4cb89ccb5"
+                }
+              ],
+              "id": "040b718a-4b38-4d60-a363-0f0814a841e6",
+              "createdAt": "2026-10-21T20:32:50.000Z",
+              "updatedAt": "2026-10-21T20:32:50.000Z",
+              "uid": "35240-040b718a-4b38-4d60-a363-0f0814a841e6"
+            },
+            {
+              "name": "Get Token Price",
+              "id": "b8de8528-3545-4b6c-bbb1-eff9d5a52e2d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"usdPrice\": 8507.433207409547,\n    \"chain\": \"string\",\n    \"contractAddress\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "03926dde-4e8b-4714-81c6-beec20329648",
-              "name": "Bad request - invalid parameters",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/token/price?chain=<string>&contractAddress=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "token",
                     "price"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
                       "key": "chain",
-                      "value": "ethereum"
+                      "value": "<string>"
                     },
                     {
+                      "description": "(Required) The smart contract address of the token.",
                       "key": "contractAddress",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieves the current USD price for a specific token by its contract address and chain. Aggregates pricing data from multiple exchange and data provider sources."
               },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "61e0908b-aba4-4b2a-a727-2e31ad3a226f",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "token",
-                    "price"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "3af541cf-ee58-4677-89e3-35c8d8121c28",
+                  "name": "Successful response with token price",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/price?chain=<string>&contractAddress=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "price"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The smart contract address of the token.",
+                          "key": "contractAddress",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "contractAddress",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"data\": {\n    \"usdPrice\": \"<double>\",\n    \"chain\": \"<string>\",\n    \"contractAddress\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-3af541cf-ee58-4677-89e3-35c8d8121c28"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "aaad0a40-a526-47ef-99f9-52112c881cb8",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/price?chain=<string>&contractAddress=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "price"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The smart contract address of the token.",
+                          "key": "contractAddress",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-aaad0a40-a526-47ef-99f9-52112c881cb8"
+                },
+                {
+                  "id": "c94d9451-9606-46b8-af9c-ea97273ce939",
+                  "name": "Unauthorized - missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/token/price?chain=<string>&contractAddress=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "price"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The smart contract address of the token.",
+                          "key": "contractAddress",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:50.000Z",
+                  "updatedAt": "2026-10-21T20:32:50.000Z",
+                  "uid": "35240-c94d9451-9606-46b8-af9c-ea97273ce939"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:32:50.000Z",
+              "updatedAt": "2026-10-21T20:32:50.000Z",
+              "uid": "35240-b8de8528-3545-4b6c-bbb1-eff9d5a52e2d"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "6ba69e0f-8895-4511-b26c-c3971c42b9f6",
-          "name": "Get Historical Token Price",
-          "request": {
-            "name": "Get Historical Token Price",
-            "description": {
-              "content": "Retrieves the historical price, volume, and market cap of a token at a given date, enabling analysis of price movements over time.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "token",
-                "price",
-                "historical"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "chain",
-                  "value": "<string>",
-                  "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                },
-                {
-                  "disabled": false,
-                  "key": "contractAddress",
-                  "value": "<string>",
-                  "description": "(Required) The smart contract address of the token."
-                },
-                {
-                  "disabled": false,
-                  "key": "date",
-                  "value": "<date>",
-                  "description": "The date for which to retrieve historical price data in ISO 8601 format."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "944fab9a-d9af-4c3a-b5ce-8fbe5c7348c2",
-              "name": "Successful response with historical token price",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "token",
-                    "price",
-                    "historical"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "contractAddress",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "date",
-                      "value": "<date>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"data\": {\n    \"usdPrice\": 5458.556829283988,\n    \"date\": \"1967-04-05\",\n    \"volume\": 3138.3960654538137,\n    \"marketCap\": 5212.826533380579\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "49096397-35cc-4f0f-9c90-59cbab6a545d",
-              "name": "Bad request - invalid parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "token",
-                    "price",
-                    "historical"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "contractAddress",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "date",
-                      "value": "<date>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "42bb087b-de04-4b5e-a78b-62b89f66695e",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "token",
-                    "price",
-                    "historical"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "contractAddress",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "date",
-                      "value": "<date>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "779f5684-cf55-43ea-a8ba-93735ca67cd5",
+          "createdAt": "2026-10-21T20:32:50.000Z",
+          "updatedAt": "2026-10-21T20:32:50.000Z",
+          "uid": "35240-779f5684-cf55-43ea-a8ba-93735ca67cd5"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.uniblock.dev/direct/v1",
-      "key": "baseUrl"
+      "id": "e7fd0367-afcb-4123-a6c8-dc2ca680ef17",
+      "createdAt": "2026-10-21T20:32:50.000Z",
+      "updatedAt": "2026-10-21T20:32:50.000Z",
+      "uid": "35240-e7fd0367-afcb-4123-a6c8-dc2ca680ef17"
     }
   ],
   "auth": {
@@ -1614,25 +1694,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "x-api-key"
+        "value": "x-api-key",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "f0a6fbc2-7d9b-4068-a4c2-3c1cc7a8b0ed",
-    "name": "Uniblock Direct Direct Pass-Through Tokens API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers. Requests follow the pattern of specifying the provider and optional prefix in the URL path, while still benefiting from Uniblock's routing, retry, and failover infrastructure. Results are returned exactly as they would be if the first-party provider endpoint was called directly. This is intended for use cases where a specific method is not yet abstracted into the Unified API.\n\nContact Support:\n Name: Uniblock Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.uniblock.dev/uni/v1"
     }
-  }
+  ]
 }

@@ -1,542 +1,544 @@
 {
+  "info": {
+    "_postman_id": "ad9e3952-73fb-4863-a787-57b53c3e1ad1",
+    "name": "Uniblock Unified Transactions API",
+    "description": "The Uniblock Unified API provides a single standardized interface for interacting with multiple blockchain networks and data providers.\n\nContact Support:\n Name: Uniblock Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:32:56.000Z",
+    "updatedAt": "2026-10-21T20:32:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ad9e3952-73fb-4863-a787-57b53c3e1ad1"
+  },
   "item": [
     {
-      "id": "2b72ed1a-81f7-413e-953f-a2d92e658362",
-      "name": "Transactions",
-      "description": {
-        "content": "Endpoints for looking up transaction data by address or transaction hash, including detailed transaction information.",
-        "type": "text/plain"
-      },
+      "name": "transactions",
       "item": [
         {
-          "id": "fc81fc1b-f8a3-4153-8397-e0a57dc4dbd5",
+          "name": "{transactionHash}",
+          "item": [
+            {
+              "name": "Get Transaction by Hash",
+              "id": "79f2534b-ad80-4cb9-b14e-b87bbbe2e2c1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transactions/:transactionHash?chain=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions",
+                    ":transactionHash"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                      "key": "chain",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "fd11894a-bd62-4876-89cb-db9c3c9c6ac9",
+                      "key": "transactionHash",
+                      "value": "0xED2D3C7bAFd4Db91dF2d4faC1bCc1B4e3c9d5Bb0cD9f258F4B3EE624C777BDAa",
+                      "description": "(Required) The hash of the transaction to retrieve."
+                    }
+                  ]
+                },
+                "description": "Retrieves detailed information about a specific transaction by its transaction hash, including status, gas used, block number, and input data."
+              },
+              "response": [
+                {
+                  "id": "500f1995-65ba-4040-988f-85019b1d9595",
+                  "name": "Successful response with transaction details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/:transactionHash?chain=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        ":transactionHash"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "transactionHash"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"data\": {\n    \"transactionHash\": \"<string>\",\n    \"from\": \"<string>\",\n    \"to\": \"<string>\",\n    \"value\": \"<string>\",\n    \"blockNumber\": \"<integer>\",\n    \"blockTimestamp\": \"<dateTime>\",\n    \"status\": \"<string>\",\n    \"gasUsed\": \"<string>\",\n    \"gasPrice\": \"<string>\",\n    \"nonce\": \"<integer>\",\n    \"input\": \"<string>\",\n    \"logs\": [\n      {\n        \"logIndex\": \"<integer>\",\n        \"address\": \"<string>\",\n        \"topics\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"data\": \"<string>\"\n      },\n      {\n        \"logIndex\": \"<integer>\",\n        \"address\": \"<string>\",\n        \"topics\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"data\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:56.000Z",
+                  "updatedAt": "2026-10-21T20:32:56.000Z",
+                  "uid": "35240-500f1995-65ba-4040-988f-85019b1d9595"
+                },
+                {
+                  "id": "8dfd1b10-28ff-499e-a22b-605ff7e4b847",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/:transactionHash?chain=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        ":transactionHash"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "transactionHash"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:56.000Z",
+                  "updatedAt": "2026-10-21T20:32:56.000Z",
+                  "uid": "35240-8dfd1b10-28ff-499e-a22b-605ff7e4b847"
+                },
+                {
+                  "id": "8a314b99-5d2c-4788-96c2-61e35fd5724d",
+                  "name": "Unauthorized - missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/:transactionHash?chain=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        ":transactionHash"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "transactionHash"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:56.000Z",
+                  "updatedAt": "2026-10-21T20:32:56.000Z",
+                  "uid": "35240-8a314b99-5d2c-4788-96c2-61e35fd5724d"
+                },
+                {
+                  "id": "34de9cb3-ebf4-4546-8dfa-6177c04b0897",
+                  "name": "Transaction not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/:transactionHash?chain=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        ":transactionHash"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "transactionHash"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:56.000Z",
+                  "updatedAt": "2026-10-21T20:32:56.000Z",
+                  "uid": "35240-34de9cb3-ebf4-4546-8dfa-6177c04b0897"
+                }
+              ],
+              "createdAt": "2026-10-21T20:32:56.000Z",
+              "updatedAt": "2026-10-21T20:32:56.000Z",
+              "uid": "35240-79f2534b-ad80-4cb9-b14e-b87bbbe2e2c1"
+            }
+          ],
+          "id": "625db3d7-42a5-4e74-a093-5c572c791021",
+          "createdAt": "2026-10-21T20:32:56.000Z",
+          "updatedAt": "2026-10-21T20:32:56.000Z",
+          "uid": "35240-625db3d7-42a5-4e74-a093-5c572c791021"
+        },
+        {
           "name": "Get Transactions",
+          "id": "a17c21b1-32a9-420d-ab2c-3ce5b8aaa8a4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Get Transactions",
-            "description": {
-              "content": "Retrieves a list of transactions associated with a specific wallet address, including both incoming and outgoing transactions across the specified blockchain network.",
-              "type": "text/plain"
-            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
+              "raw": "{{baseUrl}}/transactions?chain=<string>&address=<string>&limit=25&cursor=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "transactions"
               ],
-              "host": [
-                "{{baseUrl}}"
-              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
                   "key": "chain",
-                  "value": "<string>",
-                  "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "(Required) The wallet address to query data for.",
                   "key": "address",
-                  "value": "<string>",
-                  "description": "(Required) The wallet address to query data for."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "Maximum number of results to return per page.",
                   "key": "limit",
-                  "value": "25",
-                  "description": "Maximum number of results to return per page."
+                  "value": "25"
                 },
                 {
-                  "disabled": false,
+                  "description": "Pagination cursor for retrieving the next page of results.",
                   "key": "cursor",
-                  "value": "<string>",
-                  "description": "Pagination cursor for retrieving the next page of results."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "ff0889d8-9f81-43d5-95de-8bef860e714b",
-              "name": "Successful response with transactions",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "transactions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "address",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"transactionHash\": \"string\",\n      \"from\": \"string\",\n      \"to\": \"string\",\n      \"value\": \"string\",\n      \"blockNumber\": 7052,\n      \"blockTimestamp\": \"2015-01-08T23:00:12.888Z\",\n      \"status\": \"success\",\n      \"gasUsed\": \"string\"\n    },\n    {\n      \"transactionHash\": \"string\",\n      \"from\": \"string\",\n      \"to\": \"string\",\n      \"value\": \"string\",\n      \"blockNumber\": 378,\n      \"blockTimestamp\": \"2008-05-20T11:47:03.600Z\",\n      \"status\": \"success\",\n      \"gasUsed\": \"string\"\n    }\n  ],\n  \"cursor\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bcb4fefa-6d89-48cf-88dc-d287797ffebd",
-              "name": "Bad request - invalid parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "transactions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "address",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "46b4f3c3-e716-44cb-8412-d4aeb1a39162",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "transactions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "address",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "6ad0386e-1df0-43b7-94ca-2936a175e208",
-          "name": "Get Transaction by Hash",
-          "request": {
-            "name": "Get Transaction by Hash",
-            "description": {
-              "content": "Retrieves detailed information about a specific transaction by its transaction hash, including status, gas used, block number, and input data.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "transactions",
-                ":transactionHash"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "chain",
-                  "value": "<string>",
-                  "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "transactionHash",
-                  "description": "(Required) The hash of the transaction to retrieve."
+                  "value": "<string>"
                 }
               ]
             },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
+            "description": "Retrieves a list of transactions associated with a specific wallet address, including both incoming and outgoing transactions across the specified blockchain network."
           },
           "response": [
             {
-              "id": "a7b22366-c81c-40fb-a326-28166f2445cc",
-              "name": "Successful response with transaction details",
+              "id": "43d4ae37-2ba2-4d2b-b108-32307388cdd8",
+              "name": "Successful response with transactions",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "transactions",
-                    ":transactionHash"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "ethereum"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "transactionHash",
-                      "description": "(Required) The hash of the transaction to retrieve."
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/transactions?chain=<string>&address=<string>&limit=25&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                      "key": "chain",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The wallet address to query data for.",
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results to return per page.",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Pagination cursor for retrieving the next page of results.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"transactionHash\": \"string\",\n    \"from\": \"string\",\n    \"to\": \"string\",\n    \"value\": \"string\",\n    \"blockNumber\": 2616,\n    \"blockTimestamp\": \"2024-11-04T01:29:32.648Z\",\n    \"status\": \"string\",\n    \"gasUsed\": \"string\",\n    \"gasPrice\": \"string\",\n    \"nonce\": 2839,\n    \"input\": \"string\",\n    \"logs\": [\n      {\n        \"logIndex\": 5930,\n        \"address\": \"string\",\n        \"topics\": [\n          \"string\",\n          \"string\"\n        ],\n        \"data\": \"string\"\n      },\n      {\n        \"logIndex\": 9715,\n        \"address\": \"string\",\n        \"topics\": [\n          \"string\",\n          \"string\"\n        ],\n        \"data\": \"string\"\n      }\n    ]\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"data\": [\n    {\n      \"transactionHash\": \"<string>\",\n      \"from\": \"<string>\",\n      \"to\": \"<string>\",\n      \"value\": \"<string>\",\n      \"blockNumber\": \"<integer>\",\n      \"blockTimestamp\": \"<dateTime>\",\n      \"status\": \"failed\",\n      \"gasUsed\": \"<string>\"\n    },\n    {\n      \"transactionHash\": \"<string>\",\n      \"from\": \"<string>\",\n      \"to\": \"<string>\",\n      \"value\": \"<string>\",\n      \"blockNumber\": \"<integer>\",\n      \"blockTimestamp\": \"<dateTime>\",\n      \"status\": \"success\",\n      \"gasUsed\": \"<string>\"\n    }\n  ],\n  \"cursor\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:32:56.000Z",
+              "updatedAt": "2026-10-21T20:32:56.000Z",
+              "uid": "35240-43d4ae37-2ba2-4d2b-b108-32307388cdd8"
             },
             {
-              "id": "931183cd-c833-4bc1-924b-4afddbdcb80d",
+              "id": "c0e7a02c-2335-489c-88a0-d40e17681616",
               "name": "Bad request - invalid parameters",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "transactions",
-                    ":transactionHash"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "ethereum"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "transactionHash",
-                      "description": "(Required) The hash of the transaction to retrieve."
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/transactions?chain=<string>&address=<string>&limit=25&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                      "key": "chain",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The wallet address to query data for.",
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results to return per page.",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Pagination cursor for retrieving the next page of results.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-21T20:32:56.000Z",
+              "updatedAt": "2026-10-21T20:32:56.000Z",
+              "uid": "35240-c0e7a02c-2335-489c-88a0-d40e17681616"
             },
             {
-              "id": "d5f66442-ed09-4329-8c5c-2716ccde9c51",
+              "id": "c61c7a58-901a-421f-817d-caaa304f4c27",
               "name": "Unauthorized - missing or invalid API key",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "transactions",
-                    ":transactionHash"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "ethereum"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "transactionHash",
-                      "description": "(Required) The hash of the transaction to retrieve."
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/transactions?chain=<string>&address=<string>&limit=25&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                      "key": "chain",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The wallet address to query data for.",
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results to return per page.",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Pagination cursor for retrieving the next page of results.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ecb8c2b7-b13a-4e8f-a273-350e76a10a56",
-              "name": "Transaction not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "transactions",
-                    ":transactionHash"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "ethereum"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "transactionHash",
-                      "description": "(Required) The hash of the transaction to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-21T20:32:56.000Z",
+              "updatedAt": "2026-10-21T20:32:56.000Z",
+              "uid": "35240-c61c7a58-901a-421f-817d-caaa304f4c27"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:32:56.000Z",
+          "updatedAt": "2026-10-21T20:32:56.000Z",
+          "uid": "35240-a17c21b1-32a9-420d-ab2c-3ce5b8aaa8a4"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.uniblock.dev/direct/v1",
-      "key": "baseUrl"
+      "id": "8145052d-bfdb-40b2-9eb0-e1c00c9e8305",
+      "createdAt": "2026-10-21T20:32:56.000Z",
+      "updatedAt": "2026-10-21T20:32:56.000Z",
+      "uid": "35240-8145052d-bfdb-40b2-9eb0-e1c00c9e8305"
     }
   ],
   "auth": {
@@ -544,25 +546,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "x-api-key"
+        "value": "x-api-key",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "6749b80c-01b9-43b9-9226-47436c22e0fe",
-    "name": "Uniblock Direct Direct Pass-Through Transactions API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers. Requests follow the pattern of specifying the provider and optional prefix in the URL path, while still benefiting from Uniblock's routing, retry, and failover infrastructure. Results are returned exactly as they would be if the first-party provider endpoint was called directly. This is intended for use cases where a specific method is not yet abstracted into the Unified API.\n\nContact Support:\n Name: Uniblock Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.uniblock.dev/uni/v1"
     }
-  }
+  ]
 }

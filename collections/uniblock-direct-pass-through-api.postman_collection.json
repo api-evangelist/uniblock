@@ -1,1609 +1,1476 @@
 {
+  "info": {
+    "_postman_id": "cc614141-2f7e-480f-8b04-009ec86ccbf5",
+    "name": "Uniblock Direct Direct Pass-Through API",
+    "description": "The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers.\n\nContact Support:\n Name: Uniblock Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:32:33.000Z",
+    "updatedAt": "2026-10-21T20:32:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cc614141-2f7e-480f-8b04-009ec86ccbf5"
+  },
   "item": [
     {
-      "id": "41e1cc31-9802-493d-9514-7705a090cd2a",
-      "name": "Direct Pass-Through",
-      "description": {
-        "content": "Pass-through endpoints that proxy requests directly to upstream blockchain data providers such as Alchemy, SimpleHash, TonAPI, Moralis, Covalent, Helius, Solscan, and others.",
-        "type": "text/plain"
-      },
+      "name": "{provider}",
       "item": [
         {
-          "id": "17eb0f89-00ad-46da-b10a-95dfb664dc0b",
-          "name": "Direct GET Request to a Provider",
-          "request": {
-            "name": "Direct GET Request to a Provider",
-            "description": {
-              "content": "Sends a GET request through to the specified upstream provider endpoint. The response is returned exactly as the first-party provider would return it. If no authentication is passed explicitly, Uniblock will attempt to use the credentials stored in the project associated with your API key for the requested provider.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                ":provider",
-                ":path"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "provider",
-                  "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "path",
-                  "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{path}",
+          "item": [
             {
-              "id": "7576cbe9-2526-4e9f-b634-77f9183f8568",
-              "name": "Successful response from the upstream provider. The response body format depends on the specific provider and endpoint called.",
-              "originalRequest": {
+              "name": "Direct GET Request to a Provider",
+              "id": "f53559b7-4c67-42ec-ac74-2c4c312f67b3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/:provider/:path",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     ":provider",
                     ":path"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "fb4d503c-089b-4522-87df-047b30fec7a8",
                       "key": "provider",
+                      "value": "<string>",
                       "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
                     },
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "6e3a6833-d2e3-4057-a187-e5dc39369dfc",
                       "key": "path",
+                      "value": "<string>",
                       "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
                     }
                   ]
                 },
+                "description": "Sends a GET request through to the specified upstream provider endpoint. The response is returned exactly as the first-party provider would return it. If no authentication is passed explicitly, Uniblock will attempt to use the credentials stored in the project associated with your API key for the requested provider."
+              },
+              "response": [
+                {
+                  "id": "61f41cd7-0672-4c5e-9115-0c6784b48642",
+                  "name": "Successful response from the upstream provider. The response body format depends on the specific provider and endpoint called.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:provider/:path",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":provider",
+                        ":path"
+                      ],
+                      "variable": [
+                        {
+                          "key": "provider"
+                        },
+                        {
+                          "key": "path"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"exercitation08\": -49899031.328445934,\n  \"nisi4\": 33251554.8391203\n}",
+                  "createdAt": "2026-10-21T20:32:34.000Z",
+                  "updatedAt": "2026-10-21T20:32:34.000Z",
+                  "uid": "35240-61f41cd7-0672-4c5e-9115-0c6784b48642"
+                },
+                {
+                  "id": "055e95c7-9355-4c7f-8a21-a749b6136d24",
+                  "name": "Bad request - invalid provider or path",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:provider/:path",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":provider",
+                        ":path"
+                      ],
+                      "variable": [
+                        {
+                          "key": "provider"
+                        },
+                        {
+                          "key": "path"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:34.000Z",
+                  "updatedAt": "2026-10-21T20:32:34.000Z",
+                  "uid": "35240-055e95c7-9355-4c7f-8a21-a749b6136d24"
+                },
+                {
+                  "id": "8b7a7ac1-553c-4bee-8702-0d2ddcc11301",
+                  "name": "Unauthorized - missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:provider/:path",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":provider",
+                        ":path"
+                      ],
+                      "variable": [
+                        {
+                          "key": "provider"
+                        },
+                        {
+                          "key": "path"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:34.000Z",
+                  "updatedAt": "2026-10-21T20:32:34.000Z",
+                  "uid": "35240-8b7a7ac1-553c-4bee-8702-0d2ddcc11301"
+                },
+                {
+                  "id": "55ea4e5e-a867-40a6-b84f-a1e8442d9b34",
+                  "name": "Provider or endpoint not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:provider/:path",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":provider",
+                        ":path"
+                      ],
+                      "variable": [
+                        {
+                          "key": "provider"
+                        },
+                        {
+                          "key": "path"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:34.000Z",
+                  "updatedAt": "2026-10-21T20:32:34.000Z",
+                  "uid": "35240-55ea4e5e-a867-40a6-b84f-a1e8442d9b34"
+                },
+                {
+                  "id": "3024682b-ad3e-4f3d-9415-1a5a2d7ad42e",
+                  "name": "Upstream provider error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:provider/:path",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":provider",
+                        ":path"
+                      ],
+                      "variable": [
+                        {
+                          "key": "provider"
+                        },
+                        {
+                          "key": "path"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Gateway",
+                  "code": 502,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:34.000Z",
+                  "updatedAt": "2026-10-21T20:32:34.000Z",
+                  "uid": "35240-3024682b-ad3e-4f3d-9415-1a5a2d7ad42e"
+                }
+              ],
+              "createdAt": "2026-10-21T20:32:34.000Z",
+              "updatedAt": "2026-10-21T20:32:34.000Z",
+              "uid": "35240-f53559b7-4c67-42ec-ac74-2c4c312f67b3"
+            },
+            {
+              "name": "Direct POST Request to a Provider",
+              "id": "bce2f9c8-aed7-4ed5-9743-0afd2db481a0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"key_0\": 7201.87365809689,\n  \"key_1\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "29e9fbd0-a56c-4ac5-9f9c-01813bc9988b",
-              "name": "Bad request - invalid provider or path",
-              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deseruntf\": true\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/:provider/:path",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     ":provider",
                     ":path"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "0eeff657-f69a-4913-955e-3bad79cba6f9",
                       "key": "provider",
+                      "value": "<string>",
                       "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
                     },
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "7db0158d-f30e-4865-807d-60cb7989cb17",
                       "key": "path",
+                      "value": "<string>",
                       "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Sends a POST request through to the specified upstream provider endpoint. The request body is forwarded exactly as provided, and the response is returned directly from the upstream provider."
               },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "9651f3bd-2d69-413a-b640-ab0a856c3596",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
+                  "id": "b11589a2-3901-4820-a747-101612cfb33c",
+                  "name": "Successful response from the upstream provider.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"deseruntf\": true\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
+                    "url": {
+                      "raw": "{{baseUrl}}/:provider/:path",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":provider",
+                        ":path"
+                      ],
+                      "variable": [
+                        {
+                          "key": "provider"
+                        },
+                        {
+                          "key": "path"
+                        }
+                      ]
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bba36331-c6ec-486f-b0a4-dc78aa22cb36",
-              "name": "Provider or endpoint not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
-                  ]
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"exercitation08\": -49899031.328445934,\n  \"nisi4\": 33251554.8391203\n}",
+                  "createdAt": "2026-10-21T20:32:34.000Z",
+                  "updatedAt": "2026-10-21T20:32:34.000Z",
+                  "uid": "35240-b11589a2-3901-4820-a747-101612cfb33c"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a343ef41-4c98-42d3-a9f7-45eb7cc9480d",
-              "name": "Upstream provider error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
+                  "id": "0ed9263c-abee-413d-a0ba-814a803d3b6b",
+                  "name": "Bad request - invalid provider or path",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"deseruntf\": true\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
+                    "url": {
+                      "raw": "{{baseUrl}}/:provider/:path",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":provider",
+                        ":path"
+                      ],
+                      "variable": [
+                        {
+                          "key": "provider"
+                        },
+                        {
+                          "key": "path"
+                        }
+                      ]
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Gateway",
-              "code": 502,
-              "header": [
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:34.000Z",
+                  "updatedAt": "2026-10-21T20:32:34.000Z",
+                  "uid": "35240-0ed9263c-abee-413d-a0ba-814a803d3b6b"
+                },
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "5995e982-3e07-4009-81f7-12e2837ab010",
+                  "name": "Unauthorized - missing or invalid API key",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"deseruntf\": true\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:provider/:path",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":provider",
+                        ":path"
+                      ],
+                      "variable": [
+                        {
+                          "key": "provider"
+                        },
+                        {
+                          "key": "path"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:34.000Z",
+                  "updatedAt": "2026-10-21T20:32:34.000Z",
+                  "uid": "35240-5995e982-3e07-4009-81f7-12e2837ab010"
+                },
+                {
+                  "id": "ee5749a9-a361-47b6-b25e-b0c4cdc7c7c7",
+                  "name": "Provider or endpoint not found",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"deseruntf\": true\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:provider/:path",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":provider",
+                        ":path"
+                      ],
+                      "variable": [
+                        {
+                          "key": "provider"
+                        },
+                        {
+                          "key": "path"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:34.000Z",
+                  "updatedAt": "2026-10-21T20:32:34.000Z",
+                  "uid": "35240-ee5749a9-a361-47b6-b25e-b0c4cdc7c7c7"
+                },
+                {
+                  "id": "08e76543-52e9-49a6-8caf-c7fd6feb75c0",
+                  "name": "Upstream provider error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"deseruntf\": true\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:provider/:path",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":provider",
+                        ":path"
+                      ],
+                      "variable": [
+                        {
+                          "key": "provider"
+                        },
+                        {
+                          "key": "path"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Gateway",
+                  "code": 502,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:32:34.000Z",
+                  "updatedAt": "2026-10-21T20:32:34.000Z",
+                  "uid": "35240-08e76543-52e9-49a6-8caf-c7fd6feb75c0"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:32:34.000Z",
+              "updatedAt": "2026-10-21T20:32:34.000Z",
+              "uid": "35240-bce2f9c8-aed7-4ed5-9743-0afd2db481a0"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "ae516807-132e-419f-b504-347185e8dbf1",
+          "createdAt": "2026-10-21T20:32:34.000Z",
+          "updatedAt": "2026-10-21T20:32:34.000Z",
+          "uid": "35240-ae516807-132e-419f-b504-347185e8dbf1"
         },
         {
-          "id": "fd0db1ca-6c3f-4ad7-923f-e4806d31ee26",
-          "name": "Direct POST Request to a Provider",
-          "request": {
-            "name": "Direct POST Request to a Provider",
-            "description": {
-              "content": "Sends a POST request through to the specified upstream provider endpoint. The request body is forwarded exactly as provided, and the response is returned directly from the upstream provider.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                ":provider",
-                ":path"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "provider",
-                  "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "path",
-                  "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"key_0\": 7104.416038156861,\n  \"key_1\": 3001.071242651765\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "{prefix}",
+          "item": [
             {
-              "id": "33c7ebc0-9715-4dd1-bbf5-a09dbc1d455d",
-              "name": "Successful response from the upstream provider.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
+              "name": "{path}",
+              "item": [
+                {
+                  "name": "Direct GET Request to a Provider with prefix",
+                  "id": "9608ad65-e3d9-4f56-904e-8d585a125440",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 193,\n  \"key_2\": \"string\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"key_0\": 7201.87365809689,\n  \"key_1\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c11bc82a-32d9-4f2b-9c9e-958fdffa90e9",
-              "name": "Bad request - invalid provider or path",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:provider/:prefix/:path",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":provider",
+                        ":prefix",
+                        ":path"
+                      ],
+                      "variable": [
+                        {
+                          "id": "4c0306ad-382a-47b0-b34f-53374fd1d95f",
+                          "key": "provider",
+                          "value": "<string>",
+                          "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
+                        },
+                        {
+                          "id": "5bb4b06a-d2c7-4f40-ae55-784d1d007759",
+                          "key": "prefix",
+                          "value": "<string>",
+                          "description": "(Required) An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix."
+                        },
+                        {
+                          "id": "7bd88c52-64d3-4452-be99-05dbc1e30134",
+                          "key": "path",
+                          "value": "<string>",
+                          "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
+                        }
+                      ]
                     },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
+                    "description": "Sends a GET request to a provider endpoint that requires a prefix in the URL, such as a network name. Some providers require specifying a prefix (e.g., the network identifier) as part of the base URL path."
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 193,\n  \"key_2\": \"string\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "950f3544-190b-4857-9450-e2ec12a34333",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "response": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
+                      "id": "3d9611d0-56ff-41f2-837c-e638846de105",
+                      "name": "Successful response from the upstream provider.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:provider/:prefix/:path",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":provider",
+                            ":prefix",
+                            ":path"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            },
+                            {
+                              "key": "prefix"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"exercitation08\": -49899031.328445934,\n  \"nisi4\": 33251554.8391203\n}",
+                      "createdAt": "2026-10-21T20:32:34.000Z",
+                      "updatedAt": "2026-10-21T20:32:34.000Z",
+                      "uid": "35240-3d9611d0-56ff-41f2-837c-e638846de105"
                     },
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
+                      "id": "92b64f9c-c2ce-4413-8531-363fa3052e33",
+                      "name": "Bad request - invalid provider, prefix, or path",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:provider/:prefix/:path",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":provider",
+                            ":prefix",
+                            ":path"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            },
+                            {
+                              "key": "prefix"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:34.000Z",
+                      "updatedAt": "2026-10-21T20:32:34.000Z",
+                      "uid": "35240-92b64f9c-c2ce-4413-8531-363fa3052e33"
+                    },
+                    {
+                      "id": "c2d6de7a-7292-4c8a-a3c3-eb79e36c2c25",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:provider/:prefix/:path",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":provider",
+                            ":prefix",
+                            ":path"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            },
+                            {
+                              "key": "prefix"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:34.000Z",
+                      "updatedAt": "2026-10-21T20:32:34.000Z",
+                      "uid": "35240-c2d6de7a-7292-4c8a-a3c3-eb79e36c2c25"
+                    },
+                    {
+                      "id": "a6188225-b4e9-470c-9333-bf37317fc5a9",
+                      "name": "Provider or endpoint not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:provider/:prefix/:path",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":provider",
+                            ":prefix",
+                            ":path"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            },
+                            {
+                              "key": "prefix"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:34.000Z",
+                      "updatedAt": "2026-10-21T20:32:34.000Z",
+                      "uid": "35240-a6188225-b4e9-470c-9333-bf37317fc5a9"
+                    },
+                    {
+                      "id": "97912361-afe7-4e86-9df6-d081712e6fba",
+                      "name": "Upstream provider error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:provider/:prefix/:path",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":provider",
+                            ":prefix",
+                            ":path"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            },
+                            {
+                              "key": "prefix"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Gateway",
+                      "code": 502,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:34.000Z",
+                      "updatedAt": "2026-10-21T20:32:34.000Z",
+                      "uid": "35240-97912361-afe7-4e86-9df6-d081712e6fba"
                     }
-                  ]
+                  ],
+                  "createdAt": "2026-10-21T20:32:34.000Z",
+                  "updatedAt": "2026-10-21T20:32:34.000Z",
+                  "uid": "35240-9608ad65-e3d9-4f56-904e-8d585a125440"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
+                {
+                  "name": "Direct POST Request to a Provider with prefix",
+                  "id": "adffd040-b363-4b50-be6e-38efdfc7778a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 193,\n  \"key_2\": \"string\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "358d161f-c6d0-45b6-8a85-23a9a85b3340",
-              "name": "Provider or endpoint not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"deseruntf\": true\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
+                    "url": {
+                      "raw": "{{baseUrl}}/:provider/:prefix/:path",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":provider",
+                        ":prefix",
+                        ":path"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b0915ccb-170d-412e-a872-0723919daa48",
+                          "key": "provider",
+                          "value": "<string>",
+                          "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
+                        },
+                        {
+                          "id": "51db67df-d031-4d90-9fb9-456f96663d61",
+                          "key": "prefix",
+                          "value": "<string>",
+                          "description": "(Required) An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix."
+                        },
+                        {
+                          "id": "5b988a35-28df-4da4-9e7f-047313576ae9",
+                          "key": "path",
+                          "value": "<string>",
+                          "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
+                        }
+                      ]
                     },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
+                    "description": "Sends a POST request to a provider endpoint that requires a prefix in the URL. The request body and any authentication headers are forwarded to the upstream provider as provided."
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 193,\n  \"key_2\": \"string\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "response": [
+                    {
+                      "id": "52732dac-8d53-4110-8be0-f19e8bea0548",
+                      "name": "Successful response from the upstream provider.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"deseruntf\": true\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:provider/:prefix/:path",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":provider",
+                            ":prefix",
+                            ":path"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            },
+                            {
+                              "key": "prefix"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"exercitation08\": -49899031.328445934,\n  \"nisi4\": 33251554.8391203\n}",
+                      "createdAt": "2026-10-21T20:32:34.000Z",
+                      "updatedAt": "2026-10-21T20:32:34.000Z",
+                      "uid": "35240-52732dac-8d53-4110-8be0-f19e8bea0548"
+                    },
+                    {
+                      "id": "c00c834b-d2bb-4236-a3c6-4405ef7e555c",
+                      "name": "Bad request - invalid provider, prefix, or path",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"deseruntf\": true\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:provider/:prefix/:path",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":provider",
+                            ":prefix",
+                            ":path"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            },
+                            {
+                              "key": "prefix"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:34.000Z",
+                      "updatedAt": "2026-10-21T20:32:34.000Z",
+                      "uid": "35240-c00c834b-d2bb-4236-a3c6-4405ef7e555c"
+                    },
+                    {
+                      "id": "ec47a676-4720-4889-b984-f605f0e65375",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"deseruntf\": true\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:provider/:prefix/:path",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":provider",
+                            ":prefix",
+                            ":path"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            },
+                            {
+                              "key": "prefix"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:34.000Z",
+                      "updatedAt": "2026-10-21T20:32:34.000Z",
+                      "uid": "35240-ec47a676-4720-4889-b984-f605f0e65375"
+                    },
+                    {
+                      "id": "8ad0bd56-6ae6-4edb-8498-b5e6c9a05d3e",
+                      "name": "Provider or endpoint not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"deseruntf\": true\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:provider/:prefix/:path",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":provider",
+                            ":prefix",
+                            ":path"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            },
+                            {
+                              "key": "prefix"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:34.000Z",
+                      "updatedAt": "2026-10-21T20:32:34.000Z",
+                      "uid": "35240-8ad0bd56-6ae6-4edb-8498-b5e6c9a05d3e"
+                    },
+                    {
+                      "id": "dad157d2-d0e2-44f5-8202-0e483b1a1b78",
+                      "name": "Upstream provider error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"deseruntf\": true\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:provider/:prefix/:path",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":provider",
+                            ":prefix",
+                            ":path"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            },
+                            {
+                              "key": "prefix"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Gateway",
+                      "code": 502,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:32:34.000Z",
+                      "updatedAt": "2026-10-21T20:32:34.000Z",
+                      "uid": "35240-dad157d2-d0e2-44f5-8202-0e483b1a1b78"
                     }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  ],
+                  "createdAt": "2026-10-21T20:32:34.000Z",
+                  "updatedAt": "2026-10-21T20:32:34.000Z",
+                  "uid": "35240-adffd040-b363-4b50-be6e-38efdfc7778a"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "78492072-203f-421b-8244-d448ddebcd8b",
-              "name": "Upstream provider error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 193,\n  \"key_2\": \"string\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Gateway",
-              "code": 502,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "037f8410-3232-497d-9ee5-6dbe0c5ec800",
-          "name": "Direct GET Request to a Provider with prefix",
-          "request": {
-            "name": "Direct GET Request to a Provider with prefix",
-            "description": {
-              "content": "Sends a GET request to a provider endpoint that requires a prefix in the URL, such as a network name. Some providers require specifying a prefix (e.g., the network identifier) as part of the base URL path.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                ":provider",
-                ":prefix",
-                ":path"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "provider",
-                  "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "prefix",
-                  "description": "(Required) An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "path",
-                  "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "4b89fb72-2fd3-4693-b086-24ffad4d8554",
-              "name": "Successful response from the upstream provider.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":prefix",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "prefix",
-                      "description": "(Required) An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"key_0\": 7201.87365809689,\n  \"key_1\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ca7d4184-e9e2-4be8-8886-6d76d2026ed9",
-              "name": "Bad request - invalid provider, prefix, or path",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":prefix",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "prefix",
-                      "description": "(Required) An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1c6c4e15-46f7-4893-a7d5-1bf169cd5d8c",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":prefix",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "prefix",
-                      "description": "(Required) An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d47c77d5-9c67-49c9-9ffe-f35fe19ebbe1",
-              "name": "Provider or endpoint not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":prefix",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "prefix",
-                      "description": "(Required) An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2028b35c-e382-4b01-83e9-14d74ea28ced",
-              "name": "Upstream provider error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":prefix",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "prefix",
-                      "description": "(Required) An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Gateway",
-              "code": 502,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "a55fcac1-3c3d-413d-9d0a-cd0c2573d391",
+              "createdAt": "2026-10-21T20:32:34.000Z",
+              "updatedAt": "2026-10-21T20:32:34.000Z",
+              "uid": "35240-a55fcac1-3c3d-413d-9d0a-cd0c2573d391"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c61b57d0-da72-46f2-804e-3b01707b1c5b",
-          "name": "Direct POST Request to a Provider with prefix",
-          "request": {
-            "name": "Direct POST Request to a Provider with prefix",
-            "description": {
-              "content": "Sends a POST request to a provider endpoint that requires a prefix in the URL. The request body and any authentication headers are forwarded to the upstream provider as provided.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                ":provider",
-                ":prefix",
-                ":path"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "provider",
-                  "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "prefix",
-                  "description": "(Required) An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "path",
-                  "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"key_0\": 7104.416038156861,\n  \"key_1\": 3001.071242651765\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "29de2ba8-5578-496d-9e14-1b2993dd6e34",
-              "name": "Successful response from the upstream provider.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":prefix",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "prefix",
-                      "description": "(Required) An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 193,\n  \"key_2\": \"string\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"key_0\": 7201.87365809689,\n  \"key_1\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c9c5df4d-d9ff-4cac-bbc7-6f0ee6034122",
-              "name": "Bad request - invalid provider, prefix, or path",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":prefix",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "prefix",
-                      "description": "(Required) An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 193,\n  \"key_2\": \"string\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b84584f7-98b9-440f-a039-6068c651e67c",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":prefix",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "prefix",
-                      "description": "(Required) An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 193,\n  \"key_2\": \"string\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "fb6252d0-8d66-411d-b6a8-00e608e07a2e",
-              "name": "Provider or endpoint not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":prefix",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "prefix",
-                      "description": "(Required) An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 193,\n  \"key_2\": \"string\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "234c1a22-cb01-4814-8d11-2b6e71f9b5e3",
-              "name": "Upstream provider error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":provider",
-                    ":prefix",
-                    ":path"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "provider",
-                      "description": "(Required) The name of the upstream provider to route the request to (e.g., alchemy, moralis, covalent, simplehash, tonapi, helius, solscan)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "prefix",
-                      "description": "(Required) An optional prefix required by some providers, typically a network identifier such as the chain name or version prefix."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "path",
-                      "description": "(Required) The provider-specific endpoint path to call, exactly as documented by the upstream provider."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 193,\n  \"key_2\": \"string\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Gateway",
-              "code": 502,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "858665cc-b5da-48e0-98cc-9a533b70c95e",
+          "createdAt": "2026-10-21T20:32:34.000Z",
+          "updatedAt": "2026-10-21T20:32:34.000Z",
+          "uid": "35240-858665cc-b5da-48e0-98cc-9a533b70c95e"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.uniblock.dev/direct/v1",
-      "key": "baseUrl"
+      "id": "ed74ae0f-f613-42f4-89f3-f360333d186f",
+      "createdAt": "2026-10-21T20:32:34.000Z",
+      "updatedAt": "2026-10-21T20:32:34.000Z",
+      "uid": "35240-ed74ae0f-f613-42f4-89f3-f360333d186f"
     }
   ],
   "auth": {
@@ -1611,25 +1478,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "x-api-key"
+        "value": "x-api-key",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "92021754-8ef6-47f5-a13e-883560d6f20e",
-    "name": "Uniblock Direct Direct Pass-Through API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers. Requests follow the pattern of specifying the provider and optional prefix in the URL path, while still benefiting from Uniblock's routing, retry, and failover infrastructure. Results are returned exactly as they would be if the first-party provider endpoint was called directly. This is intended for use cases where a specific method is not yet abstracted into the Unified API.\n\nContact Support:\n Name: Uniblock Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.uniblock.dev/direct/v1"
     }
-  }
+  ]
 }

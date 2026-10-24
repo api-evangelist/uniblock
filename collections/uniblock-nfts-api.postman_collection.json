@@ -1,1002 +1,1055 @@
 {
+  "info": {
+    "_postman_id": "f538fd6d-6522-4cb7-8df3-301cf3d35acc",
+    "name": "Uniblock Unified NFTs API",
+    "description": "The Uniblock Unified API provides a single standardized interface for interacting with multiple blockchain networks and data providers.\n\nContact Support:\n Name: Uniblock Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:33:02.000Z",
+    "updatedAt": "2026-10-21T20:33:03.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f538fd6d-6522-4cb7-8df3-301cf3d35acc"
+  },
   "item": [
     {
-      "id": "f75a906e-f88e-411e-9c26-d3a0a2a7c877",
-      "name": "NFTs",
-      "description": {
-        "content": "Endpoints for retrieving non-fungible token data including balances, metadata, transfers, and collection information.",
-        "type": "text/plain"
-      },
+      "name": "nft",
       "item": [
         {
-          "id": "1414b0c8-9c9b-4df8-b25a-73bf2ece109e",
-          "name": "Get NFT Balances",
-          "request": {
-            "name": "Get NFT Balances",
-            "description": {
-              "content": "Retrieves the NFT balances held by a specific wallet address, returning a list of NFTs owned including collection and token identifiers.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "nft",
-                "balance"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "chain",
-                  "value": "<string>",
-                  "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                },
-                {
-                  "disabled": false,
-                  "key": "address",
-                  "value": "<string>",
-                  "description": "(Required) The wallet address to query data for."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "25",
-                  "description": "Maximum number of results to return per page."
-                },
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>",
-                  "description": "Pagination cursor for retrieving the next page of results."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "balance",
+          "item": [
             {
-              "id": "d06b67ac-ca06-4ade-b809-a389ba916815",
-              "name": "Successful response with NFT balances",
-              "originalRequest": {
+              "name": "Get NFT Balances",
+              "id": "9199ac9e-0304-49b8-b17f-4fde2a5e919e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/nft/balance?chain=<string>&address=<string>&limit=25&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "nft",
                     "balance"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
                       "key": "chain",
-                      "value": "ethereum"
+                      "value": "<string>"
                     },
                     {
+                      "description": "(Required) The wallet address to query data for.",
                       "key": "address",
                       "value": "<string>"
                     },
                     {
+                      "description": "Maximum number of results to return per page.",
                       "key": "limit",
                       "value": "25"
                     },
                     {
+                      "description": "Pagination cursor for retrieving the next page of results.",
                       "key": "cursor",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieves the NFT balances held by a specific wallet address, returning a list of NFTs owned including collection and token identifiers."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"data\": [\n    {\n      \"contractAddress\": \"string\",\n      \"tokenId\": \"string\",\n      \"name\": \"string\",\n      \"tokenType\": \"ERC-1155\",\n      \"imageUrl\": \"http://nLCsuJwvPrMAZgIAqNpxGtUzGLlwCc.dpktrPb-A6WxvDsr5M++leHJza4yffRNysQ4kmhnK1XOBsthD7GuK4h2qYD.4IixuaJPj1mLOuad4G\",\n      \"collectionName\": \"string\"\n    },\n    {\n      \"contractAddress\": \"string\",\n      \"tokenId\": \"string\",\n      \"name\": \"string\",\n      \"tokenType\": \"ERC-721\",\n      \"imageUrl\": \"https://UmQFnPL.hgwO3IOFB,qQHHcEUU7Zc-XGExFZgeR4qAzXRyhggeee.OGWHymA\",\n      \"collectionName\": \"string\"\n    }\n  ],\n  \"cursor\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "305b2f6f-26c3-4378-a42c-8c2f726f01ed",
-              "name": "Bad request - invalid parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "nft",
-                    "balance"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "7c1c1027-8da0-4031-83a4-f15b1e2ef79e",
+                  "name": "Successful response with NFT balances",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/nft/balance?chain=<string>&address=<string>&limit=25&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "nft",
+                        "balance"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The wallet address to query data for.",
+                          "key": "address",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of results to return per page.",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Pagination cursor for retrieving the next page of results.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "address",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"data\": [\n    {\n      \"contractAddress\": \"<string>\",\n      \"tokenId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tokenType\": \"ERC-721\",\n      \"imageUrl\": \"<uri>\",\n      \"collectionName\": \"<string>\"\n    },\n    {\n      \"contractAddress\": \"<string>\",\n      \"tokenId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tokenType\": \"ERC-721\",\n      \"imageUrl\": \"<uri>\",\n      \"collectionName\": \"<string>\"\n    }\n  ],\n  \"cursor\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:33:03.000Z",
+                  "updatedAt": "2026-10-21T20:33:03.000Z",
+                  "uid": "35240-7c1c1027-8da0-4031-83a4-f15b1e2ef79e"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0cf322ba-4fd3-4da9-b031-c3db71aa5179",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "nft",
-                    "balance"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "46323a83-0c6d-4076-8fd6-98e98f94feac",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/nft/balance?chain=<string>&address=<string>&limit=25&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "nft",
+                        "balance"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The wallet address to query data for.",
+                          "key": "address",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of results to return per page.",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Pagination cursor for retrieving the next page of results.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "address",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:33:03.000Z",
+                  "updatedAt": "2026-10-21T20:33:03.000Z",
+                  "uid": "35240-46323a83-0c6d-4076-8fd6-98e98f94feac"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "5477cdee-ad3a-4e96-93ca-1d9a779ff0b3",
+                  "name": "Unauthorized - missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/nft/balance?chain=<string>&address=<string>&limit=25&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "nft",
+                        "balance"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The wallet address to query data for.",
+                          "key": "address",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of results to return per page.",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Pagination cursor for retrieving the next page of results.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:33:03.000Z",
+                  "updatedAt": "2026-10-21T20:33:03.000Z",
+                  "uid": "35240-5477cdee-ad3a-4e96-93ca-1d9a779ff0b3"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:33:03.000Z",
+              "updatedAt": "2026-10-21T20:33:03.000Z",
+              "uid": "35240-9199ac9e-0304-49b8-b17f-4fde2a5e919e"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "4ddb1cb7-3dfd-46e7-8a0d-a80ac5c6c74b",
+          "createdAt": "2026-10-21T20:33:03.000Z",
+          "updatedAt": "2026-10-21T20:33:03.000Z",
+          "uid": "35240-4ddb1cb7-3dfd-46e7-8a0d-a80ac5c6c74b"
         },
         {
-          "id": "fd35c5d1-b131-49ea-a66a-37246b08da0f",
-          "name": "Get NFT Metadata",
-          "request": {
-            "name": "Get NFT Metadata",
-            "description": {
-              "content": "Retrieves detailed metadata for a specific NFT including name, description, image URL, attributes, and trait information.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "nft",
-                "metadata"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "chain",
-                  "value": "<string>",
-                  "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                },
-                {
-                  "disabled": false,
-                  "key": "contractAddress",
-                  "value": "<string>",
-                  "description": "(Required) The smart contract address of the token."
-                },
-                {
-                  "disabled": false,
-                  "key": "tokenId",
-                  "value": "<string>",
-                  "description": "(Required) The token ID of the specific NFT within the collection."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "metadata",
+          "item": [
             {
-              "id": "88dde70a-959f-4a36-9e27-2b4cb8bd843f",
-              "name": "Successful response with NFT metadata",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "nft",
-                    "metadata"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "contractAddress",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "tokenId",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "Get NFT Metadata",
+              "id": "768082f2-f1d7-4927-9feb-8106d4756900",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"data\": {\n    \"contractAddress\": \"string\",\n    \"tokenId\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"imageUrl\": \"http://orPrcRNQPtddkZfZYKKhOUcifqXvxfLu.yhtfXMpYowWb6VVqmjsBhsnwy7RJ8FEC1ksGPRKNG,ytP6187LJ+\",\n    \"animationUrl\": \"http://PejZnJZRSq.uqkc+pnEItCbLGqCG\",\n    \"tokenType\": \"string\",\n    \"attributes\": [\n      {\n        \"traitType\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"traitType\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ba4afeeb-a39f-45e5-b507-78b103fada68",
-              "name": "Bad request - invalid parameters",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/nft/metadata?chain=<string>&contractAddress=<string>&tokenId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "nft",
                     "metadata"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
                       "key": "chain",
-                      "value": "ethereum"
+                      "value": "<string>"
                     },
                     {
+                      "description": "(Required) The smart contract address of the token.",
                       "key": "contractAddress",
                       "value": "<string>"
                     },
                     {
+                      "description": "(Required) The token ID of the specific NFT within the collection.",
                       "key": "tokenId",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieves detailed metadata for a specific NFT including name, description, image URL, attributes, and trait information."
               },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8fa2b289-9ff3-4e8e-aa27-9eedb40dea1d",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "nft",
-                    "metadata"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "54940d48-df5a-431d-9e6d-47ece260a0c9",
+                  "name": "Successful response with NFT metadata",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/nft/metadata?chain=<string>&contractAddress=<string>&tokenId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "nft",
+                        "metadata"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The smart contract address of the token.",
+                          "key": "contractAddress",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The token ID of the specific NFT within the collection.",
+                          "key": "tokenId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "contractAddress",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "tokenId",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"data\": {\n    \"contractAddress\": \"<string>\",\n    \"tokenId\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"imageUrl\": \"<uri>\",\n    \"animationUrl\": \"<uri>\",\n    \"tokenType\": \"<string>\",\n    \"attributes\": [\n      {\n        \"traitType\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"traitType\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-10-21T20:33:03.000Z",
+                  "updatedAt": "2026-10-21T20:33:03.000Z",
+                  "uid": "35240-54940d48-df5a-431d-9e6d-47ece260a0c9"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "308a3d33-3416-4ed3-b91e-51f886be7fa9",
-              "name": "NFT not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "nft",
-                    "metadata"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "18febe4e-93f4-4e7f-a1bc-a72bf6353073",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/nft/metadata?chain=<string>&contractAddress=<string>&tokenId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "nft",
+                        "metadata"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The smart contract address of the token.",
+                          "key": "contractAddress",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The token ID of the specific NFT within the collection.",
+                          "key": "tokenId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "contractAddress",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "tokenId",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:33:03.000Z",
+                  "updatedAt": "2026-10-21T20:33:03.000Z",
+                  "uid": "35240-18febe4e-93f4-4e7f-a1bc-a72bf6353073"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "26bb795d-2761-49fc-9f77-955a86441578",
+                  "name": "Unauthorized - missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/nft/metadata?chain=<string>&contractAddress=<string>&tokenId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "nft",
+                        "metadata"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The smart contract address of the token.",
+                          "key": "contractAddress",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The token ID of the specific NFT within the collection.",
+                          "key": "tokenId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:33:03.000Z",
+                  "updatedAt": "2026-10-21T20:33:03.000Z",
+                  "uid": "35240-26bb795d-2761-49fc-9f77-955a86441578"
+                },
+                {
+                  "id": "4946104a-66cf-4ab2-80a0-6945371f787f",
+                  "name": "NFT not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/nft/metadata?chain=<string>&contractAddress=<string>&tokenId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "nft",
+                        "metadata"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The smart contract address of the token.",
+                          "key": "contractAddress",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The token ID of the specific NFT within the collection.",
+                          "key": "tokenId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:33:03.000Z",
+                  "updatedAt": "2026-10-21T20:33:03.000Z",
+                  "uid": "35240-4946104a-66cf-4ab2-80a0-6945371f787f"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:33:03.000Z",
+              "updatedAt": "2026-10-21T20:33:03.000Z",
+              "uid": "35240-768082f2-f1d7-4927-9feb-8106d4756900"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "7b531130-aa9a-46b4-b607-7e6f423e6b2e",
+          "createdAt": "2026-10-21T20:33:03.000Z",
+          "updatedAt": "2026-10-21T20:33:03.000Z",
+          "uid": "35240-7b531130-aa9a-46b4-b607-7e6f423e6b2e"
         },
         {
-          "id": "7384c1c8-0bdc-4a32-baae-a17c7307810c",
-          "name": "Get NFT Collection Metadata",
-          "request": {
-            "name": "Get NFT Collection Metadata",
-            "description": {
-              "content": "Retrieves metadata about an NFT collection including name, description, total supply, floor price, and other collection-level attributes.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "nft",
-                "collection-metadata"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "chain",
-                  "value": "<string>",
-                  "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                },
-                {
-                  "disabled": false,
-                  "key": "contractAddress",
-                  "value": "<string>",
-                  "description": "(Required) The smart contract address of the token."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "collection-metadata",
+          "item": [
             {
-              "id": "430ce4e7-81ba-4b32-887e-e4da9581c1e8",
-              "name": "Successful response with collection metadata",
-              "originalRequest": {
+              "name": "Get NFT Collection Metadata",
+              "id": "03ec5ae3-2bd4-4492-8d46-901eb274a0e4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/nft/collection-metadata?chain=<string>&contractAddress=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "nft",
                     "collection-metadata"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
                       "key": "chain",
-                      "value": "ethereum"
+                      "value": "<string>"
                     },
                     {
+                      "description": "(Required) The smart contract address of the token.",
                       "key": "contractAddress",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieves metadata about an NFT collection including name, description, total supply, floor price, and other collection-level attributes."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"contractAddress\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"symbol\": \"string\",\n    \"totalSupply\": 4186,\n    \"imageUrl\": \"http://dUrHzpGXwQJdcPgDXyqKbcPWaiuTSy.jbjZA41lH1y2E-VRGd5+HB4zrLBWF4n1jnRnIIBFoj2kGgE5MUYfxql\",\n    \"floorPrice\": 2050.5034778210597,\n    \"chain\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "4550d925-8de4-4973-ad30-3dd45d8f9e8e",
-              "name": "Bad request - invalid parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "nft",
-                    "collection-metadata"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "d7093256-9f86-4259-92bb-6122b7dd0f27",
+                  "name": "Successful response with collection metadata",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/nft/collection-metadata?chain=<string>&contractAddress=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "nft",
+                        "collection-metadata"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The smart contract address of the token.",
+                          "key": "contractAddress",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "contractAddress",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"data\": {\n    \"contractAddress\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"symbol\": \"<string>\",\n    \"totalSupply\": \"<integer>\",\n    \"imageUrl\": \"<uri>\",\n    \"floorPrice\": \"<double>\",\n    \"chain\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:33:03.000Z",
+                  "updatedAt": "2026-10-21T20:33:03.000Z",
+                  "uid": "35240-d7093256-9f86-4259-92bb-6122b7dd0f27"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d7e00edd-36ec-4ec3-bffa-ddca1ebea786",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "nft",
-                    "collection-metadata"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "3b946a85-64a3-4439-8b90-e85711a25aa7",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/nft/collection-metadata?chain=<string>&contractAddress=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "nft",
+                        "collection-metadata"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The smart contract address of the token.",
+                          "key": "contractAddress",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "contractAddress",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:33:03.000Z",
+                  "updatedAt": "2026-10-21T20:33:03.000Z",
+                  "uid": "35240-3b946a85-64a3-4439-8b90-e85711a25aa7"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "33141ae5-c579-4947-99ac-4c462d832df8",
+                  "name": "Unauthorized - missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/nft/collection-metadata?chain=<string>&contractAddress=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "nft",
+                        "collection-metadata"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The smart contract address of the token.",
+                          "key": "contractAddress",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:33:03.000Z",
+                  "updatedAt": "2026-10-21T20:33:03.000Z",
+                  "uid": "35240-33141ae5-c579-4947-99ac-4c462d832df8"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:33:03.000Z",
+              "updatedAt": "2026-10-21T20:33:03.000Z",
+              "uid": "35240-03ec5ae3-2bd4-4492-8d46-901eb274a0e4"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "996ab173-dbda-4b86-9311-a40119451284",
+          "createdAt": "2026-10-21T20:33:03.000Z",
+          "updatedAt": "2026-10-21T20:33:03.000Z",
+          "uid": "35240-996ab173-dbda-4b86-9311-a40119451284"
         },
         {
-          "id": "980f917b-4c8f-4da8-a5cf-ec7c2a8d5cab",
-          "name": "Get NFT Transfers",
-          "request": {
-            "name": "Get NFT Transfers",
-            "description": {
-              "content": "Retrieves a list of NFT transfer events for a specific wallet address or contract, including mints, sales, and transfers between addresses.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "nft",
-                "transfers"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "chain",
-                  "value": "<string>",
-                  "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base)."
-                },
-                {
-                  "disabled": false,
-                  "key": "address",
-                  "value": "<string>",
-                  "description": "(Required) The wallet address to query data for."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "25",
-                  "description": "Maximum number of results to return per page."
-                },
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>",
-                  "description": "Pagination cursor for retrieving the next page of results."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "transfers",
+          "item": [
             {
-              "id": "a59c4ca9-e5c9-425a-8b51-f662b42fb370",
-              "name": "Successful response with NFT transfers",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "nft",
-                    "transfers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "address",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "Get NFT Transfers",
+              "id": "e79d5955-717e-4c2d-b9d1-89a142953dac",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"transactionHash\": \"string\",\n      \"from\": \"string\",\n      \"to\": \"string\",\n      \"contractAddress\": \"string\",\n      \"tokenId\": \"string\",\n      \"blockNumber\": 4295,\n      \"blockTimestamp\": \"2017-07-29T14:35:52.158Z\"\n    },\n    {\n      \"transactionHash\": \"string\",\n      \"from\": \"string\",\n      \"to\": \"string\",\n      \"contractAddress\": \"string\",\n      \"tokenId\": \"string\",\n      \"blockNumber\": 4419,\n      \"blockTimestamp\": \"2017-02-22T10:29:21.961Z\"\n    }\n  ],\n  \"cursor\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "60be92a3-6529-428e-a5f8-b9f9feae038d",
-              "name": "Bad request - invalid parameters",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/nft/transfers?chain=<string>&address=<string>&limit=25&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "nft",
                     "transfers"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
                       "key": "chain",
-                      "value": "ethereum"
+                      "value": "<string>"
                     },
                     {
+                      "description": "(Required) The wallet address to query data for.",
                       "key": "address",
                       "value": "<string>"
                     },
                     {
+                      "description": "Maximum number of results to return per page.",
                       "key": "limit",
                       "value": "25"
                     },
                     {
+                      "description": "Pagination cursor for retrieving the next page of results.",
                       "key": "cursor",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieves a list of NFT transfer events for a specific wallet address or contract, including mints, sales, and transfers between addresses."
               },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "885444cd-0cfa-4741-9a22-1441bec6647d",
-              "name": "Unauthorized - missing or invalid API key",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "nft",
-                    "transfers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "a5707841-2097-4854-aa5b-7f14d526f8cf",
+                  "name": "Successful response with NFT transfers",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/nft/transfers?chain=<string>&address=<string>&limit=25&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "nft",
+                        "transfers"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The wallet address to query data for.",
+                          "key": "address",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of results to return per page.",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Pagination cursor for retrieving the next page of results.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "chain",
-                      "value": "ethereum"
-                    },
-                    {
-                      "key": "address",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"data\": [\n    {\n      \"transactionHash\": \"<string>\",\n      \"from\": \"<string>\",\n      \"to\": \"<string>\",\n      \"contractAddress\": \"<string>\",\n      \"tokenId\": \"<string>\",\n      \"blockNumber\": \"<integer>\",\n      \"blockTimestamp\": \"<dateTime>\"\n    },\n    {\n      \"transactionHash\": \"<string>\",\n      \"from\": \"<string>\",\n      \"to\": \"<string>\",\n      \"contractAddress\": \"<string>\",\n      \"tokenId\": \"<string>\",\n      \"blockNumber\": \"<integer>\",\n      \"blockTimestamp\": \"<dateTime>\"\n    }\n  ],\n  \"cursor\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:33:03.000Z",
+                  "updatedAt": "2026-10-21T20:33:03.000Z",
+                  "uid": "35240-a5707841-2097-4854-aa5b-7f14d526f8cf"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "347c7336-9bd1-45ff-b164-15e29a166ebb",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/nft/transfers?chain=<string>&address=<string>&limit=25&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "nft",
+                        "transfers"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The wallet address to query data for.",
+                          "key": "address",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of results to return per page.",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Pagination cursor for retrieving the next page of results.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:33:03.000Z",
+                  "updatedAt": "2026-10-21T20:33:03.000Z",
+                  "uid": "35240-347c7336-9bd1-45ff-b164-15e29a166ebb"
+                },
+                {
+                  "id": "ed2626b5-1c8e-47b1-9e4c-3cf79d3bc1bc",
+                  "name": "Unauthorized - missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/nft/transfers?chain=<string>&address=<string>&limit=25&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "nft",
+                        "transfers"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The blockchain network identifier (e.g., ethereum, polygon, solana, bsc, arbitrum, optimism, avalanche, base).",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The wallet address to query data for.",
+                          "key": "address",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of results to return per page.",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Pagination cursor for retrieving the next page of results.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:33:03.000Z",
+                  "updatedAt": "2026-10-21T20:33:03.000Z",
+                  "uid": "35240-ed2626b5-1c8e-47b1-9e4c-3cf79d3bc1bc"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:33:03.000Z",
+              "updatedAt": "2026-10-21T20:33:03.000Z",
+              "uid": "35240-e79d5955-717e-4c2d-b9d1-89a142953dac"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "cc3c7d53-0c69-4b4b-944b-3b12aa86fe14",
+          "createdAt": "2026-10-21T20:33:03.000Z",
+          "updatedAt": "2026-10-21T20:33:03.000Z",
+          "uid": "35240-cc3c7d53-0c69-4b4b-944b-3b12aa86fe14"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.uniblock.dev/direct/v1",
-      "key": "baseUrl"
+      "id": "11854961-af9c-4bef-8ae0-a5b24da847e0",
+      "createdAt": "2026-10-21T20:33:03.000Z",
+      "updatedAt": "2026-10-21T20:33:03.000Z",
+      "uid": "35240-11854961-af9c-4bef-8ae0-a5b24da847e0"
     }
   ],
   "auth": {
@@ -1004,25 +1057,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "x-api-key"
+        "value": "x-api-key",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "76eff557-ffaa-49b0-92ef-8392c61eb73b",
-    "name": "Uniblock Direct Direct Pass-Through NFTs API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Uniblock Direct API gives developers pass-through access to provider-specific endpoints exactly as offered by upstream blockchain data providers. Requests follow the pattern of specifying the provider and optional prefix in the URL path, while still benefiting from Uniblock's routing, retry, and failover infrastructure. Results are returned exactly as they would be if the first-party provider endpoint was called directly. This is intended for use cases where a specific method is not yet abstracted into the Unified API.\n\nContact Support:\n Name: Uniblock Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.uniblock.dev/uni/v1"
     }
-  }
+  ]
 }
